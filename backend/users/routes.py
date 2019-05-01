@@ -1,6 +1,10 @@
-from backend import db
+from backend import db, api
+from flask_restful import Resource
 from . import bp
 
-@bp.route('/login', methods=['GET'])
-def login():
-    return "LOGIN HERE"
+
+class Login(Resource):
+    def get(self):
+        return "test url"
+
+api.add_resource(Login, '/login')

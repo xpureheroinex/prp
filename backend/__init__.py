@@ -2,10 +2,12 @@ import os
 from backend.config import Config
 from flask import Flask
 from flask_migrate import Migrate
+from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 migrate = Migrate()
+api = Api()
 
 def create_app(config_class=Config):
     from . import db, users
@@ -13,6 +15,7 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     db.init_app(app)
     migrate.init_app(app, db)
+    api.init_app(app)
 
     from backend.users import bp as users_bp
     app.register_blueprint(users_bp, url_prefix='/')
