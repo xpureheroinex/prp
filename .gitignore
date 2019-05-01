@@ -89,6 +89,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.flaskenv
 
 # Spyder project settings
 .spyderproject
@@ -105,6 +106,7 @@ venv.bak/
 
 #pycharm files
 .idea/
+.vscode/
 
 #macOS files
 .DS_Store
