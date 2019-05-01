@@ -17,4 +17,7 @@ def create_app(config_class=Config):
     from backend.users import bp as users_bp
     app.register_blueprint(users_bp, url_prefix='/')
 
+    from backend.books import bp as books_bp
+    app.register_blueprint(books_bp, url_prefix='/books')
+
     return app
