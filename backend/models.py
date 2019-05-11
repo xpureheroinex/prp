@@ -69,6 +69,15 @@ class UsersBooks(db.Model):
     rate = db.Column(db.Integer)
 
     def repr(self):
-        return f'<Users_Books {self.user_id}>'
+        return f'<UsersBooks {self.user_id}>'
 
+
+class Stats(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    week = db.Column(db.Integer)
+    month = db.Column(db.Integer)
+    year = db.Column(db.Integer)
+
+    def repr(self):
+        return f'<Stats {self.user_id}>'
 
