@@ -79,5 +79,5 @@ class Stats(db.Model):
     year = db.Column(db.Integer)
 
     def repr(self):
-        return f'<Stats {self.user_id}>'
+        return f'<Stats of {self.user_id} user>'
 
