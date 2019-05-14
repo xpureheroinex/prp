@@ -22,14 +22,14 @@
         android:layout_marginTop="112dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/pt_sans"
+        android:stateListAnimator="@null"
         android:text="Enter your e-mail or login:"
         android:textColor="@color/colorTextPrimary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/basicToolbar"
-        android:stateListAnimator="@null"/>
+        app:layout_constraintTop_toBottomOf="@+id/basicToolbar" />
 
     <EditText
         android:id="@+id/editTextRecEmail"
@@ -39,13 +39,14 @@
         android:layout_marginTop="248dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
+        android:fontFamily="@font/pt_sans"
         android:hint="E-mail/login"
         android:inputType="text|textEmailAddress"
+        android:stateListAnimator="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/basicToolbar"
-        android:stateListAnimator="@null"/>
+        app:layout_constraintTop_toTopOf="@+id/basicToolbar" />
 
     <Button
         android:id="@+id/buttonRecNext"
@@ -55,10 +56,12 @@
         android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/button"
+        android:fontFamily="@font/pt_sans"
         android:stateListAnimator="@null"
         android:text="NEXT"
         android:textColor="@color/colorText"
-        android:textSize="17sp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextRecEmail" />

@@ -55,7 +55,6 @@ public class RecoveryActivity extends AppCompatActivity implements RecoveryFragm
         transaction.add(R.id.recFragmentContainer, fragment, "RECOVERY_FRAGMENT").commit();
     }
 
-
     @Override
     public void onFragmentInteraction(Uri uri) {
 
