@@ -12,6 +12,8 @@ api = Api()
 def create_app(config_class=Config):
     from . import db, users
     app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     app.config.from_object(config_class)
     db.init_app(app)
     migrate.init_app(app, db)
