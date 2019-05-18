@@ -1,4 +1,4 @@
-from backend import db, api
+from .. import db, api
 from flask_restful import Resource
 from . import bp
 
