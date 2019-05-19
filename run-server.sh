@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-export FLASK_APP=backend
+export FLASK_APP=backend/app.py
 export FLASK_DEBUG=1
-export DATABASE_URL=postgres://docker:docker@127.0.0.1:5432/docker
+export DATABASE_URL=postgres:postgresql://user:password@localhost:5432/prp
 flask run
