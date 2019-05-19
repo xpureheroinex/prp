@@ -112,4 +112,5 @@ venv.bak/
 .DS_Store
 
 #sh files
-.sh
+run-server.sh
+*.sh
