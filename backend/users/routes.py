@@ -54,24 +54,26 @@ api.add_resource(Login, '/login')
 
 class UserProfile(Resource):
     def get(self):
-        user = User.query.get(4)
-        user_book = UsersBooks.query.filter_by(user_id='4').all()
-        user_stats = Stats.guery.get(user=user).all()
-
-        userprofile = {
+        user = User.query.get(16)
+        # user_book = UsersBooks.query.filter_by(user_id=user.id).all()
+        user_stats = Stats.query.filter_by(user_id=user.id)
+        done = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').count()
+        progres = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').count()
+        future = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').count()
+        user_profile = {
             "username": user.email[0:user.email.find('@')],
             "email": user.email,
-            "week": user_stats.week,
-            "year": user_stats.year,
-            "month": user_stats.month,
-            "DN": user_book.query.filter_by(UsersBooks.list == 'DN').all().count(),
-            "IP": user_book.query.filter_by(UsersBooks.list == 'IP').all().count(),
-            "WR": user_book.query.filter_by(UsersBooks.list == 'WR').all().count()
+            "week": user_stats[0].week,
+            "year": user_stats[0].year,
+            "month": user_stats[0].month,
+            "DN": done,
+            "IP": progres,
+            "WR": future
         }
-        return userprofile
+        return user_profile
 
 
-api.add_resource(UserProfile, '/profile/1')
+api.add_resource(UserProfile, '/profile')
 
 
 class LogOut(Resource):
@@ -86,10 +88,10 @@ class DoneBooks(Resource):
         # args = self.parser.parse_args()
         # user_id = args['user_id']
         user = User.query.get(4)
-        done_book = UsersBooks.query.filter_by(list='DN', user_id=user.id).first()
+        # done_book = UsersBooks.query.filter_by(list='DN', user_id=user.id).first()
 
         # print(done_book)
-        return user.email
+        return user
         # return done_book
         # print(user.email)
 
