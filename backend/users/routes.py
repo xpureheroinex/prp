@@ -1,36 +1,37 @@
 from werkzeug.security import generate_password_hash
+from werkzeug.utils import redirect
 
 from backend import db, api
 from flask_restful import Resource, reqparse
-from flask import request
+from flask import request, jsonify
 from operator import xor
 
-from backend.models import User
+from backend.models import User, UsersBooks, Stats
 from . import bp
 
 _BAD_REQUEST = {'status': 'error'}, 400, 500
 _GOOD_REQUEST = {'status': 'ok'}, 200
 
 
-class Login(Resource):
+class Register(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
-        self.parser.add_argument('username')
         self.parser.add_argument('password')
         self.parser.add_argument('email')
 
     def post(self):
         args = self.parser.parse_args()
         email = args['email']
-        username = args['username']
         password = args['password']
 
-        if xor(bool(username is None), bool(email is None)) and password is not None:
+        if email is not None and password is not None:
+            username = email[0:email.find('@')]
             user = User(
                 email=email,
-                password=generate_password_hash(password)
+                username=username,
             )
             session = db.session
+            user.set_password(password)
             session.add(user)
             session.commit()
 
@@ -40,12 +41,83 @@ class Login(Resource):
             # return flask.abort(400)
 
 
-api.add_resource(Login, '/login')
+api.add_resource(Register, '/register')
 
 
-class Register(Resource):
+class Login(Resource):
     def post(self):
         return 'hello, world!'
 
 
-api.add_resource(Register, '/register')
+api.add_resource(Login, '/login')
+
+
+class UserProfile(Resource):
+    def get(self):
+        user = User.query.get(4)
+        user_book = UsersBooks.query.filter_by(user_id='4').all()
+        user_stats = Stats.guery.get(user=user).all()
+
+        userprofile = {
+            "username": user.email[0:user.email.find('@')],
+            "email": user.email,
+            "week": user_stats.week,
+            "year": user_stats.year,
+            "month": user_stats.month,
+            "DN": user_book.query.filter_by(UsersBooks.list == 'DN').all().count(),
+            "IP": user_book.query.filter_by(UsersBooks.list == 'IP').all().count(),
+            "WR": user_book.query.filter_by(UsersBooks.list == 'WR').all().count()
+        }
+        return userprofile
+
+
+api.add_resource(UserProfile, '/profile/1')
+
+
+class LogOut(Resource):
+    def post(self):
+        session = db.session
+        session.pop('email', None)
+        return redirect('/login')
+
+
+class DoneBooks(Resource):
+    def get(self):
+        # args = self.parser.parse_args()
+        # user_id = args['user_id']
+        user = User.query.get(4)
+        done_book = UsersBooks.query.filter_by(list='DN', user_id=user.id).first()
+
+        # print(done_book)
+        return user.email
+        # return done_book
+        # print(user.email)
+
+
+api.add_resource(DoneBooks, '/books/read')
+
+
+class ProgresBooks(Resource):
+    def get(self, user_id):
+        # args = self.parser.parse_args()
+        # user_id = args['user_id']
+        user = User.query.get(id=user_id)
+        progres_book = UsersBooks.query.filter_by(UsersBooks.list == 'IP', user=user).all()
+
+        print(progres_book)
+
+
+api.add_resource(ProgresBooks, '/books/progres')
+
+
+class FutureBooks(Resource):
+    def get(self, user_id):
+        # args = self.parser.parse_args()
+        # user_id = args['user_id']
+        user = User.query.get(id=user_id)
+        future_book = UsersBooks.query.filter_by(list == 'WR', user=user).all()
+
+        print(future_book)
+
+
+api.add_resource(FutureBooks, '/books/future')

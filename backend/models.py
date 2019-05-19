@@ -23,10 +23,9 @@ class User(db.Model):
     username = db.Column(db.String(64), index=True, unique=False)
     password = db.Column(db.String(128))
 
-    def __init__(self, email, password):
+    def __init__(self, email, username, **kwargs):
         self.email = email
-        self.username = email
-        self.password = password
+        self.username = username
 
     @staticmethod
     def is_authenticated():
