@@ -110,3 +110,7 @@ venv.bak/
 
 #macOS files
 .DS_Store
+
+#sh files
+run-server.sh
+*.sh

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorSplashScreen"
     tools:context=".MainActivity">
 
     <ImageView
@@ -22,30 +23,29 @@
 
     <TextView
         android:id="@+id/TaglineMain"
-        android:layout_width="368dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="341dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="320dp"
         android:fontFamily="@font/pt_sans"
+        android:text="Чтение открывает новые границы"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="@color/colorTextPrimary"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.703"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LogoMain"
-        app:layout_constraintVertical_bias="0.265"
-        android:text="@string/tagline" />
+        app:layout_constraintVertical_bias="0.056" />
 
     <Button
         android:id="@+id/buttonCreateAccount"
         style="@android:style/Widget.Button"
         android:layout_width="300dp"
-        android:layout_height="65dp"
+        android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -53,17 +53,17 @@
         android:background="@drawable/button"
         android:elevation="0dp"
         android:fontFamily="@font/pt_sans"
-        android:text="@string/buttonSignIn"
+        android:text="@string/buttonSignUp"
         android:textAllCaps="false"
         android:textColor="@color/colorText"
-        android:textSize="17sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.463"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TaglineMain"
-        app:layout_constraintVertical_bias="0.266" />
+        app:layout_constraintVertical_bias="0.239" />
 
     <TextView
         android:id="@+id/textViewAlreadyRegistered"
@@ -71,18 +71,22 @@
         android:layout_height="33dp"
         android:layout_marginStart="52dp"
         android:layout_marginBottom="40dp"
-        android:text="Уже есть учётная запись?"
-        android:textSize="18sp"
+        android:text="Already have an account?"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textViewSignIn"
-        android:layout_width="61dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="64dp"
-        android:text="Войти"
-        android:textSize="18sp"
+        android:layout_width="80dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="48dp"
+        android:text="Sign in"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/textViewAlreadyRegistered"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewAlreadyRegistered" />
 </android.support.constraint.ConstraintLayout>
