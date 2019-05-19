@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">BookSpace</string>
-    <string name="tagline">Чтение открывает новые границы</string>
-    <string name="buttonSignIn">Создать учётную запись</string>
-</resources>
