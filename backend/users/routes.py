@@ -9,8 +9,8 @@ from operator import xor
 from backend.models import User, UsersBooks, Stats
 from . import bp
 
-_BAD_REQUEST = {'status': 'error'}, 400, 500
-_GOOD_REQUEST = {'status': 'ok'}, 200
+_BAD_REQUEST = {'message': 'unvalid data', 'status': 400}
+_GOOD_REQUEST = {'message': 'ok', 'status': 200}
 
 
 class Login(Resource):
@@ -26,10 +26,13 @@ class Login(Resource):
         password = args['password']
 
         user = User.query.filter_by(email=email).first()
-        if user.check_password(password):
-            token = user.generate_auth_token(expiration=10000)
-
-            return _GOOD_REQUEST, {'auth_token': token}
+        if user is None:
+            return {'status': 404, 'message': f'User with email {email} does not exist'}
+        else:
+            if user.check_password(password):
+                token = user.generate_auth_token(expiration=10000)
+                return _GOOD_REQUEST, {'auth_token': token}
+            return _BAD_REQUEST
 
 
 api.add_resource(Login, '/login')
@@ -38,16 +41,18 @@ api.add_resource(Login, '/login')
 class Register(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
-        self.parser.add_argument('password')
-        self.parser.add_argument('email')
-        self.parser.add_argument('auth_token')
+        self.parser.add_argument('password', required=True)
+        self.parser.add_argument('email', required=True)
 
     def post(self):
         args = self.parser.parse_args()
         email = args['email']
         password = args['password']
 
-        if email is not None and password is not None:
+        user = User.query.filter_by(email=email).first()
+        if user is not None:
+            return {'status': 400, 'message': f'User with email {email} already exists'}
+        elif email is not None and password is not None:
             username = email[0:email.find('@')]
             user = User(
                 email=email,
@@ -58,10 +63,9 @@ class Register(Resource):
             session.add(user)
             session.commit()
 
-            return _GOOD_REQUEST
+            return {'message': 'Successfully created', 'status': 201}
         else:
             return _BAD_REQUEST
-            # return flask.abort(400)
 
 
 api.add_resource(Register, '/register')
