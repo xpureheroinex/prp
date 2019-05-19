@@ -54,23 +54,25 @@ api.add_resource(Login, '/login')
 
 class UserProfile(Resource):
     def get(self):
-        user = User.query.get(16)
-        # user_book = UsersBooks.query.filter_by(user_id=user.id).all()
-        user_stats = Stats.query.filter_by(user_id=user.id)
-        done = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').count()
-        progres = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').count()
-        future = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').count()
-        user_profile = {
-            "username": user.email[0:user.email.find('@')],
-            "email": user.email,
-            "week": user_stats[0].week,
-            "year": user_stats[0].year,
-            "month": user_stats[0].month,
-            "DN": done,
-            "IP": progres,
-            "WR": future
-        }
-        return user_profile
+        user = User.query.get(7)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            user_stats = Stats.query.filter_by(user_id=user.id)
+            done = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').count()
+            progres = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').count()
+            future = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').count()
+            user_profile = {
+                "username": user.email[0:user.email.find('@')],
+                "email": user.email,
+                "week": user_stats[0].week,
+                "year": user_stats[0].year,
+                "month": user_stats[0].month,
+                "DN": done,
+                "IP": progres,
+                "WR": future
+            }
+            return user_profile
 
 
 api.add_resource(UserProfile, '/profile')
@@ -85,26 +87,17 @@ class LogOut(Resource):
 
 class DoneBooks(Resource):
     def get(self):
-        # args = self.parser.parse_args()
-        # user_id = args['user_id']
         user = User.query.get(4)
-        # done_book = UsersBooks.query.filter_by(list='DN', user_id=user.id).first()
-
-        # print(done_book)
-        return user
-        # return done_book
-        # print(user.email)
+        done_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').all()
 
 
 api.add_resource(DoneBooks, '/books/read')
 
 
 class ProgresBooks(Resource):
-    def get(self, user_id):
-        # args = self.parser.parse_args()
-        # user_id = args['user_id']
-        user = User.query.get(id=user_id)
-        progres_book = UsersBooks.query.filter_by(UsersBooks.list == 'IP', user=user).all()
+    def get(self):
+        user = User.query.get(id=4)
+        progres_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(UsersBooks.list == 'IP').all()
 
         print(progres_book)
 
@@ -113,11 +106,9 @@ api.add_resource(ProgresBooks, '/books/progres')
 
 
 class FutureBooks(Resource):
-    def get(self, user_id):
-        # args = self.parser.parse_args()
-        # user_id = args['user_id']
-        user = User.query.get(id=user_id)
-        future_book = UsersBooks.query.filter_by(list == 'WR', user=user).all()
+    def get(self):
+        user = User.query.get(id=4)
+        future_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list == 'WR').all()
 
         print(future_book)
 
