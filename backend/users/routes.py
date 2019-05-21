@@ -4,7 +4,6 @@ from werkzeug.utils import redirect
 from backend import db, api
 from flask_restful import Resource, reqparse
 from flask import request, jsonify
-from operator import xor
 
 from backend.models import User, UsersBooks, Stats, Books
 from . import bp
@@ -13,6 +12,8 @@ _BAD_REQUEST = {'status': 'error'}, 400, 500
 _GOOD_REQUEST = {'status': 'ok'}, 200
 
 session = db.session
+
+
 class Login(Resource):
 
     def __init__(self):
@@ -49,10 +50,9 @@ class Register(Resource):
         args = self.parser.parse_args()
         email = args['email']
         password = args['password']
-        week = args['week']
-        month = args['month']
-        year = args['year']
-
+        week = 0
+        month = 0
+        year = 0
         if email is not None and password is not None:
             username = email[0:email.find('@')]
             user = User(
@@ -97,6 +97,12 @@ api.add_resource(Test, '/test')
 
 
 class UserProfile(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('password')
+        self.parser.add_argument('username')
+        self.parser.add_argument('auth_token')
+
     def get(self):
         user = User.query.get(4)
         if user is None:
@@ -104,7 +110,7 @@ class UserProfile(Resource):
         else:
             user_stats = Stats.query.filter_by(user_id=user.id)
             done = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').count()
-            progres = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').count()
+            progress = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').count()
             future = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').count()
             user_profile = {
                 "username": user.email[0:user.email.find('@')],
@@ -113,10 +119,25 @@ class UserProfile(Resource):
                 "year": user_stats[0].year,
                 "month": user_stats[0].month,
                 "DN": done,
-                "IP": progres,
+                "IP": progress,
                 "WR": future
             }
         return user_profile
+
+    def put(self):
+        args = self.parser.parse_args()
+        username = args['username']
+        password = args['password']
+        user = User.query.get(4)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            update_user = User.query.filter_by(id=user.id).first()
+            if username is not None:
+                update_user.username = username
+            if password is not None:
+                update_user.set_password(password)
+            session.commit()
 
 
 api.add_resource(UserProfile, '/profile')
@@ -124,7 +145,6 @@ api.add_resource(UserProfile, '/profile')
 
 class LogOut(Resource):
     def post(self):
-        session = db.session
         session.pop('email', None)
         return redirect('/login')
 
@@ -133,17 +153,19 @@ class DoneBooks(Resource):
     def get(self):
         global info_book
         user = User.query.get(4)
-        done_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').all()
-        # count = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').count()
-        for book in done_book:
-            book_id = book.books_id
-            current_book = Books.query.get(book_id)
-            info_book = {
-                "Count": len(done_book),
-                "Title": current_book.title,
-                "Author": current_book.author,
-                "Genre": current_book.genre
-            }
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            done_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').all()
+            for book in done_book:
+                book_id = book.books_id
+                current_book = Books.query.get(book_id)
+                info_book = {
+                    "Count": len(done_book),
+                    "Title": current_book.title,
+                    "Author": current_book.author,
+                    "Genre": current_book.genre
+                }
         return info_book
 
 
@@ -154,41 +176,44 @@ class ProgressBooks(Resource):
     def get(self):
         global info_book
         user = User.query.get(4)
-        progress_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').all()
-        # count = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').count()
-        for book in progress_book:
-            book_id = book.books_id
-            current_book = Books.query.get(book_id)
-            info_book = {
-                "Count": len(progress_book),
-                "Title": current_book.title,
-                "Author": current_book.author,
-                "Genre": current_book.genre
-            }
-            print(info_book)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            progress_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').all()
+            for book in progress_book:
+                book_id = book.books_id
+                current_book = Books.query.get(book_id)
+                info_book = {
+                    "Count": len(progress_book),
+                    "Title": current_book.title,
+                    "Author": current_book.author,
+                    "Genre": current_book.genre
+                }
         return info_book
 
 
-api.add_resource(ProgressBooks, '/books/progres')
+api.add_resource(ProgressBooks, '/books/progress')
 
 
 class FutureBooks(Resource):
     def get(self):
         global info_book
         user = User.query.get(4)
-        future_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').all()
-        # count = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').count()
-        digits = []
-        for book in future_book:
-            book_id = book.books_id
-            current_book = Books.query.get(book_id)
-            info_book = {
-                "Count": len(future_book),
-                "Title": current_book.title,
-                "Author": current_book.author,
-                "Genre": current_book.genre
-            }
-            digits.append(info_book)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            future_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').all()
+            digits = []
+            for book in future_book:
+                book_id = book.books_id
+                current_book = Books.query.get(book_id)
+                info_book = {
+                    "Count": len(future_book),
+                    "Title": current_book.title,
+                    "Author": current_book.author,
+                    "Genre": current_book.genre
+                }
+                digits.append(info_book)
         return digits
 
 
