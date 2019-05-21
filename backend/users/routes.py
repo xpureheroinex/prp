@@ -11,7 +11,7 @@ from . import bp
 
 _BAD_REQUEST = {'status': 'error'}, 400, 500
 _GOOD_REQUEST = {'status': 'ok'}, 200
-
+session = db.session
 
 class Register(Resource):
     def __init__(self):
@@ -30,7 +30,6 @@ class Register(Resource):
                 email=email,
                 username=username,
             )
-            session = db.session
             user.set_password(password)
             session.add(user)
             session.commit()
@@ -50,6 +49,35 @@ class Login(Resource):
 
 
 api.add_resource(Login, '/login')
+
+
+class Statistics(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('week')
+        self.parser.add_argument('month')
+        self.parser.add_argument('year')
+
+    def put(self):
+        args = self.parser.parse_args()
+        week = args['week']
+        month = args['month']
+        year = args['year']
+        user = User.query.get(4)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            update_status = Stats.query.filter_by(user_id=user.id).first()
+            if week is not None:
+                update_status.week = week
+            if month is not None:
+                update_status.month = month
+            if year is not None:
+                update_status.year = year
+            session.commit()
+
+
+api.add_resource(Statistics, '/stats')
 
 
 class UserProfile(Resource):
