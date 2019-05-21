@@ -13,11 +13,34 @@ _BAD_REQUEST = {'status': 'error'}, 400, 500
 _GOOD_REQUEST = {'status': 'ok'}, 200
 
 
+class Login(Resource):
+
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('email', required=True)
+        self.parser.add_argument('password', required=True)
+
+    def post(self):
+        args = self.parser.parse_args()
+        email = args['email']
+        password = args['password']
+
+        user = User.query.filter_by(email=email).first()
+        if user.check_password(password):
+            token = user.generate_auth_token(expiration=10000)
+
+            return _GOOD_REQUEST, {'auth_token': token}
+
+
+api.add_resource(Login, '/login')
+
+
 class Register(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('password')
         self.parser.add_argument('email')
+        self.parser.add_argument('auth_token')
 
     def post(self):
         args = self.parser.parse_args()
@@ -44,12 +67,22 @@ class Register(Resource):
 api.add_resource(Register, '/register')
 
 
-class Login(Resource):
+class Test(Resource):
+
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('token', location='headers')
+
     def post(self):
-        return 'hello, world!'
+        args = self.parser.parse_args()
+        token = args['token']
+
+        user = User.verify_auth_token(token)
+
+        return {'token': token, 'user': user['username']}
 
 
-api.add_resource(Login, '/login')
+api.add_resource(Test, '/test')
 
 
 class UserProfile(Resource):
