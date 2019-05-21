@@ -2,4 +2,6 @@
     <string name="app_name">BookSpace</string>
     <string name="tagline">Чтение открывает новые границы</string>
     <string name="buttonSignIn">Создать учётную запись</string>
+    <string name="nav_header_desc">nav_header</string>
+    <string name="menu_home">home</string>
 </resources>
