@@ -8,7 +8,7 @@ from flask import request, jsonify
 from backend.models import User, UsersBooks, Stats, Books
 from . import bp
 
-_BAD_REQUEST = {'status': 'error'}, 400, 500
+_BAD_REQUEST = {'status': 'error'}, 400
 _GOOD_REQUEST = {'status': 'ok'}, 200
 
 session = db.session
@@ -141,6 +141,35 @@ class UserProfile(Resource):
 
 
 api.add_resource(UserProfile, '/profile')
+
+
+class Statistics(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('week')
+        self.parser.add_argument('month')
+        self.parser.add_argument('year')
+
+    def put(self):
+        args = self.parser.parse_args()
+        week = args['week']
+        month = args['month']
+        year = args['year']
+        user = User.query.get(4)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            update_status = Stats.query.filter_by(user_id=user.id).first()
+            if week is not None:
+                update_status.week = week
+            if month is not None:
+                update_status.month = month
+            if year is not None:
+                update_status.year = year
+            session.commit()
+
+
+api.add_resource(Statistics, '/stats')
 
 
 class LogOut(Resource):
