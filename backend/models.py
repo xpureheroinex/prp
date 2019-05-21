@@ -11,6 +11,7 @@ from itsdangerous import (TimedJSONWebSignatureSerializer
 
 app = create_app()
 
+
 class ListChoices(enum.Enum):
     DN = 'done'
     IP = 'in progress'
@@ -120,7 +121,7 @@ class UsersBooks(db.Model):
     rate = db.Column(db.Integer)
 
     def repr(self):
-        return f'<UsersBooks {self.user_id}>'
+        return f'<UsersBooks {self.user.username}>'
 
 
 class Stats(db.Model):
