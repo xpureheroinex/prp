@@ -50,9 +50,6 @@ class Register(Resource):
         args = self.parser.parse_args()
         email = args['email']
         password = args['password']
-        # week = 0
-        # month = 0
-        # year = 0
         if email is not None and password is not None:
             username = email[0:email.find('@')]
             user = User(
@@ -174,75 +171,3 @@ class LogOut(Resource):
         session.pop('email', None)
         return redirect('/login')
 
-
-class DoneBooks(Resource):
-    def get(self):
-        global info_book
-        user = User.query.get(4)
-        if user is None:
-            return _BAD_REQUEST
-        else:
-            done_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').all()
-            count = len(done_book)
-            for book in done_book:
-                book_id = book.books_id
-                current_book = Books.query.get(book_id)
-                info = {
-                    "Title": current_book.title,
-                    "Author": current_book.author,
-                    "Genre": current_book.genre
-                }
-        return {'len': count, 'info': info}
-
-
-api.add_resource(DoneBooks, '/books/read')
-
-
-class ProgressBooks(Resource):
-    def get(self):
-        global info_book
-        user = User.query.get(4)
-        if user is None:
-            return _BAD_REQUEST
-        else:
-            info = []
-            progress_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').all()
-            count = len(progress_book)
-            for book in progress_book:
-                book_id = book.books_id
-                current_book = Books.query.get(book_id)
-                info_book = {
-                    "Title": current_book.title,
-                    "Author": current_book.author,
-                    "Genre": current_book.genre
-                }
-                info.append(info_book)
-        return {'len': count, 'info': info}
-
-
-api.add_resource(ProgressBooks, '/books/progress')
-
-
-class FutureBooks(Resource):
-    def get(self):
-        global info_book
-        user = User.query.get(4)
-        if user is None:
-            return _BAD_REQUEST
-        else:
-            future_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').all()
-            count = len(future_book)
-            info = []
-            for book in future_book:
-                book_id = book.books_id
-                current_book = Books.query.get(book_id)
-                info_book = {
-                    "Title": current_book.title,
-                    "Author": current_book.author,
-                    "Genre": current_book.genre
-                }
-                info.append(info_book)
-        return {'len': count, 'info': info}
-
-
-api.add_resource(FutureBooks, '/books/future')
