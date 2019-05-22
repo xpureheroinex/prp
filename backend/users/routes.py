@@ -50,9 +50,9 @@ class Register(Resource):
         args = self.parser.parse_args()
         email = args['email']
         password = args['password']
-        week = 0
-        month = 0
-        year = 0
+        # week = 0
+        # month = 0
+        # year = 0
         if email is not None and password is not None:
             username = email[0:email.find('@')]
             user = User(
@@ -63,10 +63,7 @@ class Register(Resource):
             session.add(user)
             session.commit()
             status = Stats(
-                user_id=user.id,
-                week=week,
-                month=month,
-                year=year
+                user_id=user.id
             )
             session.add(status)
             session.commit()
@@ -155,7 +152,7 @@ class Statistics(Resource):
         week = args['week']
         month = args['month']
         year = args['year']
-        user = User.query.get(4)
+        user = User.query.get(58)
         if user is None:
             return _BAD_REQUEST
         else:
@@ -186,16 +183,16 @@ class DoneBooks(Resource):
             return _BAD_REQUEST
         else:
             done_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').all()
+            count = len(done_book)
             for book in done_book:
                 book_id = book.books_id
                 current_book = Books.query.get(book_id)
-                info_book = {
-                    "Count": len(done_book),
+                info = {
                     "Title": current_book.title,
                     "Author": current_book.author,
                     "Genre": current_book.genre
                 }
-        return info_book
+        return {'len': count, 'info': info}
 
 
 api.add_resource(DoneBooks, '/books/read')
@@ -208,17 +205,19 @@ class ProgressBooks(Resource):
         if user is None:
             return _BAD_REQUEST
         else:
+            info = []
             progress_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').all()
+            count = len(progress_book)
             for book in progress_book:
                 book_id = book.books_id
                 current_book = Books.query.get(book_id)
                 info_book = {
-                    "Count": len(progress_book),
                     "Title": current_book.title,
                     "Author": current_book.author,
                     "Genre": current_book.genre
                 }
-        return info_book
+                info.append(info_book)
+        return {'len': count, 'info': info}
 
 
 api.add_resource(ProgressBooks, '/books/progress')
@@ -232,18 +231,18 @@ class FutureBooks(Resource):
             return _BAD_REQUEST
         else:
             future_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').all()
-            digits = []
+            count = len(future_book)
+            info = []
             for book in future_book:
                 book_id = book.books_id
                 current_book = Books.query.get(book_id)
                 info_book = {
-                    "Count": len(future_book),
                     "Title": current_book.title,
                     "Author": current_book.author,
                     "Genre": current_book.genre
                 }
-                digits.append(info_book)
-        return digits
+                info.append(info_book)
+        return {'len': count, 'info': info}
 
 
 api.add_resource(FutureBooks, '/books/future')

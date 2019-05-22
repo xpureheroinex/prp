@@ -130,9 +130,9 @@ class Stats(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    week = db.Column(db.Integer)
-    month = db.Column(db.Integer)
-    year = db.Column(db.Integer)
+    week = db.Column(db.Integer, default=0)
+    month = db.Column(db.Integer, default=0)
+    year = db.Column(db.Integer, default=0)
 
     def repr(self):
         return f'<Stats of {self.user_id} user>'
