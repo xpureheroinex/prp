@@ -100,23 +100,29 @@ class UserProfile(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('password')
         self.parser.add_argument('username')
-        self.parser.add_argument('auth_token')
+        self.parser.add_argument('Authorization', location='headers')
 
     def get(self):
-        user = User.query.get(4)
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
         if user is None:
             return _BAD_REQUEST
         else:
-            user_stats = Stats.query.filter_by(user_id=user.id)
+            user_stats = Stats.query.filter_by(user_id=user.id).first()
+            print(user_stats, 'HERE')
             done = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').count()
             progress = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').count()
             future = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').count()
             user_profile = {
-                "username": user.email[0:user.email.find('@')],
+                "username": user.username,
                 "email": user.email,
-                "week": user_stats[0].week,
-                "year": user_stats[0].year,
-                "month": user_stats[0].month,
+                "week": user_stats.week,
+                "year": user_stats.year,
+                "month": user_stats.month,
                 "DN": done,
                 "IP": progress,
                 "WR": future
@@ -127,16 +133,20 @@ class UserProfile(Resource):
         args = self.parser.parse_args()
         username = args['username']
         password = args['password']
-        user = User.query.get(4)
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
         if user is None:
             return _BAD_REQUEST
         else:
-            update_user = User.query.filter_by(id=user.id).first()
             if username is not None:
-                update_user.username = username
+                user.username = username
             if password is not None:
-                update_user.set_password(password)
+                user.set_password(password)
             session.commit()
+            return {'message': 'successfully updated', 'status': 200}
 
 
 api.add_resource(UserProfile, '/profile')
