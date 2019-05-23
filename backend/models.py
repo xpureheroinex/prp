@@ -1,11 +1,15 @@
 import enum
 from time import time
 from datetime import datetime
-from . import db, create_app
+from . import db, create_app, config
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from itsdangerous import (TimedJSONWebSignatureSerializer
+                          as Serializer, BadSignature, SignatureExpired)
 
 # from flask_login import UserMixin
+
+app = create_app()
 
 
 class ListChoices(enum.Enum):
@@ -43,6 +47,23 @@ class User(db.Model):
     def repr(self):
         return f'<User {self.email}>'
 
+    def generate_auth_token(self, expiration=600):
+        s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
+        return s.dumps({'id': self.id, 'username': self.username})
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except SignatureExpired:
+            return None  # valid token, but expired
+        except BadSignature:
+            return None  # invalid token
+        user_id = data['id']
+        username = data['username']
+        return {'user_id': user_id, 'username': username}
+
 
 class Books(db.Model):
 
@@ -53,7 +74,7 @@ class Books(db.Model):
     author = db.Column(db.String(128))
     genre = db.Column(db.String(64))
     pages = db.Column(db.Integer)
-    rate = db.Column(db.Float())
+    rate = db.Column(db.Float(), default=0)
 
     def repr(self):
         return f'<Books {self.title}>'
@@ -100,7 +121,7 @@ class UsersBooks(db.Model):
     rate = db.Column(db.Integer)
 
     def repr(self):
-        return f'<UsersBooks {self.user_id}>'
+        return f'<UsersBooks {self.user.username}>'
 
 
 class Stats(db.Model):
@@ -109,9 +130,9 @@ class Stats(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    week = db.Column(db.Integer)
-    month = db.Column(db.Integer)
-    year = db.Column(db.Integer)
+    week = db.Column(db.Integer, default=0)
+    month = db.Column(db.Integer, default=0)
+    year = db.Column(db.Integer, default=0)
 
     def repr(self):
         return f'<Stats of {self.user_id} user>'
