@@ -74,7 +74,7 @@ class Books(db.Model):
     author = db.Column(db.String(128))
     genre = db.Column(db.String(64))
     pages = db.Column(db.Integer)
-    rate = db.Column(db.Float())
+    rate = db.Column(db.Float(), default=0)
 
     def repr(self):
         return f'<Books {self.title}>'
