@@ -11,6 +11,7 @@ from itsdangerous import (TimedJSONWebSignatureSerializer
 
 app = create_app()
 
+
 class ListChoices(enum.Enum):
     DN = 'done'
     IP = 'in progress'
