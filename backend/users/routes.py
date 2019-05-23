@@ -31,7 +31,7 @@ class Login(Resource):
         else:
             if user.check_password(password):
                 token = user.generate_auth_token(expiration=10000)
-                return _GOOD_REQUEST, {'auth_token': token}
+                return _GOOD_REQUEST, {'Bearer': token}
             return _BAD_REQUEST
 
 
@@ -71,22 +71,23 @@ class Register(Resource):
 api.add_resource(Register, '/register')
 
 
-class Test(Resource):
-
-    def __init__(self):
-        self.parser = reqparse.RequestParser()
-        self.parser.add_argument('token', location='headers')
-
-    def post(self):
-        args = self.parser.parse_args()
-        token = args['token']
-
-        user = User.verify_auth_token(token)
-
-        return {'token': token, 'user': user['username']}
-
-
-api.add_resource(Test, '/test')
+# class Test(Resource):
+#
+#     def __init__(self):
+#         self.parser = reqparse.RequestParser()
+#         self.parser.add_argument('Authorization', location='headers')
+#
+#     def post(self):
+#         args = self.parser.parse_args()
+#         token = args['Authorization'].split(' ')[1]
+#         print(token)
+#
+#         user = User.verify_auth_token(token)
+#
+#         return {'token': token, 'user': user['username']}
+#
+#
+# api.add_resource(Test, '/test')
 
 
 class UserProfile(Resource):
