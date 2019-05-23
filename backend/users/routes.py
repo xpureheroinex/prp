@@ -4,13 +4,14 @@ from werkzeug.utils import redirect
 from backend import db, api
 from flask_restful import Resource, reqparse
 from flask import request, jsonify
-from operator import xor
 
-from backend.models import User, UsersBooks, Stats
+from backend.models import User, UsersBooks, Stats, Books
 from . import bp
 
 _BAD_REQUEST = {'message': 'unvalid data', 'status': 400}
 _GOOD_REQUEST = {'message': 'ok', 'status': 200}
+
+session = db.session
 
 
 class Login(Resource):
@@ -51,18 +52,22 @@ class Register(Resource):
 
         user = User.query.filter_by(email=email).first()
         if user is not None:
-            return {'status': 400, 'message': f'User with email {email} already exists'}
+            return {'status': 400,
+                    'message': f'User with email {email} already exists'}
         elif email is not None and password is not None:
             username = email[0:email.find('@')]
             user = User(
                 email=email,
                 username=username,
             )
-            session = db.session
             user.set_password(password)
             session.add(user)
             session.commit()
-
+            status = Stats(
+                user_id=user.id
+            )
+            session.add(status)
+            session.commit()
             return {'message': 'Successfully created', 'status': 201}
         else:
             return _BAD_REQUEST
@@ -91,71 +96,157 @@ api.add_resource(Register, '/register')
 
 
 class UserProfile(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('password')
+        self.parser.add_argument('username')
+        self.parser.add_argument('auth_token')
+
     def get(self):
         user = User.query.get(4)
-        user_book = UsersBooks.query.filter_by(user_id='4').all()
-        user_stats = Stats.guery.get(user=user).all()
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            user_stats = Stats.query.filter_by(user_id=user.id)
+            done = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').count()
+            progress = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').count()
+            future = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').count()
+            user_profile = {
+                "username": user.email[0:user.email.find('@')],
+                "email": user.email,
+                "week": user_stats[0].week,
+                "year": user_stats[0].year,
+                "month": user_stats[0].month,
+                "DN": done,
+                "IP": progress,
+                "WR": future
+            }
+        return user_profile
 
-        userprofile = {
-            "username": user.email[0:user.email.find('@')],
-            "email": user.email,
-            "week": user_stats.week,
-            "year": user_stats.year,
-            "month": user_stats.month,
-            "DN": user_book.query.filter_by(UsersBooks.list == 'DN').all().count(),
-            "IP": user_book.query.filter_by(UsersBooks.list == 'IP').all().count(),
-            "WR": user_book.query.filter_by(UsersBooks.list == 'WR').all().count()
-        }
-        return userprofile
+    def put(self):
+        args = self.parser.parse_args()
+        username = args['username']
+        password = args['password']
+        user = User.query.get(4)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            update_user = User.query.filter_by(id=user.id).first()
+            if username is not None:
+                update_user.username = username
+            if password is not None:
+                update_user.set_password(password)
+            session.commit()
 
 
-api.add_resource(UserProfile, '/profile/1')
+api.add_resource(UserProfile, '/profile')
+
+
+class Statistics(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('week')
+        self.parser.add_argument('month')
+        self.parser.add_argument('year')
+
+    def put(self):
+        args = self.parser.parse_args()
+        week = args['week']
+        month = args['month']
+        year = args['year']
+        user = User.query.get(58)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            update_status = Stats.query.filter_by(user_id=user.id).first()
+            if week is not None:
+                update_status.week = week
+            if month is not None:
+                update_status.month = month
+            if year is not None:
+                update_status.year = year
+            session.commit()
+
+
+api.add_resource(Statistics, '/stats')
 
 
 class LogOut(Resource):
     def post(self):
-        session = db.session
         session.pop('email', None)
         return redirect('/login')
 
 
 class DoneBooks(Resource):
     def get(self):
-        # args = self.parser.parse_args()
-        # user_id = args['user_id']
+        global info_book
         user = User.query.get(4)
-        done_book = UsersBooks.query.filter_by(list='DN', user_id=user.id).first()
-
-        # print(done_book)
-        return user.email
-        # return done_book
-        # print(user.email)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            done_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').all()
+            count = len(done_book)
+            info = []
+            for book in done_book:
+                book_id = book.books_id
+                current_book = Books.query.get(book_id)
+                info_book = {
+                    "Title": current_book.title,
+                    "Author": current_book.author,
+                    "Genre": current_book.genre
+                }
+                info.append(info_book)
+        return {'len': count, 'info': info}
 
 
 api.add_resource(DoneBooks, '/books/read')
 
 
-class ProgresBooks(Resource):
-    def get(self, user_id):
-        # args = self.parser.parse_args()
-        # user_id = args['user_id']
-        user = User.query.get(id=user_id)
-        progres_book = UsersBooks.query.filter_by(UsersBooks.list == 'IP', user=user).all()
+class ProgressBooks(Resource):
+    def get(self):
+        global info_book
+        user = User.query.get(4)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            info = []
+            progress_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').all()
+            count = len(progress_book)
+            for book in progress_book:
+                book_id = book.books_id
+                current_book = Books.query.get(book_id)
+                info_book = {
+                    "Title": current_book.title,
+                    "Author": current_book.author,
+                    "Genre": current_book.genre
+                }
+                info.append(info_book)
+        return {'len': count, 'info': info}
 
-        print(progres_book)
 
-
-api.add_resource(ProgresBooks, '/books/progres')
+api.add_resource(ProgressBooks, '/books/progress')
 
 
 class FutureBooks(Resource):
-    def get(self, user_id):
-        # args = self.parser.parse_args()
-        # user_id = args['user_id']
-        user = User.query.get(id=user_id)
-        future_book = UsersBooks.query.filter_by(list == 'WR', user=user).all()
-
-        print(future_book)
+    def get(self):
+        global info_book
+        user = User.query.get(4)
+        if user is None:
+            return _BAD_REQUEST
+        else:
+            future_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').all()
+            count = len(future_book)
+            info = []
+            for book in future_book:
+                book_id = book.books_id
+                current_book = Books.query.get(book_id)
+                info_book = {
+                    "Title": current_book.title,
+                    "Author": current_book.author,
+                    "Genre": current_book.genre
+                }
+                info.append(info_book)
+        return {'len': count, 'info': info}
 
 
 api.add_resource(FutureBooks, '/books/future')
