@@ -162,8 +162,10 @@ class Statistics(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('range')
+        self.parser.add_argument('week')
         self.parser.add_argument('month')
         self.parser.add_argument('year')
+
         self.parser.add_argument('Authorization', location='headers')
 
     def get(self):
@@ -245,7 +247,13 @@ class Statistics(Resource):
         week = args['week']
         month = args['month']
         year = args['year']
-        user = User.query.get(4)
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
         if user is None:
             return _BAD_REQUEST
         else:
