@@ -5,7 +5,7 @@ from backend import db, api
 from flask_restful import Resource, reqparse
 from flask import request, jsonify
 
-from backend.models import User, UsersBooks, Stats, Books
+from backend.models import User, UsersBooks, Stats, Books, Reviews
 from . import bp
 
 _BAD_REQUEST = {'message': 'unvalid data', 'status': 400}
@@ -158,13 +158,18 @@ class Statistics(Resource):
         self.parser.add_argument('week')
         self.parser.add_argument('month')
         self.parser.add_argument('year')
+        self.parser.add_argument('Authorization', location='headers')
 
     def put(self):
         args = self.parser.parse_args()
         week = args['week']
         month = args['month']
         year = args['year']
-        user = User.query.get(58)
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
         if user is None:
             return _BAD_REQUEST
         else:
@@ -187,10 +192,22 @@ class LogOut(Resource):
         return redirect('/login')
 
 
+api.add_resource(LogOut, '/logout')
+
+
 class DoneBooks(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('Authorization', location='headers')
+
     def get(self):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
         global info_book
-        user = User.query.get(4)
         if user is None:
             return _BAD_REQUEST
         else:
@@ -213,9 +230,18 @@ api.add_resource(DoneBooks, '/books/read')
 
 
 class ProgressBooks(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('Authorization', location='headers')
+
     def get(self):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
         global info_book
-        user = User.query.get(4)
         if user is None:
             return _BAD_REQUEST
         else:
@@ -238,9 +264,18 @@ api.add_resource(ProgressBooks, '/books/progress')
 
 
 class FutureBooks(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('Authorization', location='headers')
+
     def get(self):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
         global info_book
-        user = User.query.get(4)
         if user is None:
             return _BAD_REQUEST
         else:
@@ -260,3 +295,37 @@ class FutureBooks(Resource):
 
 
 api.add_resource(FutureBooks, '/books/future')
+
+
+class AddReviews(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('text')
+        self.parser.add_argument('Authorization', location='headers')
+
+    def post(self, books_id):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
+        text = args['text']
+        exist_user = Reviews.query.filter_by(user_id=user_id).filter_by(books_id=books_id).first()
+        if exist_user is not None:
+            return {'status': 400,
+                    'message': f'User {user.username} already left review on this book'}
+        elif text is not None:
+            review = Reviews(
+                user_id=user.id,
+                books_id=books_id,
+                text=text
+            )
+            session.add(review)
+            session.commit()
+            return {'message': 'Successfully created', 'status': 201}
+        else:
+            return _BAD_REQUEST
+
+
+api.add_resource(AddReviews, '/books/<int:books_id>/reviews')
