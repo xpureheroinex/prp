@@ -1,14 +1,11 @@
-from werkzeug.security import generate_password_hash
 from werkzeug.utils import redirect
 
 from backend import db, api
 from flask_restful import Resource, reqparse
-from flask import request, jsonify
 
-from backend.models import User, UsersBooks, Stats, Books
-from . import bp
+from backend.models import User, UsersBooks, Stats, Books, Reviews
 from sqlalchemy import func, desc, and_
-import csv, datetime
+import datetime
 
 _BAD_REQUEST = {'message': 'unvalid data', 'status': 400}
 _GOOD_REQUEST = {'message': 'ok', 'status': 200}
@@ -277,15 +274,25 @@ class LogOut(Resource):
         return redirect('/login')
 
 
+api.add_resource(LogOut, '/logout')
+
+
 class DoneBooks(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('Authorization', location='headers')
+
     def get(self):
-        global info_book
-        user = User.query.get(4)
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
         if user is None:
             return _BAD_REQUEST
         else:
-            done_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(
-                list='DN').all()
+            done_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').all()
             count = len(done_book)
             info = []
             for book in done_book:
@@ -304,15 +311,22 @@ api.add_resource(DoneBooks, '/books/read')
 
 
 class ProgressBooks(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('Authorization', location='headers')
+
     def get(self):
-        global info_book
-        user = User.query.get(4)
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
         if user is None:
             return _BAD_REQUEST
         else:
             info = []
-            progress_book = UsersBooks.query.filter_by(
-                user_id=user.id).filter_by(list='IP').all()
+            progress_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').all()
             count = len(progress_book)
             for book in progress_book:
                 book_id = book.books_id
@@ -330,14 +344,21 @@ api.add_resource(ProgressBooks, '/books/progress')
 
 
 class FutureBooks(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('Authorization', location='headers')
+
     def get(self):
-        global info_book
-        user = User.query.get(4)
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
         if user is None:
             return _BAD_REQUEST
         else:
-            future_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(
-                list='WR').all()
+            future_book = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').all()
             count = len(future_book)
             info = []
             for book in future_book:
@@ -353,3 +374,55 @@ class FutureBooks(Resource):
 
 
 api.add_resource(FutureBooks, '/books/future')
+
+
+class AddReviews(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('text')
+        self.parser.add_argument('Authorization', location='headers')
+
+    def get(self, books_id):
+        list_reviews = Reviews.query.filter_by(books_id=books_id).all()
+        count = len(list_reviews)
+        info = []
+        if count != 0:
+            for review in list_reviews:
+                user_id = review.user_id
+                user = User.query.get(user_id)
+                info_review = {
+                    "username": user.username,
+                    "text": review.text,
+                    'created': review.data_added.strftime(format='%d/%m/%Y'),
+                }
+                info.append(info_review)
+            return {'len': count, 'info': info}
+        else:
+            return {'message': 'No reviews about this book', 'status': 201}
+
+    def post(self, books_id):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
+        text = args['text']
+        exist_user = Reviews.query.filter_by(user_id=user_id).filter_by(books_id=books_id).first()
+        if exist_user is not None:
+            return {'status': 400,
+                    'message': f'User {user.username} already left review on this book'}
+        elif text is not None:
+            review = Reviews(
+                user_id=user.id,
+                books_id=books_id,
+                text=text
+            )
+            session.add(review)
+            session.commit()
+            return {'message': 'Successfully created', 'status': 201}
+        else:
+            return _BAD_REQUEST
+
+
+api.add_resource(AddReviews, '/books/<int:books_id>/reviews')

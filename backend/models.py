@@ -108,6 +108,11 @@ class Reviews(db.Model):
     def repr(self):
         return f'<Reviews {self.books_id}>'
 
+    def __init__(self, user_id, books_id, text, **kwargs):
+        self.user_id = user_id
+        self.books_id = books_id
+        self.text = text
+
 
 class UsersBooks(db.Model):
 
