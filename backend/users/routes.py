@@ -1,3 +1,4 @@
+import datetime
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import redirect
 
@@ -312,13 +313,14 @@ class AddReviews(Resource):
                 user_id = review.user_id
                 user = User.query.get(user_id)
                 info_review = {
-                    "Username": user.username,
-                    "Text": review.text
+                    "username": user.username,
+                    "text": review.text,
+                    'created': review.data_added.strftime(format='%d/%m/%Y'),
                 }
                 info.append(info_review)
             return {'len': count, 'info': info}
         else:
-            return {'message': 'No review about this book', 'status': 201}
+            return {'message': 'No reviews about this book', 'status': 201}
 
     def post(self, books_id):
         args = self.parser.parse_args()
