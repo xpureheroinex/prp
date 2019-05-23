@@ -25,6 +25,6 @@ def create_app(config_class=Config):
     app.register_blueprint(users_bp, url_prefix='/')
 
     from backend.books import bp as books_bp
-    app.register_blueprint(books_bp, url_prefix='/books')
+    app.register_blueprint(books_bp)
 
     return app

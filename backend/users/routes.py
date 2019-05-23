@@ -1,13 +1,11 @@
-import datetime
-from werkzeug.security import generate_password_hash
 from werkzeug.utils import redirect
 
 from backend import db, api
 from flask_restful import Resource, reqparse
-from flask import request, jsonify
 
 from backend.models import User, UsersBooks, Stats, Books, Reviews
-from . import bp
+from sqlalchemy import func, desc, and_
+import datetime
 
 _BAD_REQUEST = {'message': 'unvalid data', 'status': 400}
 _GOOD_REQUEST = {'message': 'ok', 'status': 200}
@@ -29,7 +27,8 @@ class Login(Resource):
 
         user = User.query.filter_by(email=email).first()
         if user is None:
-            return {'status': 404, 'message': f'User with email {email} does not exist'}
+            return {'status': 404,
+                    'message': f'User with email {email} does not exist'}
         else:
             if user.check_password(password):
                 token = user.generate_auth_token(expiration=10000)
@@ -115,9 +114,12 @@ class UserProfile(Resource):
         else:
             user_stats = Stats.query.filter_by(user_id=user.id).first()
             print(user_stats, 'HERE')
-            done = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='DN').count()
-            progress = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='IP').count()
-            future = UsersBooks.query.filter_by(user_id=user.id).filter_by(list='WR').count()
+            done = UsersBooks.query.filter_by(user_id=user.id).filter_by(
+                list='DN').count()
+            progress = UsersBooks.query.filter_by(user_id=user.id).filter_by(
+                list='IP').count()
+            future = UsersBooks.query.filter_by(user_id=user.id).filter_by(
+                list='WR').count()
             user_profile = {
                 "username": user.username,
                 "email": user.email,
@@ -156,18 +158,96 @@ api.add_resource(UserProfile, '/profile')
 class Statistics(Resource):
     def __init__(self):
         self.parser = reqparse.RequestParser()
+        self.parser.add_argument('range')
         self.parser.add_argument('week')
         self.parser.add_argument('month')
         self.parser.add_argument('year')
+
         self.parser.add_argument('Authorization', location='headers')
+
+    def get(self):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+
+        token = args['Authorization'].split(' ')[1]
+        range = args['range']
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
+        status = Stats.query.filter_by(user_id=user.id).first()
+        range_books = []
+
+        date_to = datetime.date.today()
+        date_from = datetime.date.today()
+        if range == 'week':
+            date_from = datetime.date.today() - datetime.timedelta(days=7)
+        elif range == 'month':
+            date_from = datetime.date.today() - datetime.timedelta(days=30)
+        elif range == 'year':
+            date_from = datetime.date.today() - datetime.timedelta(days=365)
+
+        books = UsersBooks.query.filter_by(user_id=user.id).\
+            filter(and_(func.date(UsersBooks.data_added) >= date_from),
+                   func.date(UsersBooks.data_added) <= date_to).\
+            filter_by(list='DN').all()
+
+        count = len(books)
+        if count  <= 0:
+            fav_author = '-'
+            fav_genre = '-'
+        else:
+            for book in books:
+                range_books.append(book.books_id)
+
+        fav_author = Books.query.with_entities(Books.author,
+                                               func.count(Books.author)). \
+            group_by(Books.author). \
+            filter(Books.id.in_(range_books)). \
+            order_by(desc(func.count(Books.author))). \
+            first()[0]
+
+        fav_genre = Books.query.with_entities(Books.genre,
+                                              func.count(Books.genre)). \
+            group_by(Books.genre). \
+            filter(Books.id.in_(range_books)).order_by(
+            desc(func.count(Books.genre))). \
+            first()[0]
+
+        print(fav_author, fav_genre, count)\
+
+        divide = 0
+        if range == 'week':
+            divide = status.week
+        elif range == 'month':
+            divide = status.month
+        elif range == 'year':
+            divide = status.year
+
+        if divide > 0:
+            percent = f'{round(count * 100 / divide, 2)}%'
+        else:
+            percent = 'no info provided'
+        info = {
+            "count": count,
+            "fav_author": fav_author,
+            "fav_genre": fav_genre,
+        }
+        plan = {
+            "plan": divide,
+            "count": count,
+            "percent": percent
+        }
+        return {"info": info, "plan": plan, 'status': 200}
 
     def put(self):
         args = self.parser.parse_args()
         week = args['week']
         month = args['month']
         year = args['year']
+        args = self.parser.parse_args()
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
+
         token = args['Authorization'].split(' ')[1]
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
@@ -182,6 +262,7 @@ class Statistics(Resource):
             if year is not None:
                 update_status.year = year
             session.commit()
+            return _GOOD_REQUEST
 
 
 api.add_resource(Statistics, '/stats')
@@ -208,7 +289,6 @@ class DoneBooks(Resource):
         token = args['Authorization'].split(' ')[1]
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
-        global info_book
         if user is None:
             return _BAD_REQUEST
         else:
@@ -242,7 +322,6 @@ class ProgressBooks(Resource):
         token = args['Authorization'].split(' ')[1]
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
-        global info_book
         if user is None:
             return _BAD_REQUEST
         else:
@@ -276,7 +355,6 @@ class FutureBooks(Resource):
         token = args['Authorization'].split(' ')[1]
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
-        global info_book
         if user is None:
             return _BAD_REQUEST
         else:
