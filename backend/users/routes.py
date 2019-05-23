@@ -4,13 +4,14 @@ from werkzeug.utils import redirect
 from backend import db, api
 from flask_restful import Resource, reqparse
 from flask import request, jsonify
-from operator import xor
 
-from backend.models import User, UsersBooks, Stats
+from backend.models import User, UsersBooks, Stats, Books
 from . import bp
 
 _BAD_REQUEST = {'message': 'unvalid data', 'status': 400}
 _GOOD_REQUEST = {'message': 'ok', 'status': 200}
+
+session = db.session
 
 
 class Login(Resource):
@@ -51,18 +52,22 @@ class Register(Resource):
 
         user = User.query.filter_by(email=email).first()
         if user is not None:
-            return {'status': 400, 'message': f'User with email {email} already exists'}
+            return {'status': 400,
+                    'message': f'User with email {email} already exists'}
         elif email is not None and password is not None:
             username = email[0:email.find('@')]
             user = User(
                 email=email,
                 username=username,
             )
-            session = db.session
             user.set_password(password)
             session.add(user)
             session.commit()
-
+            status = Stats(
+                user_id=user.id
+            )
+            session.add(status)
+            session.commit()
             return {'message': 'Successfully created', 'status': 201}
         else:
             return _BAD_REQUEST
