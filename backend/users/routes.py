@@ -303,6 +303,23 @@ class AddReviews(Resource):
         self.parser.add_argument('text')
         self.parser.add_argument('Authorization', location='headers')
 
+    def get(self, books_id):
+        list_reviews = Reviews.query.filter_by(books_id=books_id).all()
+        count = len(list_reviews)
+        info = []
+        if count != 0:
+            for review in list_reviews:
+                user_id = review.user_id
+                user = User.query.get(user_id)
+                info_review = {
+                    "Username": user.username,
+                    "Text": review.text
+                }
+                info.append(info_review)
+            return {'len': count, 'info': info}
+        else:
+            return {'message': 'No review about this book', 'status': 201}
+
     def post(self, books_id):
         args = self.parser.parse_args()
         if args['Authorization'] is None:
