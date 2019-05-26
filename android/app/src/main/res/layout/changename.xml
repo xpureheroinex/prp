@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:background="#E0E0E0"
+    >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="  New user name"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="  UserName" />
+
+    <Button
+        android:id="@+id/button"
+        style="@android:style/Widget.DeviceDefault.Button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@drawable/button_states"
+        android:layout_marginTop="20dp"
+        android:text="Change"
+        android:textColor="#000000"
+        android:layout_marginRight="45dp"
+        tools:targetApi="ice_cream_sandwich" />
+
+</LinearLayout>
