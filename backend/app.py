@@ -1,14 +1,8 @@
 from . import create_app, db
-import csv
-from socket import gethostname
 
 app = create_app()
 app.app_context().push()
-if __name__ == '__main__':
-    if 'liveconsole' not in gethostname():
-        app.run()
-
-# db.create_all(app=app)
+db.create_all(app=app)
 
 session = db.session()
 
