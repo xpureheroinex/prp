@@ -51,6 +51,7 @@ class User(db.Model):
         s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
         return s.dumps({'id': self.id, 'username': self.username})
 
+
     @staticmethod
     def verify_auth_token(token):
         s = Serializer(app.config['SECRET_KEY'])
@@ -62,7 +63,13 @@ class User(db.Model):
             return None  # invalid token
         user_id = data['id']
         username = data['username']
-        return {'user_id': user_id, 'username': username}
+        tkn = Tokens.query.filter_by(user_id=user_id).first()
+        if tkn is None:
+            return None
+        elif tkn.token == token:
+            return {'user_id': user_id, 'username': username}
+        else:
+            return None
 
 
 class Books(db.Model):
@@ -141,3 +148,11 @@ class Stats(db.Model):
 
     def repr(self):
         return f'<Stats of {self.user_id} user>'
+
+class Tokens(db.Model):
+
+    __tablename__ = 'tokens'
+
+    id = db.Column(db.Integer, primary_key=True)
+    token = db.Column(db.String, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

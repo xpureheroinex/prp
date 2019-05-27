@@ -3,7 +3,7 @@ from werkzeug.utils import redirect
 from backend import db, api
 from flask_restful import Resource, reqparse
 
-from backend.models import User, UsersBooks, Stats, Books, Reviews
+from backend.models import User, UsersBooks, Stats, Books, Reviews, Tokens
 from sqlalchemy import func, desc, and_
 import datetime
 
@@ -32,6 +32,10 @@ class Login(Resource):
         else:
             if user.check_password(password):
                 token = user.generate_auth_token(expiration=10000)
+                tkn = str(token)
+                new = Tokens(token=tkn[2:len(tkn)-1], user_id=user.id)
+                session.add(new)
+                session.commit()
                 return _GOOD_REQUEST, {'Bearer': token}
             return _BAD_REQUEST
 
@@ -107,6 +111,8 @@ class UserProfile(Resource):
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
         token = args['Authorization'].split(' ')[1]
+        if User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
         if user is None:
@@ -139,6 +145,8 @@ class UserProfile(Resource):
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
         token = args['Authorization'].split(' ')[1]
+        if User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
         if user is None:
@@ -172,6 +180,8 @@ class Statistics(Resource):
 
         token = args['Authorization'].split(' ')[1]
         range = args['range']
+        if User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
         status = Stats.query.filter_by(user_id=user.id).first()
@@ -247,6 +257,8 @@ class Statistics(Resource):
             return {'message': 'Unauthorized', 'status': 401}
 
         token = args['Authorization'].split(' ')[1]
+        if User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
         if user is None:
@@ -267,9 +279,21 @@ api.add_resource(Statistics, '/stats')
 
 
 class LogOut(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('Authorization', location='headers')
+
     def post(self):
-        session.pop('email', None)
-        return redirect('/login')
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+
+        token = args['Authorization'].split(' ')[1]
+        new = Tokens.query.filter_by(token=token).first()
+        if new is not None:
+            session.delete(new)
+            session.commit()
+            return {'message': 'BYE!', 'status': 200}
 
 
 api.add_resource(LogOut, '/logout')
@@ -285,6 +309,8 @@ class DoneBooks(Resource):
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
         token = args['Authorization'].split(' ')[1]
+        if User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
         if user is None:
@@ -318,6 +344,8 @@ class ProgressBooks(Resource):
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
         token = args['Authorization'].split(' ')[1]
+        if User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
         if user is None:
@@ -351,6 +379,8 @@ class FutureBooks(Resource):
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
         token = args['Authorization'].split(' ')[1]
+        if User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
         if user is None:
@@ -384,6 +414,7 @@ class AddReviews(Resource):
         args = self.parser.parse_args()
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
+
         list_reviews = Reviews.query.filter_by(books_id=books_id).all()
         count = len(list_reviews)
         info = []
@@ -406,6 +437,8 @@ class AddReviews(Resource):
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
         token = args['Authorization'].split(' ')[1]
+        if User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
         text = args['text']
