@@ -19,6 +19,8 @@ class Books(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('Authorization', location='headers')
         self.parser.add_argument('rate')
+        self.parser.add_argument('status')
+
 
     def get(self, book_id):
         book = models.Books.query.filter_by(id=book_id).first()
@@ -41,11 +43,14 @@ class Books(Resource):
         rate = args['rate']
         user_id = models.User.verify_auth_token(token)['user_id']
         user = models.User.query.get(user_id)
+        if user is None:
+            return _BAD_REQUEST
 
         book = models.Books.query.filter_by(id=book_id).first()
         if book is None:
             return {'message': 'Book not found', 'status': 404}
         user_book = models.UsersBooks.query.filter_by(user_id=user.id).filter_by(books_id=book_id).first()
+        print(user_book)
         if user_book is None:
             return _BAD_REQUEST
         if rate is not None:
@@ -62,10 +67,49 @@ class Books(Resource):
             session.add(user_book)
             session.commit()
             return _GOOD_REQUEST
-        return _BAD_REQUEST
+        else:
+            return _BAD_REQUEST
 
 
+    def put(self, book_id):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        status = args['status']
+        user_id = models.User.verify_auth_token(token)['user_id']
+        user = models.User.query.get(user_id)
+        if user is None:
+            return _BAD_REQUEST
+        user_book = models.UsersBooks.query.filter_by(user_id=user.id).filter_by(books_id=book_id).first()
+        if status is not None:
+            if user_book is None:
+                new = models.UsersBooks(user_id=user.id,
+                                        books_id=book_id,
+                                        list=status)
+                session.add(new)
+            else:
+                user_book.list = status
+                session.add(user_book)
+            session.commit()
+            return _GOOD_REQUEST
+        else:
+            return _BAD_REQUEST
 
+    def delete(self, book_id):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        user_id = models.User.verify_auth_token(token)['user_id']
+        user = models.User.query.get(user_id)
+        if user is None:
+            return _BAD_REQUEST
+        user_book = models.UsersBooks.query.filter_by(
+            user_id=user.id).filter_by(books_id=book_id).first()
+        session.delete(user_book)
+        session.commit()
+        return _GOOD_REQUEST
 
 
 api.add_resource(Books, '/books/<int:book_id>')
