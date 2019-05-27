@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E0E0E0">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="117dp"
+        android:layout_weight="7"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:background="#E0E0E0">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="Statistics"
+            android:textColor="#000000"
+            android:textSize="22sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="137dp"
+        android:layout_weight="7"
+        android:background="#FBFBFB"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnfr1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="7"
+            android:background="#BFBFBF"
+            android:onClick="onSelectFragment"
+            android:text="Year" />
+
+        <Button
+            android:id="@+id/btnfr2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="7"
+            android:background="#BFBFBF"
+            android:onClick="onSelectFragment"
+            android:text="Month" />
+
+        <Button
+            android:id="@+id/btnfr3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="7"
+            android:background="#BFBFBF"
+            android:onClick="onSelectFragment"
+
+            android:text="Week" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="9"
+        android:orientation="vertical"></LinearLayout>
+</LinearLayout>
