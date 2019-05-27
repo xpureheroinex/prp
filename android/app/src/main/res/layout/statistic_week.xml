@@ -15,70 +15,84 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:freezesText="false"
+
         android:layout_gravity="center"
         android:text="Total statistics for the week:"
+
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView6"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="The books that are read:"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView8"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="Favourite genre:"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView9"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="Favourite author:"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView22"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="10dp"
         android:text="Plan:"
         android:layout_gravity="center"
+
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView23"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="Want ot read ? books"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView24"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="Read ? books out of ?"
+
         android:textSize="18sp" />
 
     <TextView
