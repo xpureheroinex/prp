@@ -74,6 +74,9 @@ class Books(Resource):
         user = models.User.query.get(user_id)
         if user is None:
             return _BAD_REQUEST
+        book = models.Books.query.filter_by(id=book_id).first()
+        if book is None:
+            return _BAD_REQUEST
         user_book = models.UsersBooks.query.filter_by(user_id=user.id).filter_by(books_id=book_id).first()
         if status is not None:
             if user_book is None:
@@ -100,9 +103,12 @@ class Books(Resource):
             return _BAD_REQUEST
         user_book = models.UsersBooks.query.filter_by(
             user_id=user.id).filter_by(books_id=book_id).first()
-        session.delete(user_book)
-        session.commit()
-        return _GOOD_REQUEST
+        if user_book is not None:
+            session.delete(user_book)
+            session.commit()
+            return _GOOD_REQUEST
+        else:
+            return _BAD_REQUEST
 
 
 api.add_resource(Books, '/books/<int:book_id>')
