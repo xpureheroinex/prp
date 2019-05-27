@@ -126,11 +126,11 @@ class UserProfile(Resource):
                 "week": user_stats.week,
                 "year": user_stats.year,
                 "month": user_stats.month,
-                "DN": done,
-                "IP": progress,
-                "WR": future
+                "done": done,
+                "progress": progress,
+                "future": future
             }
-        return user_profile
+        return {'user': user_profile, 'status': 200}
 
     def put(self):
         args = self.parser.parse_args()
@@ -212,8 +212,6 @@ class Statistics(Resource):
             filter(Books.id.in_(range_books)).order_by(
             desc(func.count(Books.genre))). \
             first()[0]
-
-        print(fav_author, fav_genre, count)\
 
         divide = 0
         if range == 'week':
@@ -299,12 +297,12 @@ class DoneBooks(Resource):
                 book_id = book.books_id
                 current_book = Books.query.get(book_id)
                 info_book = {
-                    "Title": current_book.title,
-                    "Author": current_book.author,
-                    "Genre": current_book.genre
+                    "title": current_book.title,
+                    "author": current_book.author,
+                    "genre": current_book.genre
                 }
                 info.append(info_book)
-        return {'len': count, 'info': info}
+        return {'count': count, 'info': info, 'status': 200}
 
 
 api.add_resource(DoneBooks, '/books/read')
@@ -332,12 +330,12 @@ class ProgressBooks(Resource):
                 book_id = book.books_id
                 current_book = Books.query.get(book_id)
                 info_book = {
-                    "Title": current_book.title,
-                    "Author": current_book.author,
-                    "Genre": current_book.genre
+                    "title": current_book.title,
+                    "author": current_book.author,
+                    "genre": current_book.genre
                 }
                 info.append(info_book)
-        return {'len': count, 'info': info}
+        return {'count': count, 'info': info, 'status': 200}
 
 
 api.add_resource(ProgressBooks, '/books/progress')
@@ -365,12 +363,12 @@ class FutureBooks(Resource):
                 book_id = book.books_id
                 current_book = Books.query.get(book_id)
                 info_book = {
-                    "Title": current_book.title,
-                    "Author": current_book.author,
-                    "Genre": current_book.genre
+                    "title": current_book.title,
+                    "author": current_book.author,
+                    "genre": current_book.genre
                 }
                 info.append(info_book)
-        return {'len': count, 'info': info}
+        return {'count': count, 'info': info, 'status': 200}
 
 
 api.add_resource(FutureBooks, '/books/future')
@@ -383,6 +381,9 @@ class AddReviews(Resource):
         self.parser.add_argument('Authorization', location='headers')
 
     def get(self, books_id):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
         list_reviews = Reviews.query.filter_by(books_id=books_id).all()
         count = len(list_reviews)
         info = []
@@ -396,9 +397,9 @@ class AddReviews(Resource):
                     'created': review.data_added.strftime(format='%d/%m/%Y'),
                 }
                 info.append(info_review)
-            return {'len': count, 'info': info}
+            return {'count': count, 'info': info, 'status': 200}
         else:
-            return {'message': 'No reviews about this book', 'status': 201}
+            return {'message': 'No reviews about this book', 'status': 404}
 
     def post(self, books_id):
         args = self.parser.parse_args()
