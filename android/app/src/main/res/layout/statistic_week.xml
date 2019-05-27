@@ -6,88 +6,108 @@
     android:background="#E0E0E0"
     tools:textcolor="#000000"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:freezesText="false"
-        android:text=" Total statistics for the week:"
+
+        android:layout_gravity="center"
+        android:text="Total statistics for the week:"
+
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   The books that are read:"
+        android:layout_marginLeft="30dp"
+        android:text="The books that are read:"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   Favourite genre:"
+        android:layout_marginLeft="30dp"
+        android:text="Favourite genre:"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   Favourite author:"
+        android:layout_marginLeft="30dp"
+        android:text="Favourite author:"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView22"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="10dp"
-        android:text=" Plan:"
+        android:text="Plan:"
+        android:layout_gravity="center"
+
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView23"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   Want ot read ? books"
+        android:layout_marginLeft="30dp"
+        android:text="Want ot read ? books"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView24"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   Read ? books out of ?"
+        android:layout_marginLeft="30dp"
+        android:text="Read ? books out of ?"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView25"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   Percentage of completion: ?%"
+        android:layout_marginLeft="30dp"
+        android:text="Percentage of completion: ?%"
         android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="165dp"
-
         android:src="@mipmap/ic_launcher_foreground" />
 </LinearLayout>

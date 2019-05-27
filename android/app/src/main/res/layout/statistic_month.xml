@@ -10,83 +10,106 @@
 
     <TextView
         android:id="@+id/textView14"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:freezesText="false"
-        android:text=" Total statistics for the month:"
+        android:text="Total statistics for the month:"
+
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView15"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   The books that are read:"
+        android:layout_marginLeft="30dp"
+        android:text="The books that are read:"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView16"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   Favourite genre:"
+        android:layout_marginLeft="30dp"
+        android:text="Favourite genre:"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView17"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   Favourite author:"
+        android:layout_marginLeft="30dp"
+        android:text="Favourite author:"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView18"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="10dp"
-        android:text=" Plan:"
+        android:text="Plan:"
+
         android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textView19"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   Want ot read ? books"
+        android:layout_marginLeft="30dp"
+        android:text="Want ot read ? books"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView20"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   Read ? books out of ?"
+        android:layout_marginLeft="30dp"
+        android:text="Read ? books out of ?"
+
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textView21"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="   Percentage of completion: ?%"
+        android:layout_marginLeft="30dp"
+        android:text="Percentage of completion: ?%"
+
         android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="165dp"
-
         android:src="@mipmap/ic_launcher_foreground" />
 </LinearLayout>
