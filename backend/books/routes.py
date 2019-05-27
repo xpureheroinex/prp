@@ -1,11 +1,7 @@
 from werkzeug.utils import redirect
 from backend import db, api
 from flask_restful import Resource, reqparse
-
-# from backend.models import User, UsersBooks, Stats, Books, Reviews
 from backend import models
-from sqlalchemy import func, desc, and_
-import datetime
 
 _BAD_REQUEST = {'message': 'unvalid data', 'status': 400}
 _GOOD_REQUEST = {'message': 'ok', 'status': 200}
@@ -21,7 +17,6 @@ class Books(Resource):
         self.parser.add_argument('rate')
         self.parser.add_argument('status')
 
-
     def get(self, book_id):
         book = models.Books.query.filter_by(id=book_id).first()
         if book is None:
@@ -33,7 +28,6 @@ class Books(Resource):
                       'pages': book.pages,
                       'rate': book.rate}
             return {'book': result, 'status': 200}
-
 
     def post(self, book_id):
         args = self.parser.parse_args()
@@ -69,7 +63,6 @@ class Books(Resource):
             return _GOOD_REQUEST
         else:
             return _BAD_REQUEST
-
 
     def put(self, book_id):
         args = self.parser.parse_args()
