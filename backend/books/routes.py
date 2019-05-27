@@ -34,7 +34,7 @@ class Books(Resource):
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
         token = args['Authorization'].split(' ')[1]
-        if User.verify_auth_token(token) is None:
+        if models.User.verify_auth_token(token) is None:
             return {'message': 'Unauthorized', 'status': 401}
         rate = args['rate']
         user_id = models.User.verify_auth_token(token)['user_id']
@@ -71,7 +71,7 @@ class Books(Resource):
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
         token = args['Authorization'].split(' ')[1]
-        if User.verify_auth_token(token) is None:
+        if models.User.verify_auth_token(token) is None:
             return {'message': 'Unauthorized', 'status': 401}
         status = args['status']
         user_id = models.User.verify_auth_token(token)['user_id']
@@ -101,7 +101,7 @@ class Books(Resource):
         if args['Authorization'] is None:
             return {'message': 'Unauthorized', 'status': 401}
         token = args['Authorization'].split(' ')[1]
-        if User.verify_auth_token(token) is None:
+        if models.User.verify_auth_token(token) is None:
             return {'message': 'Unauthorized', 'status': 401}
         user_id = models.User.verify_auth_token(token)['user_id']
         user = models.User.query.get(user_id)
