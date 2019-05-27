@@ -61,7 +61,7 @@ class Books(Resource):
                 rate += float(elem.rate)
                 amount += 1
             if amount > 0:
-                average_rate = rate/amount
+                average_rate = round(rate/amount, 2)
                 book.rate = average_rate
                 session.add(book)
             session.add(user_book)
