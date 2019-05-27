@@ -123,7 +123,7 @@ class UsersBooks(db.Model):
     books_id = db.Column(db.Integer, db.ForeignKey('books.id'))
     list = db.Column(db.Enum(ListChoices))
     data_added = db.Column(db.DateTime, default=datetime.utcnow)
-    rate = db.Column(db.Integer)
+    rate = db.Column(db.Integer, default=0)
 
     def repr(self):
         return f'<UsersBooks {self.user.username}>'
