@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_bookmark_black_24dp"
         android:title="Read"
         android:itemIconTint="#69DC59"
-        app:actionViewClass="android.widget.TextView" />
+        android:actionViewClass="android.widget.TextView" />
     <item
         android:id="@+id/nav_slideshow"
         android:icon="@drawable/ic_bookmark_black_"
