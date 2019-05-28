@@ -3,6 +3,7 @@ package com.example.bookspace;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,6 +17,22 @@ public class BookPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books_page);
+
+        TextView textReviews = findViewById(R.id.textReviews);
+        textReviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ReviewsActivity.class));
+            }
+        });
+
+        TextView textNotice = findViewById(R.id.textNotice);
+        textNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), NoticeActivity.class));
+            }
+        });
     }
 
     private final int IDD_LIST_Status = 1;
