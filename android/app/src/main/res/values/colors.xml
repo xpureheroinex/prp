@@ -9,4 +9,6 @@
     <color name="colorTextPrimary">#212121</color>
     <color name="colorTextSecondary">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
+    <color name="duskYellow">#FFFCE203</color>
+    <color name="lightGrey">#FFB8B8B3</color>
 </resources>
