@@ -1,12 +1,16 @@
 package com.example.bookspace;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity implements SuccessfullyRegisteredFragment.OnFragmentInteractionListener{
 
     public static final Pattern VALID_EMAIL_ADDRESS =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
@@ -35,6 +39,12 @@ public class RegistrationActivity extends AppCompatActivity {
         setSupportActionBar(basicToolbar);
         getSupportActionBar().setTitle(null);
         basicToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+
+        //далее работаем с фрагментом
+
+        FrameLayout fragmentContainer = findViewById(R.id.registrationFragmentContainer);
+
+
         basicToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,10 +89,12 @@ public class RegistrationActivity extends AppCompatActivity {
                         public void onResponse(Call<CreateUserResponse> call, Response<CreateUserResponse> response) {
                             try{
                                 String res = response.body().getMessage();
-                                Toast.makeText(RegistrationActivity.this, res, Toast.LENGTH_LONG).show();
+//                                Toast.makeText(RegistrationActivity.this, "", Toast.LENGTH_LONG).show();
                             } catch(NullPointerException e){
                                 e.printStackTrace();
                             }
+
+                            openFragment();
                         }
 
                         @Override
@@ -93,5 +105,18 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void openFragment(){
+        SuccessfullyRegisteredFragment fragment = SuccessfullyRegisteredFragment.newInstance();
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right);
+        transaction.add(R.id.registrationFragmentContainer, fragment, "SUCCESSFULLY_REGISTERED_FRAGMENT").commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
