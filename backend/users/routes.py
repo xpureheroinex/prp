@@ -427,3 +427,20 @@ class AddReviews(Resource):
 
 
 api.add_resource(AddReviews, '/books/<int:books_id>/reviews')
+
+
+class RestorePass(Resource):
+
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('email', required=True)
+
+    def post(self):
+        args = self.parser.parse_args()
+        email = args['email']
+        
+
+
+
+
+api.add_resource(RestorePass, '/login/restore')
