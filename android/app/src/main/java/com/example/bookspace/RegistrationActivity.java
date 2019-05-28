@@ -8,9 +8,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.bookspace.model.CreateUserResponse;
+import com.example.bookspace.model.RetrofitClient;
+
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -60,9 +69,28 @@ public class RegistrationActivity extends AppCompatActivity {
                 }
 
                 if(validData){
-                    errorMessage.setText("success");
-                }
+                    Call<CreateUserResponse> call = RetrofitClient
+                            .getInstance()
+                            .getBookSpaceAPI()
+                            .createUser(emailString, passwordString);
 
+                    call.enqueue(new Callback<CreateUserResponse>() {
+                        @Override
+                        public void onResponse(Call<CreateUserResponse> call, Response<CreateUserResponse> response) {
+                            try{
+                                String res = response.body().getMessage();
+                                Toast.makeText(RegistrationActivity.this, res, Toast.LENGTH_LONG).show();
+                            } catch(NullPointerException e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<CreateUserResponse> call, Throwable t) {
+                            Toast.makeText(RegistrationActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
         });
     }
