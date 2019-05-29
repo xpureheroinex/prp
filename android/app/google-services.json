@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "923282045267",
+    "firebase_url": "https://prpauth-8ec25.firebaseio.com",
+    "project_id": "prpauth-8ec25",
+    "storage_bucket": "prpauth-8ec25.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:923282045267:android:9865516f47024166",
+        "android_client_info": {
+          "package_name": "com.example.bookspace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "923282045267-mbbkaijlkqdeove3lm9imp7g1qv6gkp3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bookspace",
+            "certificate_hash": "cc23049e371f80386937ccae0e7fa8300b2d92dc"
+          }
+        },
+        {
+          "client_id": "923282045267-ppa33ms5igphkoklo3ph3d4poof5v32t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe84juOvl9zkdF4yieTQnPCA_D4Lpcezc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "923282045267-ppa33ms5igphkoklo3ph3d4poof5v32t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
