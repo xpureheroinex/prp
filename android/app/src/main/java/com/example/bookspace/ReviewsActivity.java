@@ -30,7 +30,7 @@ public class ReviewsActivity extends AppCompatActivity {
         });
     }
 
-    public void onClickbuttonReview(View v){
-        startActivity(new Intent(getApplicationContext(), AddReviewActivity.class));
-    }
+//    public void onClickbuttonReview(View v){
+//        startActivity(new Intent(getApplicationContext(), AddReviewActivity.class));
+//    }
 }
