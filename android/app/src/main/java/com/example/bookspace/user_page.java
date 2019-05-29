@@ -22,7 +22,7 @@ public class user_page extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
