@@ -3,6 +3,7 @@ package com.example.bookspace;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -14,6 +15,15 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.bookspace.model.ProfileResponse;
+import com.example.bookspace.model.RetrofitClient;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class user_page extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +46,54 @@ public class user_page extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mReadTextView = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_gallery));
         initializeCountDrawer();
+
+
+        //-------------------- test query
+
+        SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+        String token = prefs.getString("token", "token is null");
+        final TextView text = findViewById(R.id.textView29);
+
+        //сначала поменяем username
+
+        Call<ResponseBody> callTest = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .changeProfile("Bearer " + token, "newUsername", null);
+
+        callTest.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+        //---
+
+
+        Call<ProfileResponse> call = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .getProfileInfo("Bearer " + token);
+
+        call.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                ProfileResponse resp = response.body();
+                text.setText(resp.getUser().getUsername());
+
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                Toast.makeText(user_page.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+            }
+        });
+        //-------------------------------
 
     }
     private void initializeCountDrawer(){
