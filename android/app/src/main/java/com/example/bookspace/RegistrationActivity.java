@@ -58,7 +58,6 @@ public class RegistrationActivity extends AppCompatActivity implements Successfu
         final EditText email = findViewById(R.id.editTextRegEmail);
         final EditText password = findViewById(R.id.editTextRegPassword);
         final EditText confirmPassword = findViewById(R.id.editTextRegConfirmPassword);
-        final ProgressBar progressBar = findViewById(R.id.registrationProgressBar);
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,9 +71,7 @@ public class RegistrationActivity extends AppCompatActivity implements Successfu
                 if(!matcher.find()){
                     email.setError("Invalid e-mail, try again");
                     validData = false;
-
                 }
-
 
                 if(!passwordString.equals(confirmPasswordString) || passwordString.equals("") || confirmPasswordString.equals("")){
                     password.setError("Passwords aren't the same, try again");
@@ -85,9 +82,6 @@ public class RegistrationActivity extends AppCompatActivity implements Successfu
                     password.setError("Password must be at least 6 characters long");
 
                 }
-
-                ProgressBar progressBar = new ProgressBar(v.getContext());
-
 
                 if(validData){
                     Call<CreateUserResponse> call = RetrofitClient

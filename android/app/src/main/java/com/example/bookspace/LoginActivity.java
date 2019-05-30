@@ -113,12 +113,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                 email.setError("User with this email doesn't exist");
                             } else if(resp.getStatus() == 400){
                                 password.setError("Wrong password");
+                            } else{
+                                //сохраняем токен
+                                SharedPreferences preferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+                                preferences.edit().putString("token", response.headers().get("Bearer")).apply();
+                                
+                                startActivity(new Intent(getApplicationContext(), user_page.class));
                             }
-
-                            Toast.makeText(LoginActivity.this, response.headers().get("Bearer"), Toast.LENGTH_LONG).show();
-                            SharedPreferences preferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
-                            preferences.edit().putString("token", response.headers().get("Bearer")).apply();
-                            startActivity(new Intent(getApplicationContext(), user_page.class));
                         }
                     }
 
