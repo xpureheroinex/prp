@@ -9,5 +9,17 @@
     tools:showIn="@layout/app_bar_user_page">
 
 
-
+    <TextView
+        android:id="@+id/textViewTokenTest"
+        android:layout_width="201dp"
+        android:layout_height="161dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
