@@ -29,4 +29,8 @@ public class NoticeActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void onClickbuttonNote(View v){
+        startActivity(new Intent(getApplicationContext(), AddNoteActivity.class));
+    }
 }
