@@ -1,5 +1,6 @@
 package com.example.bookspace;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -35,6 +36,7 @@ public class user_page extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mReadTextView = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_gallery));
         initializeCountDrawer();
+
     }
     private void initializeCountDrawer(){
         mReadTextView.setGravity(Gravity.CENTER_VERTICAL);

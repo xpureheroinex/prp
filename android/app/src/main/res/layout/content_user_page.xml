@@ -6,8 +6,4 @@
     android:layout_height="match_parent"
     app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
     tools:context=".user_page"
-    tools:showIn="@layout/app_bar_user_page">
-
-
-
-</android.support.constraint.ConstraintLayout>
+    tools:showIn="@layout/app_bar_user_page"/>

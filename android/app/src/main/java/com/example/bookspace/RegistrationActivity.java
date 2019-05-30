@@ -1,5 +1,6 @@
 package com.example.bookspace;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +58,6 @@ public class RegistrationActivity extends AppCompatActivity implements Successfu
         final EditText email = findViewById(R.id.editTextRegEmail);
         final EditText password = findViewById(R.id.editTextRegPassword);
         final EditText confirmPassword = findViewById(R.id.editTextRegConfirmPassword);
-        final TextView errorMessage = findViewById(R.id.textRegErrorMessage);
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,14 +69,18 @@ public class RegistrationActivity extends AppCompatActivity implements Successfu
                 boolean validData = true;
 
                 if(!matcher.find()){
-                    errorMessage.setText("Invalid e-mail, try again");
+                    email.setError("Invalid e-mail, try again");
                     validData = false;
                 }
 
-
                 if(!passwordString.equals(confirmPasswordString) || passwordString.equals("") || confirmPasswordString.equals("")){
-                    errorMessage.setText("Passwords aren't the same, try again");
+                    password.setError("Passwords aren't the same, try again");
                     validData = false;
+                }
+
+                if(password.length() < 6){
+                    password.setError("Password must be at least 6 characters long");
+
                 }
 
                 if(validData){
@@ -88,13 +93,16 @@ public class RegistrationActivity extends AppCompatActivity implements Successfu
                         @Override
                         public void onResponse(Call<CreateUserResponse> call, Response<CreateUserResponse> response) {
                             try{
-                                String res = response.body().getMessage();
-//                                Toast.makeText(RegistrationActivity.this, "", Toast.LENGTH_LONG).show();
+                                CreateUserResponse resp = response.body();
+                                if(resp.getStatus() == 400){
+                                    email.setError("User with this e-mail already exists");
+                                }
+                                else{
+                                    openFragment();
+                                }
                             } catch(NullPointerException e){
                                 e.printStackTrace();
                             }
-
-                            openFragment();
                         }
 
                         @Override
@@ -117,6 +125,6 @@ public class RegistrationActivity extends AppCompatActivity implements Successfu
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
+
 }
