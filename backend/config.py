@@ -7,3 +7,9 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = False
     SECRET_KEY = 'very-secret-key-ur-welcome'
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = False
+
+

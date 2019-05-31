@@ -1,6 +1,10 @@
+import random
+import string
+
+from flask_mail import Message
 from werkzeug.utils import redirect
 
-from backend import db, api
+from backend import db, api, mail
 from flask_restful import Resource, reqparse
 
 from backend.models import User, UsersBooks, Stats, Books, Reviews, Tokens
@@ -587,3 +591,37 @@ class GoogleLogin(Resource):
 
 
 api.add_resource(GoogleLogin, '/google/login')
+
+
+class GoogleRegister(Resource):
+
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('email', required=True)
+        self.parser.add_argument('password', required=True)
+
+    def post(self):
+        args = self.parser.parse_args()
+        email = args['email']
+        password = args['password']
+        username = email[0:email.find('@')]
+        user = User(
+            email=email,
+            username=username)
+        user.set_password(password)
+        # session.add(user)
+        # session.commit()
+
+        msg = Message(f"BookSpace register",
+                      sender="admin@example.com",
+                      recipients=[email])
+        msg.body = f"You've been registered! To login, use this temp password(you have to change it later): {password}"
+        mail.send(msg)
+        return _GOOD_REQUEST
+
+
+api.add_resource(GoogleRegister, '/google/register')
+
+
+
+
