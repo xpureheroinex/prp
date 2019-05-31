@@ -132,6 +132,7 @@ class Notes(Resource):
         for note in notes:
             username = models.User.query.filter_by(id=note.user_id).first().username
             elem = {
+                'id': note.id,
                 'title': note.title,
                 'text': note.text,
                 'author': username,
@@ -220,4 +221,4 @@ class OneNote(Resource):
             return {'message': 'Forbidden', 'status': 403}
 
 
-api.add_resource(OneNote, '/notes/<int:note_id>')
+api.add_resource(OneNote, '/books/notes/<int:note_id>')
