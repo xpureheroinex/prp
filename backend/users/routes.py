@@ -31,12 +31,16 @@ class Login(Resource):
                     'message': f'User with email {email} does not exist'}
         else:
             if user.check_password(password):
-                token = user.generate_auth_token(expiration=10000)
-                tkn = str(token)
-                new = Tokens(token=tkn[2:len(tkn)-1], user_id=user.id)
-                session.add(new)
-                session.commit()
-                return _GOOD_REQUEST, {'Bearer': token}
+                check_login = Tokens.query.filter_by(user_id=user.id).first()
+                if check_login is None:
+                    token = user.generate_auth_token(expiration=10000)
+                    tkn = str(token)
+                    new = Tokens(token=tkn[2:len(tkn) - 1], user_id=user.id)
+                    session.add(new)
+                    session.commit()
+                    return _GOOD_REQUEST, {'Bearer': token}
+                else:
+                    return {'message': 'User already logged in', 'status': '400'}
             return _BAD_REQUEST
 
 
@@ -293,7 +297,9 @@ class LogOut(Resource):
         if new is not None:
             session.delete(new)
             session.commit()
-            return {'message': 'BYE!', 'status': 200}
+            return {'message': 'User loged out', 'status': 200}
+        else:
+            return _BAD_REQUEST
 
 
 api.add_resource(LogOut, '/logout')
