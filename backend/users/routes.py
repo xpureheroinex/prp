@@ -624,7 +624,3 @@ class GoogleRegister(Resource):
 
 
 api.add_resource(GoogleRegister, '/google/register')
-
-
-
-
