@@ -112,3 +112,113 @@ class Books(Resource):
 
 
 api.add_resource(Books, '/books/<int:book_id>')
+
+class Notes(Resource):
+
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('Authorization', location='headers')
+        self.parser.add_argument('title')
+        self.parser.add_argument('text')
+
+
+    def get(self, book_id):
+        book = models.Books.query.filter_by(id=book_id).first()
+        if book is None:
+            return _BAD_REQUEST
+        notes = models.Notes.query.filter_by(books_id=book_id).all()
+
+        response = []
+        for note in notes:
+            username = models.User.query.filter_by(id=note.user_id).first().username
+            elem = {
+                'id': note.id,
+                'title': note.title,
+                'text': note.text,
+                'author': username,
+                'created': note.data_added.strftime(format='%d/%m/%Y')
+            }
+            response.append(elem)
+
+        return {'notes': response, 'status': 200}
+
+    def post(self, book_id):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        text = args['text']
+        title = args['title']
+        user_id = models.User.verify_auth_token(token)['user_id']
+        user = models.User.query.get(user_id)
+        if user is None:
+            return _BAD_REQUEST
+        book = models.Books.query.filter_by(id=book_id).first()
+        if book is None:
+            return _BAD_REQUEST
+        note = models.Notes(user_id=user.id,
+                            books_id=book_id,
+                            text=text,
+                            title=title)
+        session.add(note)
+        session.commit()
+        return {'message': 'Successfully created', 'status': 201}
+
+
+api.add_resource(Notes, '/books/<int:book_id>/notes')
+
+class OneNote(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('Authorization', location='headers')
+        self.parser.add_argument('title')
+        self.parser.add_argument('text')
+
+    def put(self, note_id):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        text = args['text']
+        title = args['title']
+        user_id = models.User.verify_auth_token(token)['user_id']
+        user = models.User.query.get(user_id)
+        if user is None:
+            return _BAD_REQUEST
+        new_note = models.Notes.query.filter_by(id=note_id).first()
+        if new_note is None:
+            return _BAD_REQUEST
+        elif new_note.user_id == user.id:
+            if text is not None:
+                new_note.text = text
+            if title is not None:
+                new_note.title = title
+            session.add(new_note)
+            session.commit()
+            return _GOOD_REQUEST
+        else:
+            return {'message': 'Forbidden', 'status': 403}
+
+    def delete(self, note_id):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        text = args['text']
+        title = args['title']
+        user_id = models.User.verify_auth_token(token)['user_id']
+        user = models.User.query.get(user_id)
+        if user is None:
+            return _BAD_REQUEST
+        note = models.Notes.query.filter_by(id=note_id).first()
+        if note is None:
+            return _BAD_REQUEST
+        elif note.user_id == user.id:
+            session.delete(note)
+            session.commit()
+            return _GOOD_REQUEST
+        else:
+            return {'message': 'Forbidden', 'status': 403}
+
+
+api.add_resource(OneNote, '/books/notes/<int:note_id>')
