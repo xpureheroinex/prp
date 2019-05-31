@@ -556,3 +556,34 @@ class HomepageRec(Resource):
 
 
 api.add_resource(HomepageRec, '/home/rec')
+
+
+class GoogleLogin(Resource):
+
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('email', required=True)
+
+    def post(self):
+        args = self.parser.parse_args()
+        email = args['email']
+
+        user = User.query.filter_by(email=email).first()
+        if user is None:
+            return {'status': 404,
+                    'message': f'User with email {email} does not exist'}
+        else:
+            check_login = Tokens.query.filter_by(user_id=user.id).first()
+            if check_login is None:
+                token = user.generate_auth_token(expiration=10000)
+                tkn = str(token)
+                new = Tokens(token=tkn[2:len(tkn) - 1], user_id=user.id)
+                session.add(new)
+                session.commit()
+                return _GOOD_REQUEST, {'Bearer': token}
+            else:
+                return {'message': 'User already logged in',
+                        'status': '400'}
+
+
+api.add_resource(GoogleLogin, '/google/login')
