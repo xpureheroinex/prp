@@ -56,7 +56,7 @@ public interface BookSpaceAPI {
     //соответственно значению range, нужно передать параметр
     //если range = week, передаём например week = 10 (план книг на неделю)
     //в остальных параметрах передаём null
-    @PUT("/stats")
+    @PUT("/stats") //надо фиксить
     Call<SetPlanResponse> setPlan(@Header("Authorization") String token,
                                   @Query("range") String range,
                                   @Query("week") Integer week,
@@ -64,10 +64,17 @@ public interface BookSpaceAPI {
                                   @Query("year") Integer year);
 
     //запрос для получения прочитанных книг
-    @GET("/books/read")
+    @GET("/books/read") //надо фиксить
     Call<GetReadBooksResponse> getReadBooks(@Header("Authorization") String token);
 
     //логаут
     @POST("/logout")
     Call<ResponseBody> logout(@Header("Authorization") String token);
+
+    //восстановление пароля
+    @FormUrlEncoded
+    @POST("/login/restore")
+    Call<ResponseBody> restorePassword(@Field("email") String email);
+
+    
 }
