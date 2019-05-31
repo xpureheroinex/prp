@@ -4,7 +4,7 @@ from backend import db, api
 from flask_restful import Resource, reqparse
 
 from backend.models import User, UsersBooks, Stats, Books, Reviews, Tokens
-from sqlalchemy import func, desc, and_
+from sqlalchemy import func, desc, and_, or_
 import datetime
 
 _BAD_REQUEST = {'message': 'unvalid data', 'status': 400}
@@ -543,14 +543,19 @@ class HomepageRec(Resource):
                 desc(func.count(Books.genre))). \
                 first()[0]
 
-            recs = Books.query.filter_by(author=fav_author). \
-                filter_by(genre=fav_genre). \
+
+            print("HERE", fav_author)
+            print(fav_genre)
+
+            recs = Books.query.filter(or_(Books.author==fav_author, Books.genre==fav_genre)). \
                 filter(Books.id.notin_(range_books)). \
                 order_by(desc('rate')). \
                 limit(10).all()
+
             recommendations = []
 
             for rec in recs:
+                print(rec)
                 info = {}
                 info['id'] = rec.id,
                 info['title'] = rec.title,
