@@ -569,10 +569,5 @@ class HomepageRec(Resource):
             return {'message': 'No recommendations yet.', 'status': 200}
 
 
-
-
-
-
-
 api.add_resource(HomepageRec, '/home/rec')
 
