@@ -468,18 +468,105 @@ class AddReviews(Resource):
 api.add_resource(AddReviews, '/books/<int:books_id>/reviews')
 
 
-class RestorePass(Resource):
+# class RestorePass(Resource):
+#
+#     def __init__(self):
+#         self.parser = reqparse.RequestParser()
+#         self.parser.add_argument('email', required=True)
+#
+#     def post(self):
+#         args = self.parser.parse_args()
+#         email = args['email']
+#
+#
+# api.add_resource(RestorePass, '/login/restore')
+#
+
+class HomepageTop(Resource):
 
     def __init__(self):
         self.parser = reqparse.RequestParser()
-        self.parser.add_argument('email', required=True)
+        self.parser.add_argument('Authorization', location='headers')
 
-    def post(self):
+    def get(self):
+        books = Books.query.order_by(desc('rate')).limit(10).all()
+        list_books = []
+        for book in books:
+            info = {}
+            info['id'] = book.id,
+            info['title'] = book.title,
+            info['author'] = book.author,
+            info['genre'] = book.genre,
+            info['rate'] = book.rate
+
+            list_books.append(info)
+
+        return {'books': list_books, 'status': 200}
+
+
+api.add_resource(HomepageTop, '/home/top')
+
+
+class HomepageRec(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('Authorization', location='headers')
+
+    def get(self):
         args = self.parser.parse_args()
-        email = args['email']
-        
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        if User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
+        range_books = []
+
+        books = UsersBooks.query.filter_by(user_id=user.id).all()
+        if books is not None:
+            for book in books:
+                range_books.append(book.books_id)
+
+            fav_author = Books.query.with_entities(Books.author,
+                                                   func.count(Books.author)). \
+                group_by(Books.author). \
+                filter(Books.id.in_(range_books)). \
+                order_by(desc(func.count(Books.author))). \
+                first()[0]
+
+            fav_genre = Books.query.with_entities(Books.genre,
+                                                  func.count(Books.genre)). \
+                group_by(Books.genre). \
+                filter(Books.id.in_(range_books)).order_by(
+                desc(func.count(Books.genre))). \
+                first()[0]
+
+            recs = Books.query.filter_by(author=fav_author). \
+                filter_by(genre=fav_genre). \
+                filter(Books.id.notin_(range_books)). \
+                order_by(desc('rate')). \
+                limit(10).all()
+            recommendations = []
+
+            for rec in recs:
+                info = {}
+                info['id'] = rec.id,
+                info['title'] = rec.title,
+                info['author'] = rec.author,
+                info['genre'] = rec.genre,
+                info['rate'] = rec.rate
+                recommendations.append(info)
+
+            return {'books': recommendations, 'status': 200}
+        else:
+            return {'message': 'No recommendations yet.', 'status': 200}
 
 
 
 
-api.add_resource(RestorePass, '/login/restore')
+
+
+
+api.add_resource(HomepageRec, '/home/rec')
+
