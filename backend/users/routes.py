@@ -524,7 +524,8 @@ class HomepageRec(Resource):
         range_books = []
 
         books = UsersBooks.query.filter_by(user_id=user.id).all()
-        if books is not None:
+        print(len(books))
+        if len(books) > 0:
             for book in books:
                 range_books.append(book.books_id)
 
