@@ -605,17 +605,20 @@ class GoogleRegister(Resource):
         email = args['email']
         password = args['password']
         username = email[0:email.find('@')]
+        user = User.query.filter_by(email=email).first()
+        if user is not None:
+            return {'status': 400,
+                    'message': f'User with email {email} already exists'}
         user = User(
             email=email,
             username=username)
         user.set_password(password)
-        # session.add(user)
-        # session.commit()
+        session.add(user)
+        session.commit()
 
         msg = Message(f"BookSpace register",
-                      sender="admin@example.com",
                       recipients=[email])
-        msg.body = f"You've been registered! To login, use this temp password(you have to change it later): {password}"
+        msg.body = f"You've been registered! To login, use this password (you have to change it later): {password}"
         mail.send(msg)
         return _GOOD_REQUEST
 
