@@ -8,7 +8,7 @@ from backend import db, api, mail
 from flask_restful import Resource, reqparse
 
 from backend.models import User, UsersBooks, Stats, Books, Reviews, Tokens
-from sqlalchemy import func, desc, and_
+from sqlalchemy import func, desc, and_, or_
 import datetime
 
 _BAD_REQUEST = {'message': 'unvalid data', 'status': 400}
@@ -210,26 +210,26 @@ class Statistics(Resource):
             filter_by(list='DN').all()
 
         count = len(books)
-        if count  <= 0:
+        if count == 0:
             fav_author = '-'
             fav_genre = '-'
         else:
             for book in books:
                 range_books.append(book.books_id)
 
-        fav_author = Books.query.with_entities(Books.author,
-                                               func.count(Books.author)). \
-            group_by(Books.author). \
-            filter(Books.id.in_(range_books)). \
-            order_by(desc(func.count(Books.author))). \
-            first()[0]
+            fav_author = Books.query.with_entities(Books.author,
+                                                   func.count(Books.author)). \
+                group_by(Books.author). \
+                filter(Books.id.in_(range_books)). \
+                order_by(desc(func.count(Books.author))). \
+                first()[0]
 
-        fav_genre = Books.query.with_entities(Books.genre,
-                                              func.count(Books.genre)). \
-            group_by(Books.genre). \
-            filter(Books.id.in_(range_books)).order_by(
-            desc(func.count(Books.genre))). \
-            first()[0]
+            fav_genre = Books.query.with_entities(Books.genre,
+                                                  func.count(Books.genre)). \
+                group_by(Books.genre). \
+                filter(Books.id.in_(range_books)).order_by(
+                desc(func.count(Books.genre))). \
+                first()[0]
 
         divide = 0
         if range == 'week':
@@ -482,7 +482,7 @@ class HomepageTop(Resource):
         books = Books.query.order_by(desc('rate')).limit(10).all()
         list_books = []
         for book in books:
-            info = {}
+            info = dict()
             info['id'] = book.id,
             info['title'] = book.title,
             info['author'] = book.author,
@@ -531,14 +531,14 @@ class HomepageRec(Resource):
                 desc(func.count(Books.genre))). \
                 first()[0]
 
-            recs = Books.query.filter(or_(Books.author==fav_author, Books.genre==fav_genre)). \
+            recs = Books.query.filter(or_(Books.author == fav_author, Books.genre == fav_genre)). \
                 filter(Books.id.notin_(range_books)). \
                 order_by(desc('rate')). \
                 limit(10).all()
             recommendations = []
             
             for rec in recs:
-                info = {}
+                info = dict()
                 info['id'] = rec.id,
                 info['title'] = rec.title,
                 info['author'] = rec.author,
@@ -617,7 +617,7 @@ class GoogleRegister(Resource):
                       recipients=[email])
         msg.body = f"You've been registered! To login, use this password (you have to change it later): {password}"
         mail.send(msg)
-        return _GOOD_REQUEST
+        return {'message': 'Successfully created', 'status': 201}
 
 
 api.add_resource(GoogleRegister, '/google/register')
