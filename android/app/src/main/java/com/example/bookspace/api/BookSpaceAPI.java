@@ -1,6 +1,7 @@
 package com.example.bookspace.api;
 
 import com.example.bookspace.model.CreateUserResponse;
+import com.example.bookspace.model.GetReadBooksResponse;
 import com.example.bookspace.model.LoginResponse;
 import com.example.bookspace.model.ProfileResponse;
 import com.example.bookspace.model.SetPlanResponse;
@@ -61,4 +62,12 @@ public interface BookSpaceAPI {
                                   @Query("week") Integer week,
                                   @Query("month") Integer month,
                                   @Query("year") Integer year);
+
+    //запрос для получения прочитанных книг
+    @GET("/books/read")
+    Call<GetReadBooksResponse> getReadBooks(@Header("Authorization") String token);
+
+    //логаут
+    @POST("/logout")
+    Call<ResponseBody> logout(@Header("Authorization") String token);
 }

@@ -29,6 +29,7 @@ import com.google.android.gms.common.api.Status;
 
 import java.util.Random;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -128,6 +129,23 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         Toast.makeText(LoginActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
                     }
                 });
+            }
+        });
+
+        //logout
+        Call<ResponseBody> call6 = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .logout("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
+
+        call6.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
             }
         });
     }

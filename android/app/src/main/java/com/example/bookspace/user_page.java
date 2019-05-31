@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookspace.model.GetReadBooksResponse;
 import com.example.bookspace.model.ProfileResponse;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.SetPlanResponse;
@@ -146,6 +147,31 @@ public class user_page extends AppCompatActivity
 //
 //            }
 //        });
+
+        //получаем прочитанные книги
+
+        Call<GetReadBooksResponse> call5 = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .getReadBooks("Bearer " + token);
+
+        call5.enqueue(new Callback<GetReadBooksResponse>() {
+            @Override
+            public void onResponse(Call<GetReadBooksResponse> call, Response<GetReadBooksResponse> response) {
+                GetReadBooksResponse resp = response.body();
+                text2.setText(String.valueOf(resp.getStatus()));
+            }
+
+            @Override
+            public void onFailure(Call<GetReadBooksResponse> call, Throwable t) {
+
+            }
+        });
+
+        //logout
+
+
+
 
     }
     private void initializeCountDrawer(){
