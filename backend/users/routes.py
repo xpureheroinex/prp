@@ -607,6 +607,11 @@ class GoogleRegister(Resource):
         user.set_password(password)
         session.add(user)
         session.commit()
+        status = Stats(
+            user_id=user.id)
+        session.add(user)
+        session.add(status)
+        session.commit()
 
         msg = Message(f"BookSpace register",
                       recipients=[email])
@@ -616,3 +621,37 @@ class GoogleRegister(Resource):
 
 
 api.add_resource(GoogleRegister, '/google/register')
+
+
+class RestorePass(Resource):
+
+    @staticmethod
+    def generate_password(stringlen=8):
+        """Generate a random string of fixed length """
+        letters = string.ascii_lowercase
+        return ''.join(random.choice(letters) for i in range(stringlen))
+
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('email', required=True)
+
+    def post(self):
+        args = self.parser.parse_args()
+        email = args['email']
+        password = self.generate_password()
+        user = User.query.filter_by(email=email).first()
+        if user is not None:
+            user.set_password(password)
+            msg = Message(f"BookSpace password",
+                          recipients=[email])
+            msg.body = f"Your password was successfully changed. " \
+                f"To login, use this password (you have to change it later): {password}"
+            mail.send(msg)
+            session.add(user)
+            session.commit()
+            return _GOOD_REQUEST
+        else:
+            return _BAD_REQUEST
+
+
+api.add_resource(RestorePass, '/login/restore')
