@@ -80,7 +80,7 @@ class Books(Resource):
             return _BAD_REQUEST
         book = models.Books.query.filter_by(id=book_id).first()
         if book is None:
-            return _BAD_REQUEST
+            return {'message': 'Book not found', 'status': 404}
         user_book = models.UsersBooks.query.filter_by(user_id=user.id).filter_by(books_id=book_id).first()
         if status is not None:
             if user_book is None:
