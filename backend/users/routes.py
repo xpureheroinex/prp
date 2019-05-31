@@ -508,20 +508,18 @@ class HomepageRec(Resource):
         user_id = User.verify_auth_token(token)['user_id']
         user = User.query.get(user_id)
         range_books = []
-
         books = UsersBooks.query.filter_by(user_id=user.id).all()
         print(len(books))
         if len(books) > 0:
             for book in books:
                 range_books.append(book.books_id)
-
+                
             fav_author = Books.query.with_entities(Books.author,
                                                    func.count(Books.author)). \
                 group_by(Books.author). \
                 filter(Books.id.in_(range_books)). \
                 order_by(desc(func.count(Books.author))). \
                 first()[0]
-
             fav_genre = Books.query.with_entities(Books.genre,
                                                   func.count(Books.genre)). \
                 group_by(Books.genre). \
@@ -529,19 +527,13 @@ class HomepageRec(Resource):
                 desc(func.count(Books.genre))). \
                 first()[0]
 
-
-            print("HERE", fav_author)
-            print(fav_genre)
-
             recs = Books.query.filter(or_(Books.author==fav_author, Books.genre==fav_genre)). \
                 filter(Books.id.notin_(range_books)). \
                 order_by(desc('rate')). \
                 limit(10).all()
-
             recommendations = []
-
+            
             for rec in recs:
-                print(rec)
                 info = {}
                 info['id'] = rec.id,
                 info['title'] = rec.title,
