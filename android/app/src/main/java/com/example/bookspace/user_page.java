@@ -51,6 +51,17 @@ public class user_page extends AppCompatActivity
         mReadTextView = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_read));
         initializeCountDrawer();
 
+        setTitle("BookSpace");
+        TopRecommends2 topRecommends2 = new TopRecommends2();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragments, topRecommends2).commit();
+
+        FragmentManager fom = getSupportFragmentManager();
+        FragmentTransaction transaction = fom.beginTransaction();
+        TopFragment startFragment = new TopFragment();
+        transaction.add(R.id.ll3, startFragment);
+        transaction.commit();
+
         final TextView text = findViewById(R.id.textView29);
         final TextView text2 = findViewById(R.id.textView30);
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
