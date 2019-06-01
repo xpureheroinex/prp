@@ -3,7 +3,6 @@ package com.example.bookspace;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -15,14 +14,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.bookspace.model.GetReadBooksResponse;
-import com.example.bookspace.model.ProfileResponse;
 import com.example.bookspace.model.RetrofitClient;
-import com.example.bookspace.model.SetPlanResponse;
-import com.example.bookspace.model.StatisticsInfo;
-import com.example.bookspace.model.StatisticsResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -108,13 +101,14 @@ public class user_page extends AppCompatActivity
 //        Call<StatisticsResponse> call3 = RetrofitClient
 //                .getInstance()
 //                .getBookSpaceAPI()
-//                .getStats("Bearer " + token, "year");
+//                .getStats("Bearer " + token, "week");
 //
 //        call3.enqueue(new Callback<StatisticsResponse>() {
 //            @Override
 //            public void onResponse(Call<StatisticsResponse> call, Response<StatisticsResponse> response) {
 //                StatisticsResponse resp = response.body();
-//                text2.setText(String.valueOf(resp.getStatus()));
+//                text2.setText(String.valueOf(resp.getPlan().getPlan()));
+//
 //
 //
 //
@@ -123,6 +117,15 @@ public class user_page extends AppCompatActivity
 //
 //            @Override
 //            public void onFailure(Call<StatisticsResponse> call, Throwable t) {
+//                if (t instanceof IOException) {
+//                    Toast.makeText(user_page.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+//                    // logging probably not necessary
+//                }
+//                else {
+//                    Toast.makeText(user_page.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+//                    // todo log to some central bug tracking service
+//                    t.printStackTrace();
+//                }
 //
 //            }
 //        });
@@ -148,29 +151,65 @@ public class user_page extends AppCompatActivity
 //            }
 //        });
 
-        //получаем прочитанные книги
 
-        Call<GetReadBooksResponse> call5 = RetrofitClient
+        //restore pass
+//        Call<ResponseBody> call6 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .restorePassword("al.skoruk@gmail.com");
+//
+//        call6.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
+
+        //получаем информацию о книге
+
+//        Call<GetBookResponse> call7 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .getBook("Bearer " + token, 10);
+//
+//        call7.enqueue(new Callback<GetBookResponse>() {
+//            @Override
+//            public void onResponse(Call<GetBookResponse> call, Response<GetBookResponse> response) {
+//                Book resp = response.body().getBook();
+//                Toast.makeText(user_page.this, resp.getTitle(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GetBookResponse> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
+
+        //выставляем оценку
+
+        Call<ResponseBody> call8 = RetrofitClient
                 .getInstance()
                 .getBookSpaceAPI()
-                .getReadBooks("Bearer " + token);
+                .setRate("Bearer " + token, 10, 5);
 
-        call5.enqueue(new Callback<GetReadBooksResponse>() {
+        call8.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<GetReadBooksResponse> call, Response<GetReadBooksResponse> response) {
-                GetReadBooksResponse resp = response.body();
-                text2.setText(String.valueOf(resp.getStatus()));
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                Toast.makeText(user_page.this, "rate = 5", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
-            public void onFailure(Call<GetReadBooksResponse> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
         });
-
-        //logout
-
-
 
 
     }

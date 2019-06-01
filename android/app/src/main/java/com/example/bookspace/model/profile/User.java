@@ -1,4 +1,4 @@
-package com.example.bookspace.model;
+package com.example.bookspace.model.profile;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

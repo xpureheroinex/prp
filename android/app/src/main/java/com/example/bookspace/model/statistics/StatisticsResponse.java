@@ -1,4 +1,4 @@
-package com.example.bookspace.model;
+package com.example.bookspace.model.statistics;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,7 +12,7 @@ public class StatisticsResponse {
     private String message;
     @SerializedName("info")
     @Expose
-    private StatisticsInfo info;
+    private StatisticsData info;
     @SerializedName("plan")
     @Expose
     private UserPlan plan;
@@ -33,11 +33,11 @@ public class StatisticsResponse {
         this.message = message;
     }
 
-    public StatisticsInfo getInfo() {
+    public StatisticsData getInfo() {
         return info;
     }
 
-    public void setInfo(StatisticsInfo info) {
+    public void setInfo(StatisticsData info) {
         this.info = info;
     }
 

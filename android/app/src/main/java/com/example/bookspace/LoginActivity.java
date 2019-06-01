@@ -10,11 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.bookspace.model.CreateUserResponse;
-import com.example.bookspace.model.LoginResponse;
+import com.example.bookspace.model.registration.CreateUserResponse;
+import com.example.bookspace.model.login.LoginResponse;
 import com.example.bookspace.model.RetrofitClient;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
