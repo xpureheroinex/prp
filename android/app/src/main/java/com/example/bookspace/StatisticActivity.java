@@ -23,7 +23,7 @@ public class StatisticActivity extends AppCompatActivity {
 
     }
 
-    public void onSelectFragment(View view) {
+    public void onSelectFragment3(View view) {
         Fragment newFragment;
         if (view == findViewById(R.id.btnfr1)) {
             newFragment = new StatisticYear();

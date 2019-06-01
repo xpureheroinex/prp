@@ -19,7 +19,7 @@
         android:freezesText="false"
         android:text="Total statistics for the month:"
 
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
@@ -31,8 +31,8 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="The books that are read:"
-
-        android:textSize="18sp" />
+        android:textSize="16sp"
+        />
 
     <TextView
         android:id="@+id/textView16"
@@ -43,8 +43,8 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="Favourite genre:"
-
-        android:textSize="18sp" />
+        android:textSize="16sp"
+         />
 
     <TextView
         android:id="@+id/textView17"
@@ -55,8 +55,8 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="Favourite author:"
-
-        android:textSize="18sp" />
+        android:textSize="16sp"
+       />
 
     <TextView
         android:id="@+id/textView18"
@@ -68,7 +68,7 @@
         android:layout_marginBottom="10dp"
         android:text="Plan:"
 
-        android:textSize="22sp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <TextView
@@ -80,8 +80,8 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="Want ot read ? books"
-
-        android:textSize="18sp" />
+        android:textSize="16sp"
+        />
 
     <TextView
         android:id="@+id/textView20"
@@ -92,8 +92,8 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="Read ? books out of ?"
-
-        android:textSize="18sp" />
+        android:textSize="16sp"
+         />
 
     <TextView
         android:id="@+id/textView21"
@@ -104,8 +104,8 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:text="Percentage of completion: ?%"
-
-        android:textSize="18sp" />
+        android:textSize="16sp"
+       />
 
     <ImageView
         android:id="@+id/imageView2"

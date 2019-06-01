@@ -26,7 +26,7 @@ public class user_page extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.top_recommendations);
+        setContentView(R.layout.activity_user_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,8 +45,8 @@ public class user_page extends AppCompatActivity
 
     }
     private void initializeCountDrawer(){
-        mReadTextView.setGravity(Gravity.CENTER_VERTICAL);
-        mReadTextView.setTypeface(null, Typeface.BOLD);
+       mReadTextView.setGravity(Gravity.CENTER_VERTICAL);
+       mReadTextView.setTypeface(null, Typeface.BOLD);
         mReadTextView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         mReadTextView.setText("4");
     }
@@ -79,7 +79,57 @@ public class user_page extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void onSelectFragment(View view) {
+        Fragment newFragment;
+        if (view == findViewById(R.id.btnfr1)) {
+            newFragment = new ChangeName();
+        } else if (view == findViewById(R.id.btnfr2)) {
+            newFragment = new ChangePassword();
+        } else if (view == findViewById(R.id.btnfr3)) {
+            newFragment = new SetTargets();
+        } else {
+            newFragment = new Empty();
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.ll2,newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
 
+    }
+
+    public void onSelectFragment1(View view) {
+        Fragment newFragment;
+        if (view == findViewById(R.id.btnfr4)) {
+            newFragment = new TopFragment();
+        } else if (view == findViewById(R.id.btnfr5)) {
+            newFragment = new RecommendFragment();
+        } else {
+            newFragment = new TopFragment();
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.ll3, newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+    }
+
+    public void onSelectFragment3(View view) {
+        Fragment newFragment;
+        if (view == findViewById(R.id.btnfr6)) {
+            newFragment = new StatisticYear();
+        } else if (view == findViewById(R.id.btnfr7)) {
+            newFragment = new StatisticMonth();
+        } else if (view == findViewById(R.id.btnfr8)) {
+            newFragment = new StatisticWeek();
+        } else {
+            newFragment = new StatisticYear();
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.ll1,newFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -93,28 +143,71 @@ public class user_page extends AppCompatActivity
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, topRecommends2).commit();
 
+
+            FragmentManager fom = getSupportFragmentManager();
+            FragmentTransaction transaction = fom.beginTransaction();
+            TopFragment startFragment = new TopFragment();
+            transaction.add(R.id.ll3, startFragment);
+            transaction.commit();
+
         } else if (id == R.id.nav_read) {
             setTitle("Read Books");
-            ReadBooks readBooks = new ReadBooks();
+           ReadBooks readBooks = new ReadBooks();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, readBooks).commit();
 
 
         } else if (id == R.id.nav_reading) {
-            setTitle("Reading Books");
-            ReadingBooks readingBooks = new ReadingBooks();
-            FragmentManager fm = getSupportFragmentManager();
+           setTitle("Reading Books");
+           ReadingBooks readingBooks = new ReadingBooks();
+           FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, readingBooks).commit();
 
         } else if (id == R.id.nav_willread) {
-            setTitle("Will Read Books");
+           setTitle("Will Read Books");
             WillReadBooks willreadBooks = new WillReadBooks();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, willreadBooks).commit();
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_settings) {
+            setTitle("Account settings");
+            Settings2 setting = new Settings2();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.fragments, setting).commit();
 
-        } else if (id == R.id.nav_send) {
+            FragmentManager fim = getSupportFragmentManager();
+            FragmentTransaction transaction = fim.beginTransaction();
+            Empty startFragment = new Empty();
+            transaction.add(R.id.ll2,startFragment);
+            transaction.commit();
+
+
+        } else if (id == R.id.nav_statistic) {
+            setTitle("Statistics");
+            Statistics2 statistics2 = new Statistics2();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.fragments, statistics2).commit();
+
+
+            FragmentManager fem = getSupportFragmentManager();
+            FragmentTransaction transaction = fem.beginTransaction();
+            StatisticYear startFragment = new StatisticYear();
+            transaction.add(R.id.ll1,startFragment);
+            transaction.commit();
+
+        }
+        else {
+            setTitle("BookSpace");
+            TopRecommends2 topRecommends2 = new TopRecommends2();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.fragments, topRecommends2).commit();
+
+
+            FragmentManager fom = getSupportFragmentManager();
+            FragmentTransaction transaction = fom.beginTransaction();
+            TopFragment startFragment = new TopFragment();
+            transaction.add(R.id.ll3, startFragment);
+            transaction.commit();
 
         }
 

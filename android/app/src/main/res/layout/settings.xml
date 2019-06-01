@@ -13,18 +13,6 @@
         android:orientation="vertical"
         android:background="#E0E0E0">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:freezesText="false"
-            android:text="Account settings"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="90dp"
@@ -58,6 +46,7 @@
             android:background="#BFBFBF"
             android:onClick="onSelectFragment"
             android:text="Change user name"
+            android:textColor="#ffffff"
 
             android:textSize="14sp"
             android:layout_marginBottom="5dp"
@@ -70,7 +59,7 @@
             android:background="#BFBFBF"
             android:onClick="onSelectFragment"
             android:text="Change password"
-
+            android:textColor="#ffffff"
             android:textSize="14sp"
             android:layout_marginBottom="5dp"
             android:layout_gravity="center"/>
@@ -79,7 +68,7 @@
             android:id="@+id/btnfr3"
             android:layout_width="350dp"
             android:layout_height="40dp"
-
+            android:textColor="#ffffff"
             android:textSize="14sp"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
@@ -114,6 +103,7 @@
             android:layout_marginBottom="5dp"
             android:background="#BFBFBF"
             android:text="Logout"
+            android:textColor="#ffffff"
             android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

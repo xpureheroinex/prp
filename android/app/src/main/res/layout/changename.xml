@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:text="  New user name"
         android:textColor="#000000"
         android:textSize="14sp" />
@@ -22,7 +22,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+
         android:layout_marginBottom="10dp"
         android:ems="10"
         android:textSize="14sp"
@@ -32,14 +32,14 @@
     <Button
         android:id="@+id/button"
         style="@android:style/Widget.DeviceDefault.Button"
-        android:layout_width="150dp"
+        android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_gravity="right"
         android:background="@drawable/button_states"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:text="Change"
         android:textSize="14sp"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:layout_marginRight="45dp"
         tools:targetApi="ice_cream_sandwich"
         android:onClick="onShowUser"/>

@@ -18,7 +18,8 @@
             android:layout_weight="7"
             android:background="#BFBFBF"
             android:onClick="onSelectFragment1"
-            android:text="Top" />
+            android:text="Top"
+            android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/btnfr5"
@@ -28,7 +29,8 @@
             android:layout_weight="7"
             android:background="#BFBFBF"
             android:onClick="onSelectFragment1"
-            android:text="Recommendations" />
+            android:text="Recommendations"
+            android:textColor="#FFFFFF"/>
 
     </LinearLayout>
 
