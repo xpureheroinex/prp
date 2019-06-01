@@ -15,9 +15,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.bookspace.model.RetrofitClient;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class user_page extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TextView mReadTextView;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +47,170 @@ public class user_page extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mReadTextView = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_gallery));
         initializeCountDrawer();
+
+        final TextView text = findViewById(R.id.textView29);
+        final TextView text2 = findViewById(R.id.textView30);
+        SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+        String token = prefs.getString("token", "token is null");
+
+
+        //-------------------- test queries
+
+
+        //меняем юзернейм
+
+//        Call<ResponseBody> callTest = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .changeProfile("Bearer " + token, "newUsername", null);
+//
+//        callTest.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
+
+
+        //получаем инфо о юзере
+//        Call<ProfileResponse> call = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .getProfileInfo("Bearer " + token);
+//
+//        call.enqueue(new Callback<ProfileResponse>() {
+//            @Override
+//            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+//                ProfileResponse resp = response.body();
+//                text.setText(String.valueOf(resp.getStatus()));
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+//                Toast.makeText(user_page.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+//            }
+//        });
+
+        //получаем статистику
+
+//        Call<StatisticsResponse> call3 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .getStats("Bearer " + token, "week");
+//
+//        call3.enqueue(new Callback<StatisticsResponse>() {
+//            @Override
+//            public void onResponse(Call<StatisticsResponse> call, Response<StatisticsResponse> response) {
+//                StatisticsResponse resp = response.body();
+//                text2.setText(String.valueOf(resp.getPlan().getPlan()));
+//
+//
+//
+//
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<StatisticsResponse> call, Throwable t) {
+//                if (t instanceof IOException) {
+//                    Toast.makeText(user_page.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
+//                    // logging probably not necessary
+//                }
+//                else {
+//                    Toast.makeText(user_page.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
+//                    // todo log to some central bug tracking service
+//                    t.printStackTrace();
+//                }
+//
+//            }
+//        });
+
+
+//        //устанавливаем план
+//
+//        Call<SetPlanResponse> call4 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .setPlan("Bearer " + token, "week", 10, null, null);
+//
+//        call4.enqueue(new Callback<SetPlanResponse>() {
+//            @Override
+//            public void onResponse(Call<SetPlanResponse> call, Response<SetPlanResponse> response) {
+//                SetPlanResponse resp = response.body();
+//                text2.setText(String.valueOf(resp.getStatus()));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<SetPlanResponse> call, Throwable t) {
+//
+//            }
+//        });
+
+
+        //restore pass
+//        Call<ResponseBody> call6 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .restorePassword("al.skoruk@gmail.com");
+//
+//        call6.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
+
+        //получаем информацию о книге
+
+//        Call<GetBookResponse> call7 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .getBook("Bearer " + token, 10);
+//
+//        call7.enqueue(new Callback<GetBookResponse>() {
+//            @Override
+//            public void onResponse(Call<GetBookResponse> call, Response<GetBookResponse> response) {
+//                Book resp = response.body().getBook();
+//                Toast.makeText(user_page.this, resp.getTitle(), Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GetBookResponse> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
+
+        //выставляем оценку
+
+        Call<ResponseBody> call8 = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .setRate("Bearer " + token, 10, 5);
+
+        call8.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                Toast.makeText(user_page.this, "rate = 5", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
 
     }
     private void initializeCountDrawer(){
