@@ -1,7 +1,9 @@
 package com.example.bookspace;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         if(account != null){
-            signIn();
+            signOut();
         }
 
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
@@ -114,11 +116,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             } else if(resp.getStatus() == 400){
                                 password.setError("Wrong password");
                             } else{
-                                //сохраняем токен
-                                SharedPreferences preferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
-                                preferences.edit().putString("token", response.headers().get("Bearer")).apply();
-                                
-                                startActivity(new Intent(getApplicationContext(), user_page.class));
+                                new LoginLoading(response).execute();
                             }
                         }
                     }
@@ -132,7 +130,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         });
 
         //logout
-        Call<ResponseBody> call6 = RetrofitClient
+        /*Call<ResponseBody> call6 = RetrofitClient
                 .getInstance()
                 .getBookSpaceAPI()
                 .logout("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
@@ -146,7 +144,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
-        });
+        });*/
+    }
+
+    private void connectLoginToServer(Response<LoginResponse> response){
+        //сохраняем токен
+        SharedPreferences preferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+        preferences.edit().putString("token", response.headers().get("Bearer")).apply();
+
+        startActivity(new Intent(getApplicationContext(), user_page.class));
     }
 
     @Override
@@ -169,12 +175,16 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         if(requestCode == RC_SIGN_IN){
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
+            if(result.isSuccess()) {
+                LoginLoading logLoad = new LoginLoading(result);
+                logLoad.execute();
+            }
+            else
+                Toast.makeText(LoginActivity.this, "Something went wrong...", Toast.LENGTH_LONG).show();
         }
     }
 
     private void handleSignInResult(GoogleSignInResult result){
-        if(result.isSuccess()){
             GoogleSignInAccount acc = result.getSignInAccount();
 
             //Random password
@@ -209,9 +219,32 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
-        }else{
-            Toast.makeText(LoginActivity.this, "Something went wrong...", Toast.LENGTH_LONG).show();
-        }
+            //login
+            Call<LoginResponse> callGoogle = RetrofitClient
+                    .getInstance()
+                    .getBookSpaceAPI()
+                    .loginUserGoogle(acc.getEmail());
+
+            callGoogle.enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if(response.isSuccessful()){
+                        LoginResponse resp = response.body();
+
+                            //сохраняем токен
+                            SharedPreferences preferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+                            preferences.edit().putString("token", response.headers().get("Bearer")).apply();
+
+                            startActivity(new Intent(getApplicationContext(), user_page.class));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Toast.makeText(LoginActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                }
+            });
+            signOut();
     }
 
     @Override
@@ -223,9 +256,53 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(@NonNull Status status) {
-                statusTextView.setText("Signed out");            }
+                }
         });
     }
 
+    private class LoginLoading extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog mProgressDialog;
+        GoogleSignInResult result;
+        Response<LoginResponse> response;
+        int status = 0;
 
+        public LoginLoading(Response<LoginResponse> response){
+            this.response = response;
+            this.status = 0;
+        }
+
+        public LoginLoading(GoogleSignInResult result){
+            this.result = result;
+            this.status = 1;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            this.mProgressDialog = new ProgressDialog(LoginActivity.this);
+
+            this.mProgressDialog.setMessage("Checking...");
+            if(!this.mProgressDialog.isShowing())
+                this.mProgressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid){
+            this.mProgressDialog.dismiss();
+        }
+
+        @Override
+        protected Void doInBackground(Void ... voids){
+            try{
+                if(status == 0)
+                    connectLoginToServer(response);
+                else if(status == 1)
+                    handleSignInResult(result);
+                Thread.sleep(1500);
+            }
+            catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }
