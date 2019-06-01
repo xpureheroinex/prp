@@ -15,7 +15,7 @@
         android:layout_marginBottom="5dp"
         android:text="New user name"
         android:textColor="#000000"
-        android:textSize="14sp" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/editText"

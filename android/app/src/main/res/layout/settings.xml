@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="vertical"
-        android:background="#E0E0E0">
+        android:background="@color/colorSplashScreen">
 
         <ImageView
             android:id="@+id/imageView4"
@@ -43,7 +43,7 @@
             android:id="@+id/btnfr1"
             android:layout_width="350dp"
             android:layout_height="40dp"
-            android:background="#BFBFBF"
+            android:background="@drawable/button"
             android:onClick="onSelectFragment"
             android:text="Change user name"
             android:textColor="#ffffff"
@@ -56,7 +56,7 @@
             android:id="@+id/btnfr2"
             android:layout_width="350dp"
             android:layout_height="40dp"
-            android:background="#BFBFBF"
+            android:background="@drawable/button"
             android:onClick="onSelectFragment"
             android:text="Change password"
             android:textColor="#ffffff"
@@ -72,7 +72,7 @@
             android:textSize="14sp"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
-            android:background="#BFBFBF"
+            android:background="@drawable/button"
             android:onClick="onSelectFragment"
             android:text="Set reading targets " />
     </LinearLayout>
@@ -83,7 +83,7 @@
         android:layout_height="190dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:background="#E0E0E0">
+        android:background="@color/colorSplashScreen">
 
     </LinearLayout>
 
@@ -92,7 +92,7 @@
         android:layout_height="30dp"
         android:orientation="vertical"
         android:layout_weight="0.5"
-        android:background="#E0E0E0">
+        android:background="@color/colorSplashScreen">
 
         <Button
             android:id="@+id/btnfr"
@@ -101,7 +101,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="#BFBFBF"
+            android:background="@drawable/button"
             android:text="Logout"
             android:textColor="#ffffff"
             android:textSize="14sp" />
