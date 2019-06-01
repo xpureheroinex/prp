@@ -3,7 +3,11 @@ package com.example.bookspace;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.RequiresPermission;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +18,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.view.View;
 
 public class user_page extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -21,7 +26,7 @@ public class user_page extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_page);
+        setContentView(R.layout.top_recommendations);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -34,8 +39,9 @@ public class user_page extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        mReadTextView = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_gallery));
+        mReadTextView = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_read));
         initializeCountDrawer();
+
 
     }
     private void initializeCountDrawer(){
@@ -73,6 +79,8 @@ public class user_page extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -80,12 +88,29 @@ public class user_page extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            setTitle("BookSpace");
+            TopRecommends2 topRecommends2 = new TopRecommends2();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.fragments, topRecommends2).commit();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_read) {
+            setTitle("Read Books");
+            ReadBooks readBooks = new ReadBooks();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.fragments, readBooks).commit();
 
-        } else if (id == R.id.nav_tools) {
+
+        } else if (id == R.id.nav_reading) {
+            setTitle("Reading Books");
+            ReadingBooks readingBooks = new ReadingBooks();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.fragments, readingBooks).commit();
+
+        } else if (id == R.id.nav_willread) {
+            setTitle("Will Read Books");
+            WillReadBooks willreadBooks = new WillReadBooks();
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.fragments, willreadBooks).commit();
 
         } else if (id == R.id.nav_share) {
 
