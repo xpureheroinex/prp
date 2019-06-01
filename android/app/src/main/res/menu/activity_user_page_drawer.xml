@@ -6,37 +6,38 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
     <item
-        android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home" />
-    <item
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_read"
         android:icon="@drawable/ic_bookmark_black_24dp"
         android:title="Read"
         app2:actionViewClass="android.widget.TextView" />
     <item
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_reading"
         android:icon="@drawable/ic_bookmark_black_"
         android:title="Reading"
         />
     <item
-        android:id="@+id/nav_tools"
+        android:id="@+id/nav_willread"
         android:icon="@drawable/ic_bookmark"
         android:title="Will Read"
         />
 </group>
-
-        <item android:checkableBehavior="single"
+<group android:checkableBehavior="single">
+        <item
             android:title=""/>
         <item
-            android:id="@+id/nav_send"
+            android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
             android:title="Account Settings" />
         <item
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_statistic"
             android:icon="@drawable/ic_menu_share"
             android:title="Statistics" />
+</group>
 
 
 </menu>
