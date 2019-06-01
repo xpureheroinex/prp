@@ -48,7 +48,8 @@ class Books(Resource):
         user_book = models.UsersBooks.query.filter_by(user_id=user.id).filter_by(books_id=book_id).first()
         print(user_book)
         if user_book is None:
-            return _BAD_REQUEST
+            user_book = models.UsersBooks(user_id=user.id, books_id=book_id)
+            session.add(user_book)
         if rate is not None:
             user_book.rate = rate
             books_list = models.UsersBooks.query.filter_by(books_id=book_id).all()
@@ -118,6 +119,7 @@ class Books(Resource):
 
 
 api.add_resource(Books, '/books/<int:book_id>')
+
 
 class Notes(Resource):
 
