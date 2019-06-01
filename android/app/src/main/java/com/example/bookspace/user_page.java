@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
 
@@ -221,6 +222,20 @@ public class user_page extends AppCompatActivity
         mReadTextView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         mReadTextView.setText("4");
     }
+
+    public void onShowUser (View view){
+        Toast toast = Toast.makeText(getApplicationContext(),"Your user name was changed",Toast.LENGTH_SHORT);
+        toast.show();
+    }
+    public void onShowPassword(View view){
+        Toast toast = Toast.makeText(getApplicationContext(),"Your password name was changed",Toast.LENGTH_SHORT);
+        toast.show();
+    }
+    public void onShowTarget(View view){
+        Toast toast = Toast.makeText(getApplicationContext(),"Your targets name was changed",Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
