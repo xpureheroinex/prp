@@ -47,7 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(getApplicationContext(),"Your password name was changed",Toast.LENGTH_SHORT);
         toast.show();
     }
-    public void onShowPTarget(View view){
+    public void onShowTarget(View view){
         Toast toast = Toast.makeText(getApplicationContext(),"Your targets name was changed",Toast.LENGTH_SHORT);
         toast.show();
     }

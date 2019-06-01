@@ -31,9 +31,6 @@ public class user_page extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TextView mReadTextView;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
