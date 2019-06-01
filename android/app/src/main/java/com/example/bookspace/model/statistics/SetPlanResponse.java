@@ -1,9 +1,9 @@
-package com.example.bookspace.model;
+package com.example.bookspace.model.statistics;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LoginResponse {
+public class SetPlanResponse {
     @SerializedName("status")
     @Expose
     private int status;
