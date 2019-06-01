@@ -13,7 +13,7 @@ public class UserPlan {
     private int count;
     @SerializedName("percent")
     @Expose
-    private float percent;
+    private String percent;
 
     public int getPlan() {
         return plan;
@@ -31,11 +31,11 @@ public class UserPlan {
         this.count = count;
     }
 
-    public float getPercent() {
+    public String getPercent() {
         return percent;
     }
 
-    public void setPercent(float percent) {
+    public void setPercent(String percent) {
         this.percent = percent;
     }
 }
