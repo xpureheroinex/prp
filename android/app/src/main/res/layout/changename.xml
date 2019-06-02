@@ -13,6 +13,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
+        android:fontFamily="@font/roboto_medium"
         android:text="New user name"
         android:textColor="#000000"
         android:textSize="16sp" />
@@ -25,6 +26,7 @@
 
         android:layout_marginBottom="10dp"
         android:ems="10"
+        android:fontFamily="@font/roboto_light"
         android:hint="  UserName"
         android:inputType="textPersonName"
         android:textSize="14sp" />
@@ -46,6 +48,7 @@
         android:text="Change"
         android:textColor="#ffffff"
         android:textSize="14sp"
+        android:textStyle="bold"
         tools:targetApi="ice_cream_sandwich" />
 
 </LinearLayout>
