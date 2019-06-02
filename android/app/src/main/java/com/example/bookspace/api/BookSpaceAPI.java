@@ -36,6 +36,13 @@ public interface BookSpaceAPI {
             @Field("password") String password
     );
 
+    //googleauth
+    @FormUrlEncoded
+    @POST("google/login")
+    Call<LoginResponse> loginUserGoogle(
+            @Field("email") String email
+    );
+
     //профиль
     //получаем информацию о пользователе
     @GET("/profile")

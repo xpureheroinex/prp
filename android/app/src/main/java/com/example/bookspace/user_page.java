@@ -1,5 +1,6 @@
 package com.example.bookspace;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -255,6 +256,29 @@ public class user_page extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void onClickLogOut(View v){
+        SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+        Call<ResponseBody> call6 = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .logout("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
+
+        call6.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove("token");
+        editor.apply();
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
     @Override
