@@ -2,6 +2,7 @@ from werkzeug.utils import redirect
 from backend import db, api
 from flask_restful import Resource, reqparse
 from backend import models
+from sqlalchemy import func, desc, and_, or_
 
 _BAD_REQUEST = {'message': 'unvalid data', 'status': 400}
 _GOOD_REQUEST = {'message': 'ok', 'status': 200}
@@ -22,11 +23,26 @@ class Books(Resource):
         if book is None:
             return {'message': 'Book not found', 'status': 404}
         else:
+            similar_books = models.Books.query.filter(or_(models.Books.author == book.author,
+                                                          models.Books.genre == book.genre)). \
+                filter(models.Books.id != book.id). \
+                order_by(desc('rate')). \
+                limit(5).all()
+            recs = []
+            for rec in similar_books:
+                info = {'title': rec.title,
+                        'author': rec.author,
+                        'genre': rec.genre,
+                        'pages': rec.pages,
+                        'rate': rec.rate}
+                recs.append(info)
+
             result = {'title': book.title,
                       'author': book.author,
                       'genre': book.genre,
                       'pages': book.pages,
-                      'rate': book.rate}
+                      'rate': book.rate,
+                      'recs': recs}
             return {'book': result, 'status': 200}
 
     def post(self, book_id):
