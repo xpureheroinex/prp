@@ -333,6 +333,7 @@ class DoneBooks(Resource):
                 book_id = book.books_id
                 current_book = Books.query.get(book_id)
                 info_book = {
+                    "id": current_book.id,
                     "title": current_book.title,
                     "author": current_book.author,
                     "genre": current_book.genre
@@ -368,6 +369,7 @@ class ProgressBooks(Resource):
                 book_id = book.books_id
                 current_book = Books.query.get(book_id)
                 info_book = {
+                    "id": current_book.id,
                     "title": current_book.title,
                     "author": current_book.author,
                     "genre": current_book.genre
@@ -403,6 +405,7 @@ class FutureBooks(Resource):
                 book_id = book.books_id
                 current_book = Books.query.get(book_id)
                 info_book = {
+                    "id": current_book.id,
                     "title": current_book.title,
                     "author": current_book.author,
                     "genre": current_book.genre
