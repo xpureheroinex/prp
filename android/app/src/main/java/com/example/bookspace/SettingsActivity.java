@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
         Empty startFragment = new Empty();
         transaction.add(R.id.ll2,startFragment);
         transaction.commit();
+
     }
     public void onSelectFragment(View view) {
         Fragment newFragment;
