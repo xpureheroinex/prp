@@ -28,6 +28,14 @@ public interface BookSpaceAPI {
             @Field("password") String password
     );
 
+    //googlereg
+    @FormUrlEncoded
+    @POST("/google/register")
+    Call<CreateUserResponse> createUserGoogle(
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
     //логин
     @FormUrlEncoded
     @POST("/login")
