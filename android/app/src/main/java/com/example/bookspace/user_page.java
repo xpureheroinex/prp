@@ -18,6 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
@@ -75,44 +77,9 @@ public class user_page extends AppCompatActivity
         //-------------------- test queries
 
 
-        //меняем юзернейм
-
-//        Call<ResponseBody> callTest = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .changeProfile("Bearer " + token, "newUsername", null);
-//
-//        callTest.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//            }
-//        });
 
 
-        //получаем инфо о юзере
-//        Call<ProfileResponse> call = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .getProfileInfo("Bearer " + token);
-//
-//        call.enqueue(new Callback<ProfileResponse>() {
-//            @Override
-//            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
-//                ProfileResponse resp = response.body();
-//                text.setText(String.valueOf(resp.getStatus()));
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ProfileResponse> call, Throwable t) {
-//                Toast.makeText(user_page.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
-//            }
-//        });
+
 
         //получаем статистику
 
@@ -238,14 +205,65 @@ public class user_page extends AppCompatActivity
         mReadTextView.setText("4");
     }
 
+    //нажатие на кнопку ChangeUsername
     public void onShowUser (View view){
-        Toast toast = Toast.makeText(getApplicationContext(),"Your user name was changed",Toast.LENGTH_SHORT);
-        toast.show();
+
+        //меняем юзернейм
+        EditText newUsername = findViewById(R.id.editTextNewUsername);
+
+        Call<ResponseBody> callTest = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .changeProfile("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""),
+                        newUsername.getText().toString(),
+                        null);
+
+        callTest.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Toast.makeText(getApplicationContext(),"Your username was changed",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"Connection failed",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
+    //нажатие на кнопку ChangePassword
     public void onShowPassword(View view){
-        Toast toast = Toast.makeText(getApplicationContext(),"Your password name was changed",Toast.LENGTH_SHORT);
-        toast.show();
+
+        //меняем пароль
+        EditText newPass = findViewById(R.id.editTextNewPassword);
+        EditText confirmNewPass = findViewById(R.id.editTextConfirmNewPassword);
+
+        if(newPass.getText().length() < 6){
+            newPass.setError("Password must be at least 6 characters long");
+        } else if(!newPass.getText().toString().equals(confirmNewPass.getText().toString())){
+            confirmNewPass.setError("Passwords aren't the same, try again");
+        } else{
+            Call<ResponseBody> callTest = RetrofitClient
+                    .getInstance()
+                    .getBookSpaceAPI()
+                    .changeProfile("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""),
+                            null,
+                            confirmNewPass.getText().toString());
+
+            callTest.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Toast.makeText(getApplicationContext(),"Your password was changed",Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(),"Connection failed",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
+    //нажатие на кнопку SetReadingTargets
     public void onShowTarget(View view){
         Toast toast = Toast.makeText(getApplicationContext(),"Your targets name was changed",Toast.LENGTH_SHORT);
         toast.show();
