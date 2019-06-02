@@ -191,8 +191,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             String engLower = "abcdefghijklmnopqrstuvwxyz";
             String engUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             String digits = "0123456789";
-            Random random = new Random();
             String password = engLower + engUpper + digits;
+            Random random = new Random();
             char[] resultArr = new char[8]; //Массив-пароль
             for (int i = 0; i < resultArr.length; i++)
                 resultArr[i] = password.charAt(random.nextInt(password.length()));
@@ -200,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             Call<CreateUserResponse> call = RetrofitClient
                      .getInstance()
                      .getBookSpaceAPI()
-                     .createUser(acc.getEmail(), "password");
+                     .createUserGoogle(acc.getEmail(), String.valueOf(resultArr));
 
             call.enqueue(new Callback<CreateUserResponse>() {
                     @Override
