@@ -128,23 +128,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 });
             }
         });
-
-        //logout
-        /*Call<ResponseBody> call6 = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .logout("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
-
-        call6.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });*/
     }
 
     private void connectLoginToServer(Response<LoginResponse> response){

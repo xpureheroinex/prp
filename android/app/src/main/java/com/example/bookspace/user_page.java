@@ -23,6 +23,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
+import com.example.bookspace.model.profile.ProfileResponse;
+import com.example.bookspace.model.profile.User;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -67,6 +69,7 @@ public class user_page extends AppCompatActivity
         final TextView text2 = findViewById(R.id.textView30);
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String token = prefs.getString("token", "token is null");
+
 
 
         //-------------------- test queries
@@ -208,23 +211,23 @@ public class user_page extends AppCompatActivity
 
         //выставляем оценку
 
-        Call<ResponseBody> call8 = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .setRate("Bearer " + token, 10, 5);
-
-        call8.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                Toast.makeText(user_page.this, "rate = 5", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
+//        Call<ResponseBody> call8 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .setRate("Bearer " + token, 10, 5);
+//
+//        call8.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+////                Toast.makeText(user_page.this, "rate = 5", Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
 
 
     }
@@ -285,6 +288,34 @@ public class user_page extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.user_page, menu);
+
+        final TextView profileUsername = findViewById(R.id.textViewProfileUsername);
+        final TextView profileEmail = findViewById(R.id.textViewProfileEmail);
+
+
+        //устанавливаем юзернейм и емейл
+
+        Call<ProfileResponse> getProfileInfo = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .getProfileInfo("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
+
+        getProfileInfo.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                ProfileResponse resp = response.body();
+                User user = resp.getUser();
+
+                profileUsername.setText(user.getUsername());
+                profileEmail.setText(user.getEmail());
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
         return true;
     }
 
