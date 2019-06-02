@@ -127,7 +127,7 @@
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="1dp"
         android:background="@drawable/button"
         android:text="Save"
         android:textSize="14sp"
