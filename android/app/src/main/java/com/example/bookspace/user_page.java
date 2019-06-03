@@ -2,6 +2,7 @@ package com.example.bookspace;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.RequiresPermission;
@@ -50,6 +51,8 @@ public class user_page extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -60,6 +63,10 @@ public class user_page extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mReadTextView = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_read));
         initializeCountDrawer();
+        mReadTextView = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_reading));
+        initializeCountDrawer1();
+        mReadTextView = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_willread));
+        initializeCountDrawer2();
 
         setTitle("BookSpace");
         TopRecommends2 topRecommends2 = new TopRecommends2();
@@ -154,11 +161,24 @@ public class user_page extends AppCompatActivity
 
 
     }
+
     private void initializeCountDrawer(){
-       mReadTextView.setGravity(Gravity.CENTER_VERTICAL);
-       mReadTextView.setTypeface(null, Typeface.BOLD);
+        mReadTextView.setGravity(Gravity.CENTER_VERTICAL);
+        mReadTextView.setTypeface(null, Typeface.BOLD);
         mReadTextView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         mReadTextView.setText("4");
+    }
+    private void initializeCountDrawer1(){
+        mReadTextView.setGravity(Gravity.CENTER_VERTICAL);
+        mReadTextView.setTypeface(null, Typeface.BOLD);
+        mReadTextView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        mReadTextView.setText("3");
+    }
+    private void initializeCountDrawer2(){
+        mReadTextView.setGravity(Gravity.CENTER_VERTICAL);
+        mReadTextView.setTypeface(null, Typeface.BOLD);
+        mReadTextView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        mReadTextView.setText("1");
     }
 
     //нажатие на кнопку ChangeUsername
@@ -434,10 +454,15 @@ public class user_page extends AppCompatActivity
         Fragment newFragment;
         if (view == findViewById(R.id.btnfr4)) {
             newFragment = new TopFragment();
+            findViewById(R.id.btnfr4).setBackgroundColor(Color.parseColor("#757575"));
+            findViewById(R.id.btnfr5).setBackgroundColor(Color.parseColor("#bdbdbd"));
         } else if (view == findViewById(R.id.btnfr5)) {
             newFragment = new RecommendFragment();
+            findViewById(R.id.btnfr5).setBackgroundColor(Color.parseColor("#757575"));
+            findViewById(R.id.btnfr4).setBackgroundColor(Color.parseColor("#bdbdbd"));
         } else {
             newFragment = new TopFragment();
+            findViewById(R.id.btnfr4).setBackgroundColor(Color.parseColor("#757575"));
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.ll3, newFragment);
@@ -449,12 +474,22 @@ public class user_page extends AppCompatActivity
         Fragment newFragment;
         if (view == findViewById(R.id.btnfr6)) {
             newFragment = new StatisticYear();
+            findViewById(R.id.btnfr6).setBackgroundColor(Color.parseColor("#757575"));
+            findViewById(R.id.btnfr7).setBackgroundColor(Color.parseColor("#bdbdbd"));
+            findViewById(R.id.btnfr8).setBackgroundColor(Color.parseColor("#bdbdbd"));
         } else if (view == findViewById(R.id.btnfr7)) {
             newFragment = new StatisticMonth();
+            findViewById(R.id.btnfr7).setBackgroundColor(Color.parseColor("#757575"));
+            findViewById(R.id.btnfr6).setBackgroundColor(Color.parseColor("#bdbdbd"));
+            findViewById(R.id.btnfr8).setBackgroundColor(Color.parseColor("#bdbdbd"));
         } else if (view == findViewById(R.id.btnfr8)) {
             newFragment = new StatisticWeek();
+            findViewById(R.id.btnfr8).setBackgroundColor(Color.parseColor("#757575"));
+            findViewById(R.id.btnfr6).setBackgroundColor(Color.parseColor("#bdbdbd"));
+            findViewById(R.id.btnfr7).setBackgroundColor(Color.parseColor("#bdbdbd"));
         } else {
             newFragment = new StatisticYear();
+            findViewById(R.id.btnfr6).setBackgroundColor(Color.parseColor("#757575"));
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.ll1,newFragment);
