@@ -1,9 +1,11 @@
 package com.example.bookspace.api;
 
 import com.example.bookspace.model.books.GetBookResponse;
+import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.registration.CreateUserResponse;
 import com.example.bookspace.model.login.LoginResponse;
 import com.example.bookspace.model.profile.ProfileResponse;
+import com.example.bookspace.model.reviews.GetReviewsResponse;
 import com.example.bookspace.model.statistics.SetPlanResponse;
 import com.example.bookspace.model.statistics.StatisticsResponse;
 
@@ -104,5 +106,22 @@ public interface BookSpaceAPI {
                                  @Path("id") Integer bookId,
                                  @Field("rate") Integer rate);
 
+    //отзывы
+    //получение
+    //range = week || month || year
+    @GET("/books/{id}/reviews")
+    Call<GetReviewsResponse> getReviews(@Header("Authorization") String token,
+                                        @Path("id") Integer bookId,
+                                        @Query("range") String range);
+    //добавление
+    @FormUrlEncoded
+    @POST("/books/{id}/reviews")
+    Call<ResponseBody> postReview(@Header("Authorization") String token,
+                                  @Path("id") Integer bookId,
+                                  @Field("text") String text);
 
+    //заметки
+    @GET("/books/{id}/notes")
+    Call<GetNotesResponse> getNotes(@Header("Authorization") String token,
+                                    @Path("id") Integer bookId);
 }
