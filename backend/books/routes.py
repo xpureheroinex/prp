@@ -84,7 +84,9 @@ class Books(Resource):
             return {'message': 'Book not found', 'status': 404}
         user_book = models.UsersBooks.query.filter_by(user_id=user.id).filter_by(books_id=book_id).first()
         if status is not None:
-            if user_book is None:
+            if status not in ['DN', 'IP', 'WR']:
+                return _BAD_REQUEST
+            elif user_book is None:
                 new = models.UsersBooks(user_id=user.id,
                                         books_id=book_id,
                                         list=status)
