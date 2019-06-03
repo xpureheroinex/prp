@@ -19,6 +19,16 @@ class Books(Resource):
         self.parser.add_argument('status')
 
     def get(self, book_id):
+        args = self.parser.parse_args()
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        if models.User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        user_id = models.User.verify_auth_token(token)['user_id']
+        user = models.User.query.get(user_id)
+        if user is None:
+            return _BAD_REQUEST
         book = models.Books.query.filter_by(id=book_id).first()
         if book is None:
             return {'message': 'Book not found', 'status': 404}
@@ -29,6 +39,11 @@ class Books(Resource):
                 order_by(desc('rate')). \
                 limit(5).all()
             recs = []
+            user_book = models.UsersBooks.query.filter_by(user_id=user.id).filter_by(books_id=book.id).first()
+            if user_book is None:
+                list = None
+            else:
+                list = user_book.list.name
             for rec in similar_books:
                 info = {'id': rec.id,
                         'title': rec.title,
@@ -43,6 +58,7 @@ class Books(Resource):
                       'genre': book.genre,
                       'pages': book.pages,
                       'rate': book.rate,
+                      'list': list,
                       'recs': recs}
             return {'book': result, 'status': 200}
 
