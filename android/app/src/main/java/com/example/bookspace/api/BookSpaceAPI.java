@@ -97,6 +97,13 @@ public interface BookSpaceAPI {
     Call<GetBookResponse> getBook(@Header("Authorization") String token,
                                   @Path("id") Integer bookId);
 
+    //запросы для книг
+    //получение информации о конкретной книге
+    //todo поменять rate в Book на Integer
+    @GET("/books/{id}")
+    Call<GetBookResponse> getBookStatus(@Header("Authorization") String token,
+                                  @Path("id") Integer bookId);
+
     //выставление оценки книге
     @FormUrlEncoded
     @POST("/books/{id}")

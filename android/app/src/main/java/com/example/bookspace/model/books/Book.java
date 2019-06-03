@@ -19,7 +19,10 @@ public class Book {
     private Integer pages;
     @SerializedName("rate")
     @Expose
-    private Integer rate;
+    private Float rate;
+    @SerializedName("recs")
+    @Expose
+    private Book[] recs;
 
     public String getTitle() {
         return title;
@@ -53,11 +56,19 @@ public class Book {
         this.pages = pages;
     }
 
-    public Integer getRate() {
+    public Float getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(Float rate) {
         this.rate = rate;
+    }
+
+    public Book[] getRecs() {
+        return recs;
+    }
+
+    public void setRecs(Book[] recs) {
+        this.recs = recs;
     }
 }

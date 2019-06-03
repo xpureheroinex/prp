@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
@@ -63,8 +64,6 @@ public class user_page extends AppCompatActivity
         transaction.add(R.id.ll3, startFragment);
         transaction.commit();
 
-        final TextView text = findViewById(R.id.textView29);
-        final TextView text2 = findViewById(R.id.textView30);
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String token = prefs.getString("token", "token is null");
 
@@ -226,6 +225,13 @@ public class user_page extends AppCompatActivity
             }
         });
 
+        Button bu = (Button) findViewById(R.id.button2);
+        bu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), BookPageActivity.class));
+            }
+        });
 
     }
     private void initializeCountDrawer(){

@@ -12,4 +12,5 @@
     <color name="duskYellow">#FFFCE203</color>
     <color name="lightGrey">#FFB8B8B3</color>
     <color name="colorLightBlue">#D9ECF5</color>
+    <color name="colorTextPrimaryForZhenYa">#303030</color>
 </resources>

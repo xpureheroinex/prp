@@ -139,22 +139,22 @@
 
             <TextView
                 android:id="@+id/textName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="260dp"
+                android:layout_height="65dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:fontFamily="monospace"
                 android:text="Name"
-                android:textAlignment="center"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="28sp"
+                android:textColor="@color/colorTextPrimaryForZhenYa"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.026"
+                app:layout_constraintEnd_toStartOf="@+id/textGoToRating"
+                app:layout_constraintHorizontal_bias="0.272"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.015" />
+                app:layout_constraintVertical_bias="0.012" />
 
             <TextView
                 android:id="@+id/textGoToRating"
@@ -171,29 +171,29 @@
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.961"
-                app:layout_constraintStart_toEndOf="@+id/textName"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.015" />
+                app:layout_constraintVertical_bias="0.011" />
 
             <TextView
                 android:id="@+id/textGrade"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="Grade:"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.025"
+                app:layout_constraintHorizontal_bias="0.02"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textName"
-                app:layout_constraintVertical_bias="0.002" />
+                app:layout_constraintVertical_bias="0.007" />
 
             <TextView
                 android:id="@+id/textGenre"
@@ -208,15 +208,15 @@
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.024"
+                app:layout_constraintHorizontal_bias="0.02"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textGrade"
-                app:layout_constraintVertical_bias="0.041" />
+                app:layout_constraintVertical_bias="0.04" />
 
             <TextView
                 android:id="@+id/textAuthor"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="23dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -227,10 +227,10 @@
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.025"
+                app:layout_constraintHorizontal_bias="0.02"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textGenre"
-                app:layout_constraintVertical_bias="0.031" />
+                app:layout_constraintVertical_bias="0.02" />
 
             <TextView
                 android:id="@+id/textNumberOfPages"
@@ -240,15 +240,15 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="Number of Pages: "
-                android:textAlignment="center"
+                android:textAlignment="textStart"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.035"
+                app:layout_constraintHorizontal_bias="0.02"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textAuthor"
-                app:layout_constraintVertical_bias="0.059" />
+                app:layout_constraintVertical_bias="0.04" />
 
             <TextView
                 android:id="@+id/textSimilarBooks"
@@ -279,53 +279,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textSimilarBooks">
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/textlines"
-                    android:text="TextView"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/textlines"
-                    android:text="TextView"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/textlines"
-                    android:text="TextView"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView20"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/textlines"
-                    android:text="TextView"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView21"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:background="@drawable/textlines"
-                    android:text="TextView"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@+id/textSimilarBooks"/>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
