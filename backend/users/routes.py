@@ -134,6 +134,7 @@ class UserProfile(Resource):
                 list='IP').count()
             future = UsersBooks.query.filter_by(user_id=user.id).filter_by(
                 list='WR').count()
+            avatar = User.avatar(user)
             user_profile = {
                 "username": user.username,
                 "email": user.email,
@@ -142,7 +143,8 @@ class UserProfile(Resource):
                 "month": user_stats.month,
                 "done": done,
                 "progress": progress,
-                "future": future
+                "future": future,
+                'avatar': avatar
             }
         return {'user': user_profile, 'status': 200}
 
