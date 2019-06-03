@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextRegConfirmPassword" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewProfileEmail"
         android:layout_width="320dp"
         android:layout_height="53dp"
         android:layout_marginStart="16dp"
@@ -114,7 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewProfileEmail" />
 
     <FrameLayout
         android:id="@+id/registrationFragmentContainer"
