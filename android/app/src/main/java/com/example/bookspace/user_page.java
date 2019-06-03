@@ -199,21 +199,40 @@ public class user_page extends AppCompatActivity
 
         //получаем заметки
 
-        Call<GetNotesResponse> callpp = RetrofitClient
+//        Call<GetNotesResponse> callpp = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .getNotes("Bearer " + token, 10);
+//
+//        callpp.enqueue(new Callback<GetNotesResponse>() {
+//            @Override
+//            public void onResponse(Call<GetNotesResponse> call, Response<GetNotesResponse> response) {
+//                Note[] notes = response.body().getNotes();
+//
+//                Toast.makeText(getApplicationContext(), notes[0].getText(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GetNotesResponse> call, Throwable t) {
+//
+//            }
+//        });
+
+        //редактирование заметки
+
+        Call<ResponseBody> callrr = RetrofitClient
                 .getInstance()
                 .getBookSpaceAPI()
-                .getNotes("Bearer " + token, 10);
+                .editNote("Bearer " + token, 6, null, "hello");
 
-        callpp.enqueue(new Callback<GetNotesResponse>() {
+        callrr.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<GetNotesResponse> call, Response<GetNotesResponse> response) {
-                Note[] notes = response.body().getNotes();
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                Toast.makeText(getApplicationContext(), notes[0].getText(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<GetNotesResponse> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
         });
