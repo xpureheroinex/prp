@@ -30,7 +30,8 @@ class Books(Resource):
                 limit(5).all()
             recs = []
             for rec in similar_books:
-                info = {'title': rec.title,
+                info = {'id': rec.id,
+                        'title': rec.title,
                         'author': rec.author,
                         'genre': rec.genre,
                         'pages': rec.pages,
