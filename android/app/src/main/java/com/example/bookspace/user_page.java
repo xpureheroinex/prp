@@ -26,8 +26,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
+import com.example.bookspace.model.notes.GetNotesResponse;
+import com.example.bookspace.model.notes.Note;
 import com.example.bookspace.model.profile.ProfileResponse;
 import com.example.bookspace.model.profile.User;
+import com.example.bookspace.model.reviews.GetReviewsResponse;
+import com.example.bookspace.model.reviews.Review;
 import com.example.bookspace.model.statistics.SetPlanResponse;
 
 import java.security.PrivateKey;
@@ -158,6 +162,87 @@ public class user_page extends AppCompatActivity
 //
 //            }
 //        });
+
+        //получаем отзывы
+
+
+//        Call<GetReviewsResponse> callTest10 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .getReviews("Bearer " + token, 10, "month");
+//
+//        callTest10.enqueue(new Callback<GetReviewsResponse>() {
+//            @Override
+//            public void onResponse(Call<GetReviewsResponse> call, Response<GetReviewsResponse> response) {
+//                Review[] rews = response.body().getInfo();
+//
+//                Toast.makeText(getApplicationContext(), rews[0].getText(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GetReviewsResponse> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
+
+        //отправляем отзыв
+
+//        Call<ResponseBody> calltt = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .postReview("Bearer " + token, 10, "test review");
+//
+//        calltt.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
+
+        //получаем заметки
+
+//        Call<GetNotesResponse> callpp = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .getNotes("Bearer " + token, 10);
+//
+//        callpp.enqueue(new Callback<GetNotesResponse>() {
+//            @Override
+//            public void onResponse(Call<GetNotesResponse> call, Response<GetNotesResponse> response) {
+//                Note[] notes = response.body().getNotes();
+//
+//                Toast.makeText(getApplicationContext(), notes[0].getText(), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GetNotesResponse> call, Throwable t) {
+//
+//            }
+//        });
+
+        //редактирование заметки
+
+        Call<ResponseBody> callrr = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .editNote("Bearer " + token, 6, null, "hello");
+
+        callrr.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
 
 
     }
