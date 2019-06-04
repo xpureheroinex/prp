@@ -33,7 +33,6 @@ public class ReadingBooks extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view =inflater.inflate(R.layout.readingbooks,container,false);
-
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
         lvBooks2 = view.findViewById(R.id.list2);
 
@@ -46,7 +45,6 @@ public class ReadingBooks extends Fragment {
             @Override
             public void onResponse(Call<GetBooksResponse> call, Response<GetBooksResponse> response) {
                 UserBook[] userBooks = response.body().getInfo();
-
                 mBooksList2 = new ArrayList<>();
 
                 for(UserBook book : userBooks){
@@ -59,7 +57,6 @@ public class ReadingBooks extends Fragment {
 
             @Override
             public void onFailure(Call<GetBooksResponse> call, Throwable t) {
-
             }
         });
 

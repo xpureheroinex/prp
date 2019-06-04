@@ -173,6 +173,6 @@ public interface BookSpaceAPI {
     Call<GetBooksResponse> getInProgressBooks(@Header("Authorization") String token);
 
     //получение списка запланированных книг
-    @GET("/books/read")
+    @GET("/books/future")
     Call<GetBooksResponse> getFutureBooks(@Header("Authorization") String token);
 }
