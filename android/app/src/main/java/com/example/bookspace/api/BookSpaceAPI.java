@@ -1,6 +1,7 @@
 package com.example.bookspace.api;
 
 import com.example.bookspace.model.books.GetBookResponse;
+import com.example.bookspace.model.books.TopResponse;
 import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.registration.CreateUserResponse;
 import com.example.bookspace.model.login.LoginResponse;
@@ -157,4 +158,8 @@ public interface BookSpaceAPI {
     @DELETE("/books/notes/{id}")
     Call<ResponseBody> deleteNote(@Header("Authorization") String token,
                                   @Path("id") Integer noteId);
+
+    //получение топа
+    @GET("/home/top")
+    Call<TopResponse> getTop(@Header("Authorization") String token);
 }

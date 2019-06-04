@@ -13,17 +13,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/topBookTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="NameBook"
-                android:textStyle="bold"
-                android:textSize="17dp"/>
+                android:textSize="17dp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/topBookRate"
                 android:layout_width="22dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="20dp"
@@ -40,19 +41,20 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="5dp">
+
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/topBookAuthor"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="Author" />
+
             <TextView
-                android:id="@+id/textView19"
+                android:id="@+id/topBookGenre"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Genre"
-                />
+                android:text="Genre" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

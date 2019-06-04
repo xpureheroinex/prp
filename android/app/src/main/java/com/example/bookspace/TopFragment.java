@@ -16,35 +16,101 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookspace.model.RetrofitClient;
+import com.example.bookspace.model.books.Book;
+import com.example.bookspace.model.books.GetBookResponse;
+import com.example.bookspace.model.books.MainPageBook;
+import com.example.bookspace.model.books.TopResponse;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class TopFragment extends Fragment {
 
     ListView lvBooks4;
     BooksListAdapter2 adapter4;
-    List<Books2> mBooksList4;
+    List<MainPageBook> mBooksList4;
 
     String[] listItems;
     Button mbutton;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v =inflater.inflate(R.layout.top_fragment,container,false);
-        lvBooks4 = (ListView) v.findViewById(R.id.list4);
-        mBooksList4 = new ArrayList<>();
-        mBooksList4.add(new Books2(1,"FirstB1",2.5,"AUTHOR1","GENRE1"));
-        mBooksList4.add(new Books2(2,"SecondB2",3.5,"AUTHOR2","GENRE2"));
-        mBooksList4.add(new Books2(3,"FirstB1",2.5,"AUTHOR1","GENRE1"));
-        mBooksList4.add(new Books2(4,"SecondB2",3.5,"AUTHOR2","GENRE2"));
-        mBooksList4.add(new Books2(5,"FirstB1",2.5,"AUTHOR1","GENRE1"));
-        mBooksList4.add(new Books2(6,"SecondB2",3.5,"AUTHOR2","GENRE2"));
-        mBooksList4.add(new Books2(7,"FirstB1",2.5,"AUTHOR1","GENRE1"));
-        mBooksList4.add(new Books2(8,"SecondB2",3.5,"AUTHOR2","GENRE2"));
-        adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
-        lvBooks4.setAdapter(adapter4);
+        View view = inflater.inflate(R.layout.top_fragment,container,false);
+        final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
+        lvBooks4 = view.findViewById(R.id.list4);
+
+        final MainPageBook b = new MainPageBook();
+        b.setTitle("title");
+        b.setRate(5);
+        b.setId(100);
+        b.setGenre("fantasy");
+        b.setAuthor("me");
+
+
+        Call<TopResponse> getTop = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .getTop("Bearer " + token);
+
+        getTop.enqueue(new Callback<TopResponse>() {
+            @Override
+            public void onResponse(Call<TopResponse> call, Response<TopResponse> response) {
+                MainPageBook[] books = response.body().getBooks();
+
+//                mBooksList4 = new ArrayList<>();
+//                mBooksList4.add(b);
+//                adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
+//                lvBooks4.setAdapter(adapter4);
+
+                mBooksList4 = new ArrayList<>();
+                mBooksList4.add(b);
+                adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
+                lvBooks4.setAdapter(adapter4);
+            }
+
+            @Override
+            public void onFailure(Call<TopResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+        Call<GetBookResponse> call7 = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .getBook("Bearer " + token, 10);
+
+        call7.enqueue(new Callback<GetBookResponse>() {
+            @Override
+            public void onResponse(Call<GetBookResponse> call, Response<GetBookResponse> response) {
+                Book resp = response.body().getBook();
+
+            }
+
+            @Override
+            public void onFailure(Call<GetBookResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
+
+
+//        lvBooks4 = view.findViewById(R.id.list4);
+//        mBooksList4 = new ArrayList<>();
+//        mBooksList4.add(t);
+//
+//        adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
+//        lvBooks4.setAdapter(adapter4);
 
 
         lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,10 +120,6 @@ public class TopFragment extends Fragment {
                 Toast.makeText(getContext(),"Hy" + view.getTag(),Toast.LENGTH_SHORT).show();
             }
         });
-       return v;
+       return view;
     }
-
-
-
-
 }
