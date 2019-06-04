@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -96,42 +97,11 @@ public class user_page extends AppCompatActivity
         transaction.add(R.id.ll3, startFragment);
         transaction.commit();
 
-
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String token = prefs.getString("token", "token is null");
 
 
         //-------------------- test queries
-
-
-        //получаем статистику
-
-//        Call<StatisticsResponse> call3 = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .getStats("Bearer " + token, "week");
-//
-//        call3.enqueue(new Callback<StatisticsResponse>() {
-//            @Override
-//            public void onResponse(Call<StatisticsResponse> call, Response<StatisticsResponse> response) {
-//                StatisticsResponse resp = response.body();
-//                text2.setText(String.valueOf(resp.getPlan().getPlan()));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<StatisticsResponse> call, Throwable t) {
-//                if (t instanceof IOException) {
-//                    Toast.makeText(user_page.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-//                    // logging probably not necessary
-//                }
-//                else {
-//                    Toast.makeText(user_page.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-//                    // todo log to some central bug tracking service
-//                    t.printStackTrace();
-//                }
-//
-//            }
-//        });
         
 
         //получаем информацию о книге
@@ -239,24 +209,30 @@ public class user_page extends AppCompatActivity
 
         //редактирование заметки
 
-        Call<ResponseBody> callrr = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .editNote("Bearer " + token, 6, null, "hello");
+//        Call<ResponseBody> callrr = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .editNote("Bearer " + token, 6, null, "hello");
+//
+//        callrr.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
 
-        callrr.enqueue(new Callback<ResponseBody>() {
+        Button bu = (Button) findViewById(R.id.button2);
+        bu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), BookPageActivity.class));
             }
         });
-
-
     }
 
 
@@ -465,8 +441,8 @@ public void Delete(View view){
 
             }
         });
-
-            Call<SetPlanResponse> setMonth = RetrofitClient
+        
+        Call<SetPlanResponse> setMonth = RetrofitClient
                     .getInstance()
                     .getBookSpaceAPI()
                     .setPlan("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""),
@@ -505,7 +481,10 @@ public void Delete(View view){
             });
             Toast.makeText(getApplicationContext(), "Your targets has been saved", Toast.LENGTH_SHORT).show();
         }
+
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -579,8 +558,10 @@ public void Delete(View view){
                 ProfileResponse resp = response.body();
                 User user = resp.getUser();
 
-              //  profileUsername.setText(user.getUsername());
-             //   profileEmail.setText(user.getEmail());
+                try{
+                    profileUsername.setText(user.getUsername());
+                    profileEmail.setText(user.getEmail());
+                } catch(Exception ignore){}
             }
             @Override
             public void onFailure(Call<ProfileResponse> call, Throwable t) {

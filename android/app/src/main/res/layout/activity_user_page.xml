@@ -20,6 +20,13 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_user_page"
-        app:menu="@menu/activity_user_page_drawer" />
+        app:menu="@menu/activity_user_page_drawer" >
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="178dp"
+            android:layout_height="113dp"
+            android:text="Button" />
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

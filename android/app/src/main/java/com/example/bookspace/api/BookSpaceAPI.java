@@ -108,6 +108,13 @@ public interface BookSpaceAPI {
                                  @Path("id") Integer bookId,
                                  @Field("rate") Integer rate);
 
+    //статус книги
+    @FormUrlEncoded
+    @PUT("/books/{id}")
+    Call<ResponseBody> setStatus(@Header("Authorization") String token,
+                               @Path("id") Integer bookId,
+                               @Field("status") String status);
+
     //отзывы
     //получение
     //range = week || month || year
