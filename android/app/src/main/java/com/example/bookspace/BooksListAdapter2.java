@@ -36,18 +36,18 @@ public class BooksListAdapter2 extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View row = View.inflate(mContext1, R.layout.row1, null);
-        TextView myTitle = (TextView) row.findViewById(R.id.textView16);
-        TextView myRate = (TextView) row.findViewById(R.id.textView17);
-        TextView myAuthor = (TextView) row.findViewById(R.id.textView18);
-        TextView myGenre = (TextView) row.findViewById(R.id.textView19);
+        View row1 = View.inflate(mContext1, R.layout.row1, null);
+        TextView myTitle = (TextView) row1.findViewById(R.id.textView16);
+        TextView myRate = (TextView) row1.findViewById(R.id.textView17);
+        TextView myAuthor = (TextView) row1.findViewById(R.id.textView18);
+        TextView myGenre = (TextView) row1.findViewById(R.id.textView19);
 
         myTitle.setText(mBooksList1.get(position).getName());
         myRate.setText(String.valueOf(mBooksList1.get(position).getRate()));
         myAuthor.setText(mBooksList1.get(position).getAuthor());
         myGenre.setText(mBooksList1.get(position).getGenre());
 
-        row.setTag(mBooksList1.get(position).getId());
-        return row;
+        row1.setTag(mBooksList1.get(position).getId());
+        return row1;
     }
 }

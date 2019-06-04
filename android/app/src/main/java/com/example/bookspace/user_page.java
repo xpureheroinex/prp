@@ -300,6 +300,37 @@ public void Delete(View view){
         alertDialog.show();
     }
 
+    public void Add(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose status:");
+
+        String[] items= {"Read", "Reading", "Will Read"};
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case 0:
+                        Toast toast = Toast.makeText(getApplicationContext(),"The status of book was changed on read",Toast.LENGTH_SHORT);
+                        toast.show();
+                        break;
+                    case 1:
+                        Toast toast1 = Toast.makeText(getApplicationContext(),"The status of book was changed on reading",Toast.LENGTH_SHORT);
+                        toast1.show();
+                        break;
+                    case 2:
+                        Toast toast2 = Toast.makeText(getApplicationContext(),"The status of book was changed on will read",Toast.LENGTH_SHORT);
+                        toast2.show();
+                        break;
+
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
     //нажатие на кнопку ChangeUsername
     public void onShowUser (final View view){
 
@@ -487,26 +518,44 @@ public void Delete(View view){
     }
 
     public void onClickLogOut(View v){
-        SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
-        Call<ResponseBody> call6 = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .logout("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Are you sure you want to Logout?")
+                    .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            })
+                    .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+                        Call<ResponseBody> call6 = RetrofitClient
+                                .getInstance()
+                                .getBookSpaceAPI()
+                                .logout("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
 
         call6.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-            }
-        });
-        SharedPreferences.Editor editor = prefs.edit();
+                            }
+                        });
+                        SharedPreferences.Editor editor = prefs.edit();
         editor.remove("token");
         editor.apply();
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
+                        }
+                    });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
     }
 
     @Override

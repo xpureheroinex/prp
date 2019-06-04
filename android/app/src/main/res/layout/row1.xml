@@ -59,15 +59,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end">
+
         <ImageButton
             android:id="@+id/addbtn1"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="80dp"
-            android:src="@drawable/ic_add_book"
             android:background="@color/colorSplashScreen"
+            android:onClick="Add"
 
-            />
+            android:src="@drawable/ic_add_book" />
 
     </LinearLayout>
 </LinearLayout>
