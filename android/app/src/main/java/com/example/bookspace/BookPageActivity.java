@@ -6,9 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.solver.widgets.ConstraintTableLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,17 +28,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BookPageActivity extends AppCompatActivity {
+    public String status;
+    public int bookId;
+    public int i;
+    public int[] idBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books_page);
 
+        Intent inten = getIntent();
+        bookId = inten.getIntExtra("bookId", 11);
+
         TextView textReviews = findViewById(R.id.textReviews);
         textReviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ReviewsActivity.class));
+                Intent inten = new Intent(getApplicationContext(), ReviewsActivity.class);
+                inten.putExtra("bookId", bookId);
+                startActivity(inten);
             }
         });
 
@@ -41,7 +55,9 @@ public class BookPageActivity extends AppCompatActivity {
         textNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), NoticeActivity.class));
+                Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
+                inten.putExtra("bookId", bookId);
+                startActivity(inten);
             }
         });
 
@@ -52,11 +68,12 @@ public class BookPageActivity extends AppCompatActivity {
         final TextView textGenre = (TextView) findViewById(R.id.textGenre);
         final TextView textAuthor = (TextView) findViewById(R.id.textAuthor);
         final TextView textNumberofPages = (TextView) findViewById(R.id.textNumberOfPages);
+        final ListView lView = (ListView) findViewById(R.id.ListOfBooks);
 
         Call<GetBookResponse> call7 = RetrofitClient
                 .getInstance()
                 .getBookSpaceAPI()
-                .getBook("Bearer " + token, 11);
+                .getBook("Bearer " + token, bookId);
 
         call7.enqueue(new Callback<GetBookResponse>() {
             @Override
@@ -67,33 +84,38 @@ public class BookPageActivity extends AppCompatActivity {
                 textGenre.setText("Genre: " + resp.getGenre());
                 textAuthor.setText("Author: " + resp.getAuthor());
                 textNumberofPages.setText("Number of pages: " + String.valueOf(resp.getPages()));
-                Book[] resp1 = resp.getRecs();
+                final Book[] resp1 = resp.getRecs();
                 if(resp1.length == 0){
-                    LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ListSimilarBooks);
+                    ConstraintLayout cLayout = (ConstraintLayout) findViewById(R.id.constraintlayout);
                     TextView txt1Book = new TextView(BookPageActivity.this);
                     txt1Book.setTextColor(getResources().getColor(R.color.colorTextPrimary));
                     txt1Book.setTextSize(24);
                     txt1Book.setText("Not found");
-                    txt1Book.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                    linearLayout.addView(txt1Book);
+                    cLayout.addView(txt1Book);
                 }else{
-                    for(int i = 0; i < resp1.length; i++) {
-                        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ListSimilarBooks);
-                        TextView txt1Book = new TextView(BookPageActivity.this);
-                        txt1Book.setBackgroundResource(R.drawable.textlines);
-                        txt1Book.setTextColor(getResources().getColor(R.color.colorTextPrimaryForZhenYa));
-                        txt1Book.setTextSize(17);
-                        //txt1Book.setHeight(100);
-                        txt1Book.setText(resp1[i].getTitle() + "\n\n" + "Author: " +
-                                resp1[i].getAuthor() + "   \nGenre: " + resp1[i].getGenre());
-                        linearLayout.addView(txt1Book);
+                    String[] ListOfBooks = new String[resp1.length];
+                    idBook = new int[resp1.length];
+                    for(i = 0; i < resp1.length; i++) {
+                        ListOfBooks[i] = resp1[i].getTitle() + "\n\n" + "Author: " +
+                                resp1[i].getAuthor() + "\nGenre: " + resp1[i].getGenre();
+                        idBook[i] = resp1[i].getId();
                     }
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ListOfBooks);
+                    lView.setAdapter(adapter);
+                    lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent inten = new Intent(getApplicationContext(), BookPageActivity.class);
+                            inten.putExtra("bookId", idBook[position]);
+                            startActivity(inten);
+                        }
+                    });
                 }
             }
 
             @Override
             public void onFailure(Call<GetBookResponse> call, Throwable t) {
-                t.printStackTrace();
+                Toast.makeText(BookPageActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -113,6 +135,8 @@ public class BookPageActivity extends AppCompatActivity {
                 case IDD_LIST_Status:
 
                     final String[] statusName = {"Read", "Reading", "Will Read"};
+                    SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+                    final String token = prefs.getString("token", "token is null");
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("Choose status:"); // заголовок для диалога
@@ -122,8 +146,29 @@ public class BookPageActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int item) {
                             // TODO Auto-generated method stub
-                            Toast.makeText(getApplicationContext(),
-                                    "Selected status: " + statusName[item],
+                            if(statusName[item].equals("Read")){
+                                status = "DN";
+                            } else if(statusName[item].equals("Reading")){
+                                status = "IP";
+                            } else if(statusName[item].equals("Will Read")){
+                                status = "WR";
+                            }
+                            Call<ResponseBody> call7 = RetrofitClient
+                                    .getInstance()
+                                    .getBookSpaceAPI()
+                                    .setStatus("Bearer " + token, bookId, status);
+
+                            call7.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    Toast.makeText(BookPageActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            Toast.makeText(getApplicationContext(),"Selected status: " + statusName[item],
                                     Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -155,23 +200,21 @@ public class BookPageActivity extends AppCompatActivity {
                         Call<ResponseBody> call8 = RetrofitClient
                                 .getInstance()
                                 .getBookSpaceAPI()
-                                .setRate("Bearer " + token_rate, 11, Math.round(rating.getRating()));
+                                .setRate("Bearer " + token_rate, bookId, Math.round(rating.getRating()));
 
                         call8.enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                Toast.makeText(user_page.this, "rate = 5", Toast.LENGTH_SHORT).show();
-
                             }
 
                             @Override
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                                Toast.makeText(BookPageActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
                             }
                         });
 
                         try{
-                            Thread.sleep(1000);
+                            Thread.sleep(100);
                         }
                         catch (InterruptedException e){
                         }
@@ -190,7 +233,7 @@ public class BookPageActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<GetBookResponse> call, Throwable t) {
-                                t.printStackTrace();
+                                Toast.makeText(BookPageActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
                             }
                         });
                         dialog.dismiss();

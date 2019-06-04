@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 
 public class ReviewsActivity extends AppCompatActivity {
+    public int bookId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviews);
+
+        Intent inten = getIntent();
+        bookId = inten.getIntExtra("bookId", 11);
 
         TextView textAbout = findViewById(R.id.textAbout);
         textAbout.setOnClickListener(new View.OnClickListener() {
@@ -30,7 +34,7 @@ public class ReviewsActivity extends AppCompatActivity {
         });
     }
 
-//    public void onClickbuttonReview(View v){
-//        startActivity(new Intent(getApplicationContext(), AddReviewActivity.class));
-//    }
+    public void onClickbuttonReview(View v){
+        startActivity(new Intent(getApplicationContext(), AddReviewActivity.class));
+    }
 }
