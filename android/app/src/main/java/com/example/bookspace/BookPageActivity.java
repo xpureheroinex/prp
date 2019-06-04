@@ -19,8 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
+import com.example.bookspace.model.SimilarBooks;
 import com.example.bookspace.model.books.Book;
 import com.example.bookspace.model.books.GetBookResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -32,6 +36,10 @@ public class BookPageActivity extends AppCompatActivity {
     public int bookId;
     public int i;
     public int[] idBook;
+
+    ListView lvBooks4;
+    ZhenYaArrayAdapter adapter4;
+    List<SimilarBooks> mBooksList4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +76,6 @@ public class BookPageActivity extends AppCompatActivity {
         final TextView textGenre = (TextView) findViewById(R.id.textGenre);
         final TextView textAuthor = (TextView) findViewById(R.id.textAuthor);
         final TextView textNumberofPages = (TextView) findViewById(R.id.textNumberOfPages);
-        final ListView lView = (ListView) findViewById(R.id.ListOfBooks);
 
         Call<GetBookResponse> call7 = RetrofitClient
                 .getInstance()
@@ -93,16 +100,18 @@ public class BookPageActivity extends AppCompatActivity {
                     txt1Book.setText("Not found");
                     cLayout.addView(txt1Book);
                 }else{
-                    String[] ListOfBooks = new String[resp1.length];
+                    mBooksList4 = new ArrayList<>();
                     idBook = new int[resp1.length];
                     for(i = 0; i < resp1.length; i++) {
-                        ListOfBooks[i] = resp1[i].getTitle() + "\n\n" + "Author: " +
-                                resp1[i].getAuthor() + "\nGenre: " + resp1[i].getGenre();
+                        mBooksList4.add(new SimilarBooks(i,resp1[i].getTitle(),
+                                "Author: " + resp1[i].getAuthor(),
+                                "Genre:" + resp1[i].getGenre()));
                         idBook[i] = resp1[i].getId();
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ListOfBooks);
-                    lView.setAdapter(adapter);
-                    lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    lvBooks4 = (ListView) findViewById(R.id.ListOfBooks);
+                    adapter4 = new ZhenYaArrayAdapter(getApplicationContext(),mBooksList4);
+                    lvBooks4.setAdapter(adapter4);
+                    lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent inten = new Intent(getApplicationContext(), BookPageActivity.class);
