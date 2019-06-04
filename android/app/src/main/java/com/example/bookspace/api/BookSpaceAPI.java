@@ -1,6 +1,7 @@
 package com.example.bookspace.api;
 
 import com.example.bookspace.model.books.GetBookResponse;
+import com.example.bookspace.model.books.GetBooksResponse;
 import com.example.bookspace.model.books.TopResponse;
 import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.registration.CreateUserResponse;
@@ -162,4 +163,16 @@ public interface BookSpaceAPI {
     //получение топа
     @GET("/home/top")
     Call<TopResponse> getTop(@Header("Authorization") String token);
+
+    //получение списка прочитанных книг
+    @GET("/books/read")
+    Call<GetBooksResponse> getReadBooks(@Header("Authorization") String token);
+
+    //получение списка книг в процессе
+    @GET("/books/progress")
+    Call<GetBooksResponse> getInProgressBooks(@Header("Authorization") String token);
+
+    //получение списка запланированных книг
+    @GET("/books/read")
+    Call<GetBooksResponse> getFutureBooks(@Header("Authorization") String token);
 }

@@ -39,6 +39,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
+import com.example.bookspace.model.books.GetBooksResponse;
 import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.notes.Note;
 import com.example.bookspace.model.profile.ProfileResponse;
@@ -225,6 +226,23 @@ public class user_page extends AppCompatActivity
 //
 //            }
 //        });
+
+        Call<GetBooksResponse> call100 = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .getReadBooks("Bearer " + token);
+
+        call100.enqueue(new Callback<GetBooksResponse>() {
+            @Override
+            public void onResponse(Call<GetBooksResponse> call, Response<GetBooksResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<GetBooksResponse> call, Throwable t) {
+
+            }
+        });
 
         Button bu = (Button) findViewById(R.id.button2);
         bu.setOnClickListener(new View.OnClickListener() {

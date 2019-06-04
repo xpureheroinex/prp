@@ -49,58 +49,36 @@ public class TopFragment extends Fragment {
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
         lvBooks4 = view.findViewById(R.id.list4);
 
-        final MainPageBook b = new MainPageBook();
-        b.setTitle("title");
-        b.setRate(5);
-        b.setId(100);
-        b.setGenre("fantasy");
-        b.setAuthor("me");
 
 
-        Call<TopResponse> getTop = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .getTop("Bearer " + token);
-
-        getTop.enqueue(new Callback<TopResponse>() {
-            @Override
-            public void onResponse(Call<TopResponse> call, Response<TopResponse> response) {
-                MainPageBook[] books = response.body().getBooks();
-
+//        Call<TopResponse> getTop = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .getTop("Bearer " + token);
+//
+//        getTop.enqueue(new Callback<TopResponse>() {
+//            @Override
+//            public void onResponse(Call<TopResponse> call, Response<TopResponse> response) {
+//                MainPageBook[] books = response.body().getBooks();
+//
+////                mBooksList4 = new ArrayList<>();
+////                mBooksList4.add(b);
+////                adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
+////                lvBooks4.setAdapter(adapter4);
+//
 //                mBooksList4 = new ArrayList<>();
 //                mBooksList4.add(b);
 //                adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
 //                lvBooks4.setAdapter(adapter4);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<TopResponse> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
 
-                mBooksList4 = new ArrayList<>();
-                mBooksList4.add(b);
-                adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
-                lvBooks4.setAdapter(adapter4);
-            }
 
-            @Override
-            public void onFailure(Call<TopResponse> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-        Call<GetBookResponse> call7 = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .getBook("Bearer " + token, 10);
-
-        call7.enqueue(new Callback<GetBookResponse>() {
-            @Override
-            public void onResponse(Call<GetBookResponse> call, Response<GetBookResponse> response) {
-                Book resp = response.body().getBook();
-
-            }
-
-            @Override
-            public void onFailure(Call<GetBookResponse> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
 
 
 
