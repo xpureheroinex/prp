@@ -1,10 +1,16 @@
 package com.example.bookspace;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -17,11 +23,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
@@ -36,6 +48,8 @@ import com.example.bookspace.model.reviews.Review;
 import com.example.bookspace.model.statistics.SetPlanResponse;
 
 import java.security.PrivateKey;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,15 +62,14 @@ public class user_page extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TextView mReadTextView;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -89,36 +102,6 @@ public class user_page extends AppCompatActivity
 
 
         //-------------------- test queries
-
-
-        //получаем статистику
-
-//        Call<StatisticsResponse> call3 = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .getStats("Bearer " + token, "week");
-//
-//        call3.enqueue(new Callback<StatisticsResponse>() {
-//            @Override
-//            public void onResponse(Call<StatisticsResponse> call, Response<StatisticsResponse> response) {
-//                StatisticsResponse resp = response.body();
-//                text2.setText(String.valueOf(resp.getPlan().getPlan()));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<StatisticsResponse> call, Throwable t) {
-//                if (t instanceof IOException) {
-//                    Toast.makeText(user_page.this, "this is an actual network failure :( inform the user and possibly retry", Toast.LENGTH_SHORT).show();
-//                    // logging probably not necessary
-//                }
-//                else {
-//                    Toast.makeText(user_page.this, "conversion issue! big problems :(", Toast.LENGTH_SHORT).show();
-//                    // todo log to some central bug tracking service
-//                    t.printStackTrace();
-//                }
-//
-//            }
-//        });
         
 
         //получаем информацию о книге
@@ -250,9 +233,8 @@ public class user_page extends AppCompatActivity
                 startActivity(new Intent(getApplicationContext(), BookPageActivity.class));
             }
         });
-
-
     }
+
 
     private void initializeCountDrawer(){
         mReadTextView.setGravity(Gravity.CENTER_VERTICAL);
@@ -271,6 +253,58 @@ public class user_page extends AppCompatActivity
         mReadTextView.setTypeface(null, Typeface.BOLD);
         mReadTextView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         mReadTextView.setText("1");
+    }
+
+public void Delete(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete this book?")
+        .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        })
+                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast toast = Toast.makeText(getApplicationContext(),"The book was deleted",Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    public void Add(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose status:");
+
+        String[] items= {"Read", "Reading", "Will Read"};
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case 0:
+                        Toast toast = Toast.makeText(getApplicationContext(),"The status of book was changed on read",Toast.LENGTH_SHORT);
+                        toast.show();
+                        break;
+                    case 1:
+                        Toast toast1 = Toast.makeText(getApplicationContext(),"The status of book was changed on reading",Toast.LENGTH_SHORT);
+                        toast1.show();
+                        break;
+                    case 2:
+                        Toast toast2 = Toast.makeText(getApplicationContext(),"The status of book was changed on will read",Toast.LENGTH_SHORT);
+                        toast2.show();
+                        break;
+
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
     }
 
     //нажатие на кнопку ChangeUsername
@@ -463,26 +497,44 @@ public class user_page extends AppCompatActivity
     }
 
     public void onClickLogOut(View v){
-        SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
-        Call<ResponseBody> call6 = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .logout("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Are you sure you want to Logout?")
+                    .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            })
+                    .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+                        Call<ResponseBody> call6 = RetrofitClient
+                                .getInstance()
+                                .getBookSpaceAPI()
+                                .logout("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
 
         call6.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
+                            @Override
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            @Override
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
-            }
-        });
-        SharedPreferences.Editor editor = prefs.edit();
+                            }
+                        });
+                        SharedPreferences.Editor editor = prefs.edit();
         editor.remove("token");
         editor.apply();
-        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+
+                        }
+                    });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
     }
 
     @Override
@@ -553,6 +605,8 @@ public class user_page extends AppCompatActivity
             newFragment = new TopFragment();
             findViewById(R.id.btnfr4).setBackgroundColor(Color.parseColor("#757575"));
             findViewById(R.id.btnfr5).setBackgroundColor(Color.parseColor("#bdbdbd"));
+
+
         } else if (view == findViewById(R.id.btnfr5)) {
             newFragment = new RecommendFragment();
             findViewById(R.id.btnfr5).setBackgroundColor(Color.parseColor("#757575"));
