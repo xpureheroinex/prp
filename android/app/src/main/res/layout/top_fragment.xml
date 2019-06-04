@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0">
+    android:background="@color/colorSplashScreen">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:layout_marginBottom="10dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -30,10 +31,10 @@
 
                 <View
                     android:id="@+id/view2"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="4dp"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="4dp"
 
                     android:background="@drawable/button">
 
@@ -43,13 +44,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView33"
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="20dp"
@@ -57,7 +58,7 @@
 
                 <TextView
                     android:id="@+id/textView34"
-                    android:layout_width="wrap_content"
+                    android:layout_width="20dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Genre" />
@@ -65,18 +66,19 @@
 
 
         </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         android:background="#FFFFFF"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -91,10 +93,10 @@
 
             <View
                 android:id="@+id/view3"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="4dp"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
 
                 android:background="@drawable/button">
 
@@ -104,21 +106,21 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView35"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="20dp"
+                android:layout_weight="1"
                 android:text="Author" />
 
             <TextView
                 android:id="@+id/textView36"
-                android:layout_width="wrap_content"
+                android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Genre" />

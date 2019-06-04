@@ -21,10 +21,12 @@
             android:layout_height="wrap_content"
 
             android:layout_weight="7"
-            android:background="#BFBFBF"
+            android:background="#757575"
+            android:fontFamily="@font/roboto_medium"
             android:onClick="onSelectFragment3"
             android:text="Year"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btnfr7"
@@ -33,9 +35,11 @@
 
             android:layout_weight="7"
             android:background="#BFBFBF"
+            android:fontFamily="@font/roboto_medium"
             android:onClick="onSelectFragment3"
             android:text="Month"
-            android:textColor="#ffffff"/>
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/btnfr8"
@@ -44,9 +48,11 @@
 
             android:layout_weight="7"
             android:background="#BFBFBF"
+            android:fontFamily="@font/roboto_medium"
             android:onClick="onSelectFragment3"
+            android:text="Week"
             android:textColor="#ffffff"
-            android:text="Week" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout

@@ -7,74 +7,68 @@
     tools:textcolor="#000000">
 
     <LinearLayout
-        android:layout_weight="3"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:orientation="vertical"
-        android:background="@color/colorSplashScreen">
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:src="@drawable/person" />
-
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:text="UserName"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/textView27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="15dp"
-            android:text="user.login@gmail.com"
-            android:textSize="14sp" />
+        android:layout_weight="2"
+        android:background="@color/colorSplashScreen"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btnfr1"
-            android:layout_width="350dp"
-            android:layout_height="40dp"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
             android:background="@drawable/button"
+
+            android:fontFamily="@font/roboto_medium"
             android:onClick="onSelectFragment"
             android:text="Change user name"
             android:textColor="#ffffff"
-
             android:textSize="14sp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnfr2"
-            android:layout_width="350dp"
-            android:layout_height="40dp"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
             android:background="@drawable/button"
+            android:fontFamily="@font/roboto_medium"
             android:onClick="onSelectFragment"
             android:text="Change password"
             android:textColor="#ffffff"
             android:textSize="14sp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnfr3"
-            android:layout_width="350dp"
-            android:layout_height="40dp"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button"
+            android:fontFamily="@font/roboto_medium"
+            android:onClick="onSelectFragment"
+            android:text="Set reading targets "
             android:textColor="#ffffff"
             android:textSize="14sp"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnfr"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/button"
-            android:onClick="onSelectFragment"
-            android:text="Set reading targets " />
+            android:fontFamily="@font/roboto_medium"
+            android:onClick="onClickLogOut"
+            android:text="Logout"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -87,24 +81,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="vertical"
-        android:layout_weight="0.5"
-        android:background="@color/colorSplashScreen">
-
-        <Button
-            android:id="@+id/btnfr"
-            android:layout_width="350dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/button"
-            android:onClick="onClickLogOut"
-            android:text="Logout"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-    </LinearLayout>
 </LinearLayout>
