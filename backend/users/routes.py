@@ -487,12 +487,12 @@ class HomepageTop(Resource):
         books = Books.query.order_by(desc('rate')).limit(10).all()
         list_books = []
         for book in books:
-            info = dict()
-            info['id'] = book.id,
-            info['title'] = book.title,
-            info['author'] = book.author,
-            info['genre'] = book.genre,
-            info['rate'] = book.rate
+            info = {
+                'id': book.id,
+                'title': book.title,
+                'author': book.author,
+                'genre': book.genre,
+                'rate': book.rate}
 
             list_books.append(info)
 
@@ -543,13 +543,12 @@ class HomepageRec(Resource):
             recommendations = []
             
             for rec in recs:
-                info = dict()
-                info['id'] = rec.id,
-                info['title'] = rec.title,
-                info['author'] = rec.author,
-                info['genre'] = rec.genre,
-                info['rate'] = rec.rate
-                recommendations.append(info)
+                info = {
+                    'id': book.id,
+                    'title': book.title,
+                    'author': book.author,
+                    'genre': book.genre,
+                    'rate': book.rate}
 
             return {'books': recommendations, 'status': 200}
         else:
