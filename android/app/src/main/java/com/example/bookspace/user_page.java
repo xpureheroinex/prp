@@ -243,6 +243,14 @@ public class user_page extends AppCompatActivity
 //            }
 //        });
 
+        Button bu = (Button) findViewById(R.id.button2);
+        bu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), BookPageActivity.class));
+            }
+        });
+
 
     }
 
@@ -440,14 +448,9 @@ public class user_page extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Your targets has been saved", Toast.LENGTH_SHORT).show();
         }
 
-        Button bu = (Button) findViewById(R.id.button2);
-        bu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), BookPageActivity.class));
-            }
-        });
     }
+
+
 
     @Override
     public void onBackPressed() {
