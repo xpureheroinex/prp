@@ -526,7 +526,7 @@ class HomepageRec(Resource):
         if len(books) > 0:
             for book in books:
                 range_books.append(book.books_id)
-                
+
             fav_author = Books.query.with_entities(Books.author,
                                                    func.count(Books.author)). \
                 group_by(Books.author). \
@@ -545,7 +545,7 @@ class HomepageRec(Resource):
                 order_by(desc('rate')). \
                 limit(10).all()
             recommendations = []
-            
+
             for rec in recs:
                 info = {
                     'id': book.id,
@@ -663,3 +663,44 @@ class RestorePass(Resource):
 
 
 api.add_resource(RestorePass, '/login/restore')
+
+
+class Search(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('search')
+        self.parser.add_argument('Authorization', location='headers')
+
+    def post(self):
+        args = self.parser.parse_args()
+        search = args['search']
+        if args['Authorization'] is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        token = args['Authorization'].split(' ')[1]
+        if User.verify_auth_token(token) is None:
+            return {'message': 'Unauthorized', 'status': 401}
+        user_id = User.verify_auth_token(token)['user_id']
+        user = User.query.get(user_id)
+        if user is None:
+            return _BAD_REQUEST
+        elif search is not None:
+            info = []
+            research = search.strip()
+            query = f'%{research}%'
+            print(research)
+            result = Books.query.filter(or_(Books.genre.ilike(query), Books.title.ilike(query), Books.author.ilike(query))).all()
+            print(result)
+
+            for book in result:
+                listbook = {
+                    "id": book.id,
+                    "title": book.title,
+                    "author": book.author,
+                    "genre": book.genre
+                }
+                info.append(listbook)
+            return {'count': len(info), 'Results of searching': info, 'status': 200}
+        return _BAD_REQUEST
+
+
+api.add_resource(Search, '/books/search')
