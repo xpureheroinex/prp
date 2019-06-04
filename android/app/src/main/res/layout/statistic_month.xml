@@ -146,13 +146,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/statsMonthBooksRead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="0"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
@@ -161,13 +160,12 @@
         app:layout_constraintStart_toEndOf="@+id/textView6" />
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/statsMonthFavGenre"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="0"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
@@ -176,13 +174,12 @@
         app:layout_constraintStart_toEndOf="@+id/textView8" />
 
     <TextView
-        android:id="@+id/textView37"
+        android:id="@+id/statsMonthFavAuthor"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="0"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView9"
@@ -191,96 +188,80 @@
         app:layout_constraintStart_toEndOf="@+id/textView9" />
 
     <TextView
-        android:id="@+id/textView38"
+        android:id="@+id/statsMonthWantToReadBooks"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="0"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView23"
         app:layout_constraintStart_toEndOf="@+id/textView23" />
 
     <TextView
-        android:id="@+id/textView40"
+        android:id="@+id/statsMonthReadOutOf"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="0"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView25"
         app:layout_constraintStart_toEndOf="@+id/textView25" />
 
     <TextView
-        android:id="@+id/textView43"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="0"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView24"
-        app:layout_constraintStart_toEndOf="@+id/textView24" />
-
-    <TextView
-        android:id="@+id/textView44"
+        android:id="@+id/statsMonthCompleted"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="0"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView42"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView42" />
+        app:layout_constraintStart_toEndOf="@+id/textView24" />
+
+    <TextView
+        android:id="@+id/statsMonthBooksOutOf"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView41"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView41" />
 
     <TextView
         android:id="@+id/textView39"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto_light"
         android:text="books"
         android:textColor="@color/colorTextPrimary"
         android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView38"
+        app:layout_constraintBaseline_toBaselineOf="@+id/statsMonthWantToReadBooks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.015"
-        app:layout_constraintStart_toEndOf="@+id/textView38" />
+        app:layout_constraintStart_toEndOf="@+id/statsMonthWantToReadBooks" />
 
     <TextView
         android:id="@+id/textView41"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto_light"
         android:text="books out of"
         android:textColor="@color/colorTextPrimary"
         android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView40"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView40" />
-
-    <TextView
-        android:id="@+id/textView42"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/roboto_light"
-        android:text="books out of"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView43"
-        app:layout_constraintStart_toEndOf="@+id/textView43" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/statsMonthReadOutOf"
+        app:layout_constraintStart_toEndOf="@+id/statsMonthReadOutOf" />
 
 </android.support.constraint.ConstraintLayout>
