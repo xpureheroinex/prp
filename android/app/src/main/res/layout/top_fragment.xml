@@ -6,11 +6,12 @@
     android:background="@color/colorSplashScreen">
 
     <ListView
-        android:id="@+id/list"
+        android:id="@+id/list4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/colorSplashScreen"
         android:scrollbars="vertical"
+        android:dividerHeight="10dp"
 
         />
 

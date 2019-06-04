@@ -15,23 +15,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WillReadBooks extends Fragment {
-    ListView lvBooks;
-    BooksListAdapter adapter;
-    List<Books> mBooksList;
+    ListView lvBooks3;
+    BooksListAdapter adapter3;
+    List<Books> mBooksList3;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v =inflater.inflate(R.layout.willreadbooks,container,false);
-        lvBooks = (ListView) v.findViewById(R.id.list3);
-        mBooksList = new ArrayList<>();
-        mBooksList.add(new Books(1,"FirstB",2.5,"01.12.2013","Author1"));
-        mBooksList.add(new Books(2,"SecondB",3.5,"11.12.2013","Author3"));
-        adapter = new BooksListAdapter(getContext(),mBooksList);
-        lvBooks.setAdapter(adapter);
+        lvBooks3 = (ListView) v.findViewById(R.id.list3);
+        mBooksList3 = new ArrayList<>();
+        mBooksList3.add(new Books(1,"FirstB",2.5,"01.12.2013","Author1"));
+        mBooksList3.add(new Books(2,"SecondB",3.5,"11.12.2013","Author3"));
+        adapter3 = new BooksListAdapter(getContext(),mBooksList3);
+        lvBooks3.setAdapter(adapter3);
 
-        lvBooks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvBooks3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

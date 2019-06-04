@@ -17,22 +17,22 @@ import java.util.List;
 
 public class TopFragment extends Fragment {
 
-    ListView lvBooks;
-    BooksListAdapter adapter;
-    List<Books> mBooksList;
+    ListView lvBooks4;
+    BooksListAdapter2 adapter4;
+    List<Books2> mBooksList4;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v =inflater.inflate(R.layout.top_fragment,container,false);
-        lvBooks = (ListView) v.findViewById(R.id.list);
-        mBooksList = new ArrayList<>();
-        mBooksList.add(new Books(1,"FirstB",2.5,"01.12.2013","Author1"));
-        mBooksList.add(new Books(2,"SecondB",3.5,"11.12.2013","Author2eeee"));
-        adapter = new BooksListAdapter(getContext(),mBooksList);
-        lvBooks.setAdapter(adapter);
+        lvBooks4 = (ListView) v.findViewById(R.id.list4);
+        mBooksList4 = new ArrayList<>();
+        mBooksList4.add(new Books2(1,"FirstB1",2.5,"AUTHOR1","GENRE1"));
+        mBooksList4.add(new Books2(2,"SecondB2",3.5,"AUTHOR2","GENRE2"));
+        adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
+        lvBooks4.setAdapter(adapter4);
 
-        lvBooks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

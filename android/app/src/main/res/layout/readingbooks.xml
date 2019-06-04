@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:divider="@color/colorSplashScreen"
         android:scrollbars="vertical"
-
+        android:dividerHeight="10dp"
         />
 
 
