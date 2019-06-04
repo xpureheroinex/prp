@@ -36,20 +36,21 @@ class Search(Resource):
         elif search is not None:
             info = []
             research = search.strip()
-            s = f'%{research}%'
+            query = f'%{research}%'
             print(research)
-            result = Books.query.filter(or_(Books.genre.ilike(s), Books.title.ilike(s), Books.author.ilike(s))).all()
+            result = Books.query.filter(or_(Books.genre.ilike(query), Books.title.ilike(query), Books.author.ilike(query))).all()
             print(result)
 
             for book in result:
                 listbook = {
                     "id": book.id,
-                    "Title": book.title,
-                    "Author": book.author,
-                    "Genre": book.genre
+                    "title": book.title,
+                    "author": book.author,
+                    "genre": book.genre
                 }
                 info.append(listbook)
-        return {'count': len(info), 'Results of searching': info, 'status': 200}
+            return {'count': len(info), 'Results of searching': info, 'status': 200}
+        return _BAD_REQUEST
 
 
 api.add_resource(Search, '/books/search')
