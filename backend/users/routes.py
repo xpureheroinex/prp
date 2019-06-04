@@ -699,7 +699,7 @@ class Search(Resource):
                     "genre": book.genre
                 }
                 info.append(listbook)
-            return {'count': len(info), 'Results of searching': info, 'status': 200}
+            return {'count': len(info), 'books: info, 'status': 200}
         return _BAD_REQUEST
 
 
