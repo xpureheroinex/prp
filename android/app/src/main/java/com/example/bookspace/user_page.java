@@ -1,10 +1,13 @@
 package com.example.bookspace;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -17,10 +20,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
@@ -35,6 +44,8 @@ import com.example.bookspace.model.reviews.Review;
 import com.example.bookspace.model.statistics.SetPlanResponse;
 
 import java.security.PrivateKey;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +57,12 @@ import retrofit2.Response;
 public class user_page extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TextView mReadTextView;
+
+
+    //String mTitle[] = {"FirstBook", "Second", "Third", "Forth", "Fifth"};
+    //double mRate [] = {2.3,1.2,5,4,3.4};
+    //String mDate[] = {"10.12.2013", "25.02.2011", "01.01.2018", "22.10.2013", "12.12.2010"};
+   // String mAuthor[] = {"FirstAuthor", "SecondAu", "ThirdAu", "ForthAu", "FifthAu"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +97,7 @@ public class user_page extends AppCompatActivity
         transaction.add(R.id.ll3, startFragment);
         transaction.commit();
 
-        final TextView text = findViewById(R.id.textView29);
-        final TextView text2 = findViewById(R.id.textView30);
+
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String token = prefs.getString("token", "token is null");
 
@@ -243,6 +259,7 @@ public class user_page extends AppCompatActivity
 
 
     }
+
 
     private void initializeCountDrawer(){
         mReadTextView.setGravity(Gravity.CENTER_VERTICAL);
@@ -493,8 +510,8 @@ public class user_page extends AppCompatActivity
                 ProfileResponse resp = response.body();
                 User user = resp.getUser();
 
-                profileUsername.setText(user.getUsername());
-                profileEmail.setText(user.getEmail());
+              //  profileUsername.setText(user.getUsername());
+             //   profileEmail.setText(user.getEmail());
             }
             @Override
             public void onFailure(Call<ProfileResponse> call, Throwable t) {
@@ -538,6 +555,8 @@ public class user_page extends AppCompatActivity
             newFragment = new TopFragment();
             findViewById(R.id.btnfr4).setBackgroundColor(Color.parseColor("#757575"));
             findViewById(R.id.btnfr5).setBackgroundColor(Color.parseColor("#bdbdbd"));
+
+
         } else if (view == findViewById(R.id.btnfr5)) {
             newFragment = new RecommendFragment();
             findViewById(R.id.btnfr5).setBackgroundColor(Color.parseColor("#757575"));

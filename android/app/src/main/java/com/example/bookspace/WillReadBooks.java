@@ -7,11 +7,38 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WillReadBooks extends Fragment {
+    ListView lvBooks;
+    BooksListAdapter adapter;
+    List<Books> mBooksList;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.willreadbooks,container,false);
+
+        View v =inflater.inflate(R.layout.willreadbooks,container,false);
+        lvBooks = (ListView) v.findViewById(R.id.list3);
+        mBooksList = new ArrayList<>();
+        mBooksList.add(new Books(1,"FirstB",2.5,"01.12.2013","Author1"));
+        mBooksList.add(new Books(2,"SecondB",3.5,"11.12.2013","Author3"));
+        adapter = new BooksListAdapter(getContext(),mBooksList);
+        lvBooks.setAdapter(adapter);
+
+        lvBooks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(getContext(),"Hy" + view.getTag(),Toast.LENGTH_SHORT).show();
+            }
+        });
+        return v;
+
     }
 }
