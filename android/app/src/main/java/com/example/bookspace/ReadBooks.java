@@ -47,7 +47,7 @@ public class ReadBooks extends Fragment {
                 UserBook[] userBooks = response.body().getInfo();
 
                 mBooksList1 = new ArrayList<>();
-                
+
                 for(UserBook book : userBooks){
                     mBooksList1.add(book);
                 }
@@ -62,10 +62,6 @@ public class ReadBooks extends Fragment {
             }
         });
 
-//        mBooksList1 = new ArrayList<>();
-////        mBooksList1.add(new Books(2,"SecondB",3.5,"11.12.2013","Author2eeee"));
-//        adapter1 = new BooksListAdapter(getContext(),mBooksList1);
-//        lvBooks1.setAdapter(adapter1);
 
         lvBooks1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,6 +70,7 @@ public class ReadBooks extends Fragment {
                 Toast.makeText(getContext(),"Hy" + view.getTag(),Toast.LENGTH_SHORT).show();
             }
         });
+
         return view;
     }
 }

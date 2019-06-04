@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="15dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/corners_in_views"
 
-    android:background="@drawable/corners_in_views">
+    android:orientation="horizontal"
+    android:padding="15dp">
 
     <LinearLayout
         android:layout_width="200dp"
@@ -21,20 +23,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
+                android:fontFamily="@font/roboto_medium"
                 android:text="NameBook"
+                android:textColor="@color/colorTextPrimary"
                 android:textSize="17dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/statusBookRate"
-                android:layout_width="22dp"
+                android:layout_width="25dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/button"
+                android:fontFamily="@font/roboto_medium"
                 android:text="1"
                 android:textAlignment="center"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -50,38 +56,45 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="Genre" />
+                android:fontFamily="@font/roboto_light"
+                android:text="Genre"
+                android:textColor="@color/colorTextSecondary"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/statusBookAuthor"
                 android:layout_width="95dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Author" />
+                android:fontFamily="@font/roboto_light"
+                android:text="Author"
+                android:textColor="@color/colorTextSecondary"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="end">
 
-    <ImageButton
-        android:id="@+id/addbtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="30dp"
-        android:background="@color/colorSplashScreen"
-        android:onClick="Add"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end">
 
-        android:src="@drawable/ic_add_book" />
+        <ImageButton
+            android:id="@+id/addbtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:background="@color/colorSplashScreen"
+            android:onClick="Add"
 
-    <ImageButton
-        android:id="@+id/deletebtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:background="@color/colorSplashScreen"
-        android:onClick="Delete"
-        android:src="@drawable/ic_delete" />
-</LinearLayout>
+            android:src="@drawable/ic_add_book" />
+
+        <ImageButton
+            android:id="@+id/deletebtn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorSplashScreen"
+            android:onClick="Delete"
+            android:src="@drawable/ic_delete" />
+    </LinearLayout>
 </LinearLayout>
