@@ -50,6 +50,7 @@ public class Books2 {
     public Books2(int id, String name, double rate, String author, String genre ) {
         this.id = id;
         this.name = name;
+        this.rate = rate;
         this.author = author;
         this.genre = genre;
 
