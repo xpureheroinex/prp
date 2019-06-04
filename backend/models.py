@@ -1,4 +1,5 @@
 import enum
+from hashlib import md5
 from time import time
 from datetime import datetime
 from . import db, create_app, config
@@ -51,7 +52,6 @@ class User(db.Model):
         s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
         return s.dumps({'id': self.id, 'username': self.username})
 
-
     @staticmethod
     def verify_auth_token(token):
         s = Serializer(app.config['SECRET_KEY'])
@@ -70,6 +70,11 @@ class User(db.Model):
             return {'user_id': user_id, 'username': username}
         else:
             return None
+
+    def avatar(self, size=40):
+        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size)
 
 
 class Books(db.Model):
