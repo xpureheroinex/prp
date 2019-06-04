@@ -42,6 +42,8 @@ class Books(Resource):
             user_book = models.UsersBooks.query.filter_by(user_id=user.id).filter_by(books_id=book.id).first()
             if user_book is None:
                 list = None
+            elif user_book.list is None:
+                list = None
             else:
                 list = user_book.list.name
             for rec in similar_books:
