@@ -2,7 +2,7 @@
 <resources>
     <color name="colorSplashScreen">#F5F5F5</color>
     <color name="colorPrimary">#61B3E7</color>
-    <color name="colorPrimaryDark">#00695c</color>
+    <color name="colorPrimaryDark">#00695C</color>
     <color name="colorPrimaryLight">#CEF2F7</color>
     <color name="colorText">#FFFFFF</color>
     <color name="colorTextPrimary">#212121</color>
