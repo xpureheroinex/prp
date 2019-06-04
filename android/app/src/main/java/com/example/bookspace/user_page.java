@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.TextView;
 import android.view.View;
@@ -83,8 +84,6 @@ public class user_page extends AppCompatActivity
         transaction.add(R.id.ll3, startFragment);
         transaction.commit();
 
-        final TextView text = findViewById(R.id.textView29);
-        final TextView text2 = findViewById(R.id.textView30);
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String token = prefs.getString("token", "token is null");
 
@@ -400,8 +399,8 @@ public class user_page extends AppCompatActivity
 
             }
         });
-
-            Call<SetPlanResponse> setMonth = RetrofitClient
+        
+        Call<SetPlanResponse> setMonth = RetrofitClient
                     .getInstance()
                     .getBookSpaceAPI()
                     .setPlan("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""),
@@ -440,6 +439,14 @@ public class user_page extends AppCompatActivity
             });
             Toast.makeText(getApplicationContext(), "Your targets has been saved", Toast.LENGTH_SHORT).show();
         }
+
+        Button bu = (Button) findViewById(R.id.button2);
+        bu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), BookPageActivity.class));
+            }
+        });
     }
 
     @Override

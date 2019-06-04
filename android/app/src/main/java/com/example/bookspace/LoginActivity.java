@@ -191,7 +191,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         try{
                             String res = response.body().getMessage();
                             int res1 = response.body().getStatus();
-                            statusTextView.setText(res + " " + res1);
                         } catch(NullPointerException e){
                             e.printStackTrace();
                         }
@@ -203,6 +202,11 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     }
                 });
             //login
+        try{
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e){
+        }
             Call<LoginResponse> callGoogle = RetrofitClient
                     .getInstance()
                     .getBookSpaceAPI()
@@ -213,7 +217,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if(response.isSuccessful()){
                         LoginResponse resp = response.body();
-
                             //сохраняем токен
                             SharedPreferences preferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
                             preferences.edit().putString("token", response.headers().get("Bearer")).apply();

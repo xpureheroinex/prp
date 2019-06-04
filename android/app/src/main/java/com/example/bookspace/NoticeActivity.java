@@ -7,11 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 
 public class NoticeActivity extends AppCompatActivity {
+    public int bookId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
+
+        Intent inten = getIntent();
+        bookId = inten.getIntExtra("bookId", 11);
 
         TextView textAbout = findViewById(R.id.textAbout);
         textAbout.setOnClickListener(new View.OnClickListener() {
