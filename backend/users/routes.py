@@ -336,7 +336,8 @@ class DoneBooks(Resource):
                     "id": current_book.id,
                     "title": current_book.title,
                     "author": current_book.author,
-                    "genre": current_book.genre
+                    "genre": current_book.genre,
+                    "rate": book.rate,
                 }
                 info.append(info_book)
         return {'count': count, 'info': info, 'status': 200}
@@ -372,7 +373,9 @@ class ProgressBooks(Resource):
                     "id": current_book.id,
                     "title": current_book.title,
                     "author": current_book.author,
-                    "genre": current_book.genre
+                    "genre": current_book.genre,
+                    "rate": book.rate,
+
                 }
                 info.append(info_book)
         return {'count': count, 'info': info, 'status': 200}
@@ -408,7 +411,8 @@ class FutureBooks(Resource):
                     "id": current_book.id,
                     "title": current_book.title,
                     "author": current_book.author,
-                    "genre": current_book.genre
+                    "genre": current_book.genre,
+                    "rate": book.rate,
                 }
                 info.append(info_book)
         return {'count': count, 'info': info, 'status': 200}
