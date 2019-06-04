@@ -227,22 +227,22 @@ public class user_page extends AppCompatActivity
 
         //редактирование заметки
 
-        Call<ResponseBody> callrr = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .editNote("Bearer " + token, 6, null, "hello");
-
-        callrr.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
+//        Call<ResponseBody> callrr = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .editNote("Bearer " + token, 6, null, "hello");
+//
+//        callrr.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
 
 
     }
@@ -496,8 +496,10 @@ public class user_page extends AppCompatActivity
                 ProfileResponse resp = response.body();
                 User user = resp.getUser();
 
-                profileUsername.setText(user.getUsername());
-                profileEmail.setText(user.getEmail());
+                try{
+                    profileUsername.setText(user.getUsername());
+                    profileEmail.setText(user.getEmail());
+                } catch(Exception ignore){}
             }
             @Override
             public void onFailure(Call<ProfileResponse> call, Throwable t) {
