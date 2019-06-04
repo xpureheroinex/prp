@@ -39,6 +39,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
+import com.example.bookspace.model.books.GetBooksResponse;
 import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.notes.Note;
 import com.example.bookspace.model.profile.ProfileResponse;
@@ -226,6 +227,23 @@ public class user_page extends AppCompatActivity
 //            }
 //        });
 
+        Call<GetBooksResponse> call100 = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .getReadBooks("Bearer " + token);
+
+        call100.enqueue(new Callback<GetBooksResponse>() {
+            @Override
+            public void onResponse(Call<GetBooksResponse> call, Response<GetBooksResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<GetBooksResponse> call, Throwable t) {
+
+            }
+        });
+
         Button bu = (Button) findViewById(R.id.button2);
         bu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -255,7 +273,7 @@ public class user_page extends AppCompatActivity
         mReadTextView.setText("1");
     }
 
-public void Delete(View view){
+public void Delete(final View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you want to delete this book?")
         .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
@@ -270,6 +288,7 @@ public void Delete(View view){
                     public void onClick(DialogInterface dialog, int which) {
                         Toast toast = Toast.makeText(getApplicationContext(),"The book was deleted",Toast.LENGTH_SHORT);
                         toast.show();
+
                     }
                 });
         AlertDialog alertDialog = builder.create();
@@ -297,7 +316,6 @@ public void Delete(View view){
                         Toast toast2 = Toast.makeText(getApplicationContext(),"The status of book was changed on will read",Toast.LENGTH_SHORT);
                         toast2.show();
                         break;
-
                 }
             }
         });

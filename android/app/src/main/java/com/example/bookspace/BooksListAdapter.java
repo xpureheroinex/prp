@@ -7,14 +7,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.bookspace.model.books.UserBook;
+
 import java.util.List;
 
 public class BooksListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<Books> mBooksList;
+    private List<UserBook> mBooksList;
 
-    public BooksListAdapter(Context mContext,List<Books> mBooksList){
+    public BooksListAdapter(Context mContext,List<UserBook> mBooksList){
         this.mContext = mContext;
         this.mBooksList = mBooksList;
     }
@@ -36,14 +38,15 @@ public class BooksListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = View.inflate(mContext,R.layout.row, null);
-        TextView myTitle = (TextView) row.findViewById(R.id.textView12);
-        TextView myRate = (TextView) row.findViewById(R.id.textView13);
-        TextView myDate = (TextView) row.findViewById(R.id.textView14);
-        TextView myAuthor = (TextView) row.findViewById(R.id.textView15);
 
-        myTitle.setText(mBooksList.get(position).getName());
-        myRate.setText(String.valueOf(mBooksList.get(position).getRate()));
-        myDate.setText(mBooksList.get(position).getDate());
+        TextView myTitle = row.findViewById(R.id.statusBookTitle);
+        TextView myRate = row.findViewById(R.id.statusBookRate);
+        TextView myGenre = row.findViewById(R.id.statusBookGenre);
+        TextView myAuthor = row.findViewById(R.id.statusBookAuthor);
+
+        myTitle.setText(mBooksList.get(position).getTitle());
+//        myRate.setText(String.valueOf(mBooksList.get(position).getRate()));
+        myGenre.setText(mBooksList.get(position).getGenre());
         myAuthor.setText(mBooksList.get(position).getAuthor());
 
         row.setTag(mBooksList.get(position).getId());
