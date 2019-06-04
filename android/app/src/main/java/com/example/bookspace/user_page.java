@@ -1,6 +1,9 @@
 package com.example.bookspace;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -59,10 +62,6 @@ public class user_page extends AppCompatActivity
     private TextView mReadTextView;
 
 
-    //String mTitle[] = {"FirstBook", "Second", "Third", "Forth", "Fifth"};
-    //double mRate [] = {2.3,1.2,5,4,3.4};
-    //String mDate[] = {"10.12.2013", "25.02.2011", "01.01.2018", "22.10.2013", "12.12.2010"};
-   // String mAuthor[] = {"FirstAuthor", "SecondAu", "ThirdAu", "ForthAu", "FifthAu"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -278,6 +277,27 @@ public class user_page extends AppCompatActivity
         mReadTextView.setTypeface(null, Typeface.BOLD);
         mReadTextView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         mReadTextView.setText("1");
+    }
+
+public void Delete(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete this book?")
+        .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        })
+                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast toast = Toast.makeText(getApplicationContext(),"The book was deleted",Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     //нажатие на кнопку ChangeUsername
