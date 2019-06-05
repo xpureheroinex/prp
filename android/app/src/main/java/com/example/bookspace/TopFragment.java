@@ -78,7 +78,9 @@ public class TopFragment extends Fragment {
         bookListTop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), String.valueOf(booksId[position]), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), BookPageActivity.class);
+                intent.putExtra("bookId", mBooksListTop.get(position).getId());
+                startActivity(intent);
             }
         });
 
