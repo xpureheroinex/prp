@@ -548,11 +548,11 @@ class HomepageRec(Resource):
 
             for rec in recs:
                 info = {
-                    'id': book.id,
-                    'title': book.title,
-                    'author': book.author,
-                    'genre': book.genre,
-                    'rate': book.rate}
+                    'id': rec.id,
+                    'title': rec.title,
+                    'author': rec.author,
+                    'genre': rec.genre,
+                    'rate': rec.rate}
 
             return {'books': recommendations, 'status': 200}
         else:
