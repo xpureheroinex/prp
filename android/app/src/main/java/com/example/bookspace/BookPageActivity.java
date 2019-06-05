@@ -97,7 +97,7 @@ public class BookPageActivity extends AppCompatActivity {
                     TextView txt1Book = new TextView(BookPageActivity.this);
                     txt1Book.setTextColor(getResources().getColor(R.color.colorTextPrimary));
                     txt1Book.setTextSize(24);
-                    txt1Book.setText("Not found");
+                    txt1Book.setText("Similar books not found in our database");
                     cLayout.addView(txt1Book);
                 }else{
                     mBooksList4 = new ArrayList<>();
