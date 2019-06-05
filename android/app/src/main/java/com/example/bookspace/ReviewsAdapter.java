@@ -6,8 +6,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.bookspace.model.SimilarBooks;
-
 import java.util.List;
 
 public class ReviewsAdapter extends BaseAdapter {
