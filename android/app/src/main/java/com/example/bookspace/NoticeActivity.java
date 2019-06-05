@@ -29,6 +29,8 @@ public class NoticeActivity extends AppCompatActivity {
     public int bookId;
     public String token;
     public int i;
+    public int[] noteId;
+    public Note[] notes;
 
     ListView lvBooks4;
     NoteAdapter adapter4;
@@ -53,16 +55,18 @@ public class NoticeActivity extends AppCompatActivity {
         call.enqueue(new Callback<GetNotesResponse>() {
             @Override
             public void onResponse(Call<GetNotesResponse> call, Response<GetNotesResponse> response) {
-                Note[] notes = response.body().getNotes();
+                notes = response.body().getNotes();
                 if (notes.length == 0) {
                     TextView txtView = (TextView) findViewById(R.id.textViewNoNotes);
                     txtView.setText("No notes on this book");
                     txtView.setVisibility(View.VISIBLE);
                 } else {
+                    noteId = new int[notes.length];
                     mBooksList4 = new ArrayList<>();
                     for (i = 0; i < notes.length; i++) {
                         mBooksList4.add(new NoteClass(i, notes[i].getTitle(),
                                 "\n" + notes[i].getText(), "Date: " + notes[i].getCreated()));
+                        noteId[i] = notes[i].getId();
                     }
                     lvBooks4 = (ListView) findViewById(R.id.ListNotes);
                     adapter4 = new NoteAdapter(getApplicationContext(), mBooksList4);
@@ -70,7 +74,12 @@ public class NoticeActivity extends AppCompatActivity {
                     lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            //maybe new event for notes
+                            Intent inten = new Intent(getApplicationContext(), EditDeleteNote.class);
+                            inten.putExtra("noteId", noteId[position]);
+                            inten.putExtra("bookId", bookId);
+                            inten.putExtra("Title", notes[position].getTitle());
+                            inten.putExtra("Text", notes[position].getText());
+                            startActivity(inten);
                         }
                     });
                 }

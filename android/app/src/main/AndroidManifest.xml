@@ -13,6 +13,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".EditDeleteNote"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
             android:name=".AddNoteActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
