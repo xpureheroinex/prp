@@ -25,11 +25,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class TopRecommends2 extends Fragment {
 
-
-    ListView booksRecs;
-    BooksListAdapter2 adapter;
-    List<MainPageBook> mBooksList;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,33 +34,33 @@ public class TopRecommends2 extends Fragment {
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
 
 
-        booksRecs = view.findViewById(R.id.list4);
+//        booksRecs = view.findViewById(R.id.list4);
 
-        Call<TopResponse> getRecs = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .getRecs("Bearer " + token);
-
-        getRecs.enqueue(new Callback<TopResponse>() {
-            @Override
-            public void onResponse(Call<TopResponse> call, Response<TopResponse> response) {
-//                MainPageBook[] books = response.body().getBooks();
+//        Call<TopResponse> getRecs = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .getRecs("Bearer " + token);
 //
-//                mBooksList = new ArrayList<>();
+//        getRecs.enqueue(new Callback<TopResponse>() {
+//            @Override
+//            public void onResponse(Call<TopResponse> call, Response<TopResponse> response) {
+////                MainPageBook[] books = response.body().getBooks();
+////
+////                mBooksList = new ArrayList<>();
+////
+////                for(MainPageBook book : books){
+////                    mBooksList.add(book);
+////                }
+////
+////                adapter = new BooksListAdapterTop(getContext(), mBooksList);
+////                booksRecs.setAdapter(adapter);
+//            }
 //
-//                for(MainPageBook book : books){
-//                    mBooksList.add(book);
-//                }
-//
-//                adapter = new BooksListAdapter2(getContext(), mBooksList);
-//                booksRecs.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFailure(Call<TopResponse> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+//            @Override
+//            public void onFailure(Call<TopResponse> call, Throwable t) {
+//                t.printStackTrace();
+//            }
+//        });
 
         return view;
     }

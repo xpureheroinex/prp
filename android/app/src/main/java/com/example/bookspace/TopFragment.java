@@ -1,24 +1,20 @@
 package com.example.bookspace;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
-import com.example.bookspace.model.books.Book;
-import com.example.bookspace.model.books.GetBookResponse;
 import com.example.bookspace.model.books.MainPageBook;
 import com.example.bookspace.model.books.TopResponse;
 
@@ -29,13 +25,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class TopFragment extends Fragment {
 
-    ListView lvBooks4;
-    BooksListAdapter2 adapter4;
-    List<MainPageBook> mBooksList4;
+    ListView bookListTop;
+    BooksListAdapterTop adapterTop;
+    List<MainPageBook> mBooksListTop;
+    final String LOG_TAG = "myLogs";
 
     @Nullable
     @Override
@@ -43,7 +42,15 @@ public class TopFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.top_fragment,container,false);
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
-        lvBooks4 = view.findViewById(R.id.list4);
+        bookListTop = view.findViewById(R.id.listTop);
+        bookListTop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), "lalala", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         Call<TopResponse> getTop = RetrofitClient
                 .getInstance()
@@ -55,14 +62,14 @@ public class TopFragment extends Fragment {
             public void onResponse(Call<TopResponse> call, Response<TopResponse> response) {
                 MainPageBook[] books = response.body().getBooks();
 
-                mBooksList4 = new ArrayList<>();
+                mBooksListTop = new ArrayList<>();
 
                 for(MainPageBook book : books){
-                    mBooksList4.add(book);
+                    mBooksListTop.add(book);
                 }
 
-                adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
-                lvBooks4.setAdapter(adapter4);
+                adapterTop = new BooksListAdapterTop(getContext(), mBooksListTop);
+                bookListTop.setAdapter(adapterTop);
             }
 
             @Override
@@ -72,13 +79,9 @@ public class TopFragment extends Fragment {
         });
 
 
-        lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getContext(),"Hy" + view.getTag(),Toast.LENGTH_SHORT).show();
-            }
-        });
        return view;
     }
+
+
 }

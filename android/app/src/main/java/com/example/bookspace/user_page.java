@@ -102,6 +102,7 @@ public class user_page extends AppCompatActivity
         String token = prefs.getString("token", "token is null");
 
 
+
         //-------------------- test queries
         
 
@@ -227,22 +228,22 @@ public class user_page extends AppCompatActivity
 //            }
 //        });
 
-        Call<GetBooksResponse> call100 = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .getReadBooks("Bearer " + token);
-
-        call100.enqueue(new Callback<GetBooksResponse>() {
-            @Override
-            public void onResponse(Call<GetBooksResponse> call, Response<GetBooksResponse> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<GetBooksResponse> call, Throwable t) {
-
-            }
-        });
+//        Call<GetBooksResponse> call100 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .getReadBooks("Bearer " + token);
+//
+//        call100.enqueue(new Callback<GetBooksResponse>() {
+//            @Override
+//            public void onResponse(Call<GetBooksResponse> call, Response<GetBooksResponse> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GetBooksResponse> call, Throwable t) {
+//
+//            }
+//        });
 
         Button bu = (Button) findViewById(R.id.button2);
         bu.setOnClickListener(new View.OnClickListener() {

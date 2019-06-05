@@ -3,16 +3,26 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="15dp"
-    android:background="@drawable/corners_in_views">
+    android:background="@drawable/corners_in_views"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:descendantFocusability="blocksDescendants" >
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
 
             <TextView
                 android:id="@+id/topBookTitle"
@@ -23,7 +33,10 @@
                 android:text="NameBook"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="17dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
             <TextView
                 android:id="@+id/topBookRate"
@@ -37,7 +50,10 @@
                 android:text="1"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
 
         </LinearLayout>
@@ -45,7 +61,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false">
 
             <TextView
                 android:id="@+id/topBookAuthor"
@@ -55,7 +74,10 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="Author"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
 
             <TextView
                 android:id="@+id/topBookGenre"
@@ -65,13 +87,19 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_light"
                 android:text="Genre"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end">
+        android:layout_gravity="end"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
 
         <ImageButton
             android:id="@+id/addbtn1"
@@ -79,8 +107,11 @@
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:background="@color/colorSplashScreen"
-            android:onClick="Add"
+            android:clickable="false"
+            android:focusable="false"
 
+            android:focusableInTouchMode="false"
+            android:onClick="Add"
             android:src="@drawable/ic_add_book" />
 
     </LinearLayout>
