@@ -6,54 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".ReviewsActivity">
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="145dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Reviews"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <include
+        android:id="@+id/basicToolbar"
+        layout="@layout/basic_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.029999971" />
-
-    <TextView
-        android:id="@+id/textToBooks"
-        android:layout_width="75dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Back"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textTitle"
-        app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.039" />
+        />
 
     <LinearLayout
         android:id="@+id/Options"
         android:layout_width="0dp"
         android:layout_height="55dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle"
-        app:layout_constraintVertical_bias="0.008">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/textAbout"
@@ -61,9 +31,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto_medium"
             android:text="\nAbout"
             android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
             android:textSize="16sp" />
 
         <TextView
@@ -72,9 +45,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto_medium"
             android:text="\nReviews"
             android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
             android:textSize="16sp" />
 
         <TextView
@@ -83,9 +59,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto_medium"
             android:text="\nNotice"
             android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -99,23 +78,21 @@
         android:background="@color/colorDivider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Options">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/buttonReviews"
             android:layout_width="286dp"
             android:layout_height="58dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:background="@drawable/button"
             android:text="Add a review"
             app:layout_constraintBottom_toTopOf="@+id/listReviews"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteY="16dp" />
 
         <ListView
             android:id="@+id/listReviews"

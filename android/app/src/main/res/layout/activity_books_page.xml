@@ -8,73 +8,26 @@
     android:background="@color/colorSplashScreen"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="145dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Book Page"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <include
+        android:id="@+id/basicToolbar"
+        layout="@layout/basic_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.029999971" />
-
-    <TextView
-        android:id="@+id/textBack"
-        android:layout_width="75dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Back"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textTitle"
-        app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.039" />
-
-    <TextView
-        android:id="@+id/textEditStatus"
-        android:layout_width="112dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="editStatus"
-        android:text="Status"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textTitle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.039" />
+        />
 
     <LinearLayout
         android:id="@+id/Options"
         android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle"
-        app:layout_constraintVertical_bias="0.008">
+        app:layout_constraintTop_toBottomOf="@+id/basicToolbar"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/textAbout"
@@ -82,10 +35,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
-            android:text="\nAbout"
-            android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp" />
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="About"
+            android:textAlignment="gravity"
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textReviews"
@@ -93,10 +51,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
-            android:text="\nReviews"
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="Reviews"
             android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp" />
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textNotice"
@@ -104,10 +67,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
-            android:text="\nNotice"
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="Notice"
             android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp" />
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
@@ -119,26 +87,49 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorDivider"
+        android:backgroundTint="@color/colorSplashScreen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Options">
+        app:layout_constraintTop_toBottomOf="@+id/Options"
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
-            android:id="@+id/textName"
-            android:layout_width="260dp"
-            android:layout_height="65dp"
+            android:id="@+id/textEditStatus"
+            android:layout_width="112dp"
+            android:layout_height="42dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="monospace"
+            android:onClick="editStatus"
+            android:text="Status"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textGoToRating"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="260dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto_medium"
             android:text="Name"
-            android:textColor="@color/colorTextPrimaryForZhenYa"
+            android:textColor="@color/colorTextPrimary"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textGoToRating"
-            app:layout_constraintHorizontal_bias="0.272"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.012" />
@@ -158,10 +149,10 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textEditStatus"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.011" />
+            app:layout_constraintVertical_bias="0.01" />
 
         <TextView
             android:id="@+id/textGrade"
@@ -171,13 +162,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto"
             android:text="Grade:"
             android:textAlignment="textStart"
             android:textColor="@color/colorTextPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textName"
             app:layout_constraintVertical_bias="0.007" />
@@ -189,13 +181,14 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto"
             android:text="Genre:"
             android:textAlignment="center"
             android:textColor="@color/colorTextPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textGrade"
             app:layout_constraintVertical_bias="0.04" />
@@ -208,13 +201,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto"
             android:text="Author: "
             android:textAlignment="center"
             android:textColor="@color/colorTextPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textGenre"
             app:layout_constraintVertical_bias="0.02" />
@@ -226,13 +220,14 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Number of Pages: "
+            android:fontFamily="@font/roboto"
+            android:text="Pages:"
             android:textAlignment="textStart"
             android:textColor="@color/colorTextPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.02"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textAuthor"
             app:layout_constraintVertical_bias="0.04" />
@@ -244,6 +239,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto_medium"
             android:text="Similar Books"
             android:textAlignment="center"
             android:textColor="@color/colorTextPrimary"

@@ -1,6 +1,8 @@
 package com.example.bookspace.api;
 
 import com.example.bookspace.model.books.GetBookResponse;
+import com.example.bookspace.model.books.GetBooksResponse;
+import com.example.bookspace.model.books.TopResponse;
 import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.registration.CreateUserResponse;
 import com.example.bookspace.model.login.LoginResponse;
@@ -156,4 +158,37 @@ public interface BookSpaceAPI {
     @DELETE("/books/notes/{id}")
     Call<ResponseBody> deleteNote(@Header("Authorization") String token,
                                   @Path("id") Integer noteId);
+
+    //получение топа
+    @GET("/home/top")
+    Call<TopResponse> getTop(@Header("Authorization") String token);
+
+    //получение списка прочитанных книг
+    @GET("/books/read")
+    Call<GetBooksResponse> getReadBooks(@Header("Authorization") String token);
+
+    //получение списка книг в процессе
+    @GET("/books/progress")
+    Call<GetBooksResponse> getInProgressBooks(@Header("Authorization") String token);
+
+    //получение списка запланированных книг
+    @GET("/books/future")
+    Call<GetBooksResponse> getFutureBooks(@Header("Authorization") String token);
+
+    //получение рекомендаций
+    @GET("/home/rec")
+    Call<TopResponse> getRecs(@Header("Authorization") String token);
+
+    //удаление книги
+    @DELETE("/books/{id}")
+    Call<ResponseBody> deleteBook(@Header("Authorization") String token,
+                                  @Path("id") Integer bookId);
+
+    //добавление статуса книге
+    @PUT("/books/{id}")
+    Call<ResponseBody> addBook(@Header("Authorization") String token,
+                               @Path("id") Integer bookId,
+                               @Query("status") String status);
+
+
 }

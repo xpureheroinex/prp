@@ -39,6 +39,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
+import com.example.bookspace.model.books.GetBooksResponse;
 import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.notes.Note;
 import com.example.bookspace.model.profile.ProfileResponse;
@@ -100,139 +101,6 @@ public class user_page extends AppCompatActivity
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String token = prefs.getString("token", "token is null");
 
-
-        //-------------------- test queries
-        
-
-        //получаем информацию о книге
-
-//        Call<GetBookResponse> call7 = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .getBook("Bearer " + token, 10);
-//
-//        call7.enqueue(new Callback<GetBookResponse>() {
-//            @Override
-//            public void onResponse(Call<GetBookResponse> call, Response<GetBookResponse> response) {
-//                Book resp = response.body().getBook();
-//                Toast.makeText(user_page.this, resp.getTitle(), Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<GetBookResponse> call, Throwable t) {
-//                t.printStackTrace();
-//            }
-//        });
-
-        //выставляем оценку
-
-//        Call<ResponseBody> call8 = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .setRate("Bearer " + token, 10, 5);
-//
-//        call8.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-////                Toast.makeText(user_page.this, "rate = 5", Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//            }
-//        });
-
-        //получаем отзывы
-
-
-//        Call<GetReviewsResponse> callTest10 = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .getReviews("Bearer " + token, 10, "month");
-//
-//        callTest10.enqueue(new Callback<GetReviewsResponse>() {
-//            @Override
-//            public void onResponse(Call<GetReviewsResponse> call, Response<GetReviewsResponse> response) {
-//                Review[] rews = response.body().getInfo();
-//
-//                Toast.makeText(getApplicationContext(), rews[0].getText(), Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<GetReviewsResponse> call, Throwable t) {
-//                t.printStackTrace();
-//            }
-//        });
-
-        //отправляем отзыв
-
-//        Call<ResponseBody> calltt = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .postReview("Bearer " + token, 10, "test review");
-//
-//        calltt.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//            }
-//        });
-
-        //получаем заметки
-
-//        Call<GetNotesResponse> callpp = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .getNotes("Bearer " + token, 10);
-//
-//        callpp.enqueue(new Callback<GetNotesResponse>() {
-//            @Override
-//            public void onResponse(Call<GetNotesResponse> call, Response<GetNotesResponse> response) {
-//                Note[] notes = response.body().getNotes();
-//
-//                Toast.makeText(getApplicationContext(), notes[0].getText(), Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<GetNotesResponse> call, Throwable t) {
-//
-//            }
-//        });
-
-        //редактирование заметки
-
-//        Call<ResponseBody> callrr = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .editNote("Bearer " + token, 6, null, "hello");
-//
-//        callrr.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//            }
-//        });
-
-        Button bu = (Button) findViewById(R.id.button2);
-        bu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), BookPageActivity.class));
-            }
-        });
     }
 
 
@@ -255,7 +123,7 @@ public class user_page extends AppCompatActivity
         mReadTextView.setText("1");
     }
 
-public void Delete(View view){
+public void Delete(final View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you want to delete this book?")
         .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
@@ -270,6 +138,7 @@ public void Delete(View view){
                     public void onClick(DialogInterface dialog, int which) {
                         Toast toast = Toast.makeText(getApplicationContext(),"The book was deleted",Toast.LENGTH_SHORT);
                         toast.show();
+
                     }
                 });
         AlertDialog alertDialog = builder.create();
@@ -277,33 +146,32 @@ public void Delete(View view){
     }
 
     public void Add(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose status:");
-
-        String[] items= {"Read", "Reading", "Will Read"};
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case 0:
-                        Toast toast = Toast.makeText(getApplicationContext(),"The status of book was changed on read",Toast.LENGTH_SHORT);
-                        toast.show();
-                        break;
-                    case 1:
-                        Toast toast1 = Toast.makeText(getApplicationContext(),"The status of book was changed on reading",Toast.LENGTH_SHORT);
-                        toast1.show();
-                        break;
-                    case 2:
-                        Toast toast2 = Toast.makeText(getApplicationContext(),"The status of book was changed on will read",Toast.LENGTH_SHORT);
-                        toast2.show();
-                        break;
-
-                }
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Choose status:");
+//
+//        String[] items= {"Read", "Reading", "Will Read"};
+//        builder.setItems(items, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                switch (which){
+//                    case 0:
+//                        Toast toast = Toast.makeText(getApplicationContext(),"The status of book was changed on read",Toast.LENGTH_SHORT);
+//                        toast.show();
+//                        break;
+//                    case 1:
+//                        Toast toast1 = Toast.makeText(getApplicationContext(),"The status of book was changed on reading",Toast.LENGTH_SHORT);
+//                        toast1.show();
+//                        break;
+//                    case 2:
+//                        Toast toast2 = Toast.makeText(getApplicationContext(),"The status of book was changed on will read",Toast.LENGTH_SHORT);
+//                        toast2.show();
+//                        break;
+//                }
+//            }
+//        });
+//
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
 
     }
 
@@ -479,7 +347,7 @@ public void Delete(View view){
                 public void onFailure(Call<SetPlanResponse> call, Throwable t) {
                 }
             });
-            Toast.makeText(getApplicationContext(), "Your targets has been saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Your targets have been saved", Toast.LENGTH_SHORT).show();
         }
 
     }

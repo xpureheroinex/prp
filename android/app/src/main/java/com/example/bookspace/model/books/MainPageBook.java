@@ -3,10 +3,10 @@ package com.example.bookspace.model.books;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserBook {
+public class MainPageBook {
     @SerializedName("id")
     @Expose
-    private int id;
+    private Integer id;
     @SerializedName("title")
     @Expose
     private String title;
@@ -20,19 +20,11 @@ public class UserBook {
     @Expose
     private double rate;
 
-    public double getRate() {
-        return rate;
-    }
-
-    public void setRate(double rate) {
-        this.rate = rate;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -58,5 +50,13 @@ public class UserBook {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 }
