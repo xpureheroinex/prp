@@ -61,7 +61,7 @@ public class BooksListAdapter extends BaseAdapter {
         TextView myAuthor = row.findViewById(R.id.statusBookAuthor);
 
         myTitle.setText(mBooksList.get(position).getTitle());
-       // myRate.setText(String.valueOf(mBooksList.get(position).getRate()));
+        myRate.setText(String.valueOf(mBooksList.get(position).getRate()));
         myGenre.setText(mBooksList.get(position).getGenre());
         myAuthor.setText(mBooksList.get(position).getAuthor());
 
