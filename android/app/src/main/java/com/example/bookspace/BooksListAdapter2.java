@@ -5,11 +5,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.example.bookspace.Books;
 import com.example.bookspace.R;
 import com.example.bookspace.model.books.MainPageBook;
-
 import java.util.List;
 
 public class BooksListAdapter2 extends BaseAdapter{
@@ -38,6 +35,7 @@ public class BooksListAdapter2 extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row1 = View.inflate(mContext1, R.layout.row1, null);
+        
         TextView myTitle = row1.findViewById(R.id.topBookTitle);
         TextView myRate = row1.findViewById(R.id.topBookRate);
         TextView myAuthor = row1.findViewById(R.id.topBookAuthor);

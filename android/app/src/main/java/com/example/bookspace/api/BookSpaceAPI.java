@@ -175,4 +175,8 @@ public interface BookSpaceAPI {
     //получение списка запланированных книг
     @GET("/books/future")
     Call<GetBooksResponse> getFutureBooks(@Header("Authorization") String token);
+
+    //получение рекомендаций
+    @GET("/home/rec")
+    Call<TopResponse> getRecs(@Header("Authorization") String token);
 }

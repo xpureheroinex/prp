@@ -497,7 +497,7 @@ public void Delete(final View view){
                 public void onFailure(Call<SetPlanResponse> call, Throwable t) {
                 }
             });
-            Toast.makeText(getApplicationContext(), "Your targets has been saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Your targets have been saved", Toast.LENGTH_SHORT).show();
         }
 
     }

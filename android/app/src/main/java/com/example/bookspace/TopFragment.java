@@ -37,10 +37,6 @@ public class TopFragment extends Fragment {
     BooksListAdapter2 adapter4;
     List<MainPageBook> mBooksList4;
 
-    String[] listItems;
-    Button mbutton;
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,46 +45,31 @@ public class TopFragment extends Fragment {
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
         lvBooks4 = view.findViewById(R.id.list4);
 
+        Call<TopResponse> getTop = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .getTop("Bearer " + token);
 
+        getTop.enqueue(new Callback<TopResponse>() {
+            @Override
+            public void onResponse(Call<TopResponse> call, Response<TopResponse> response) {
+                MainPageBook[] books = response.body().getBooks();
 
-//        Call<TopResponse> getTop = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .getTop("Bearer " + token);
-//
-//        getTop.enqueue(new Callback<TopResponse>() {
-//            @Override
-//            public void onResponse(Call<TopResponse> call, Response<TopResponse> response) {
-//                MainPageBook[] books = response.body().getBooks();
-//
-////                mBooksList4 = new ArrayList<>();
-////                mBooksList4.add(b);
-////                adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
-////                lvBooks4.setAdapter(adapter4);
-//
-//                mBooksList4 = new ArrayList<>();
-//                mBooksList4.add(b);
-//                adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
-//                lvBooks4.setAdapter(adapter4);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TopResponse> call, Throwable t) {
-//                t.printStackTrace();
-//            }
-//        });
+                mBooksList4 = new ArrayList<>();
 
+                for(MainPageBook book : books){
+                    mBooksList4.add(book);
+                }
 
+                adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
+                lvBooks4.setAdapter(adapter4);
+            }
 
-
-
-
-//        lvBooks4 = view.findViewById(R.id.list4);
-//        mBooksList4 = new ArrayList<>();
-//        mBooksList4.add(t);
-//
-//        adapter4 = new BooksListAdapter2(getContext(),mBooksList4);
-//        lvBooks4.setAdapter(adapter4);
+            @Override
+            public void onFailure(Call<TopResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
 
         lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
