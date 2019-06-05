@@ -116,23 +116,6 @@ public class BooksListAdapter extends BaseAdapter {
                         switch (which){
                             case 0:
 
-                                Call<ResponseBody> deleteBook = RetrofitClient
-                                        .getInstance()
-                                        .getBookSpaceAPI()
-                                        .deleteBook("Bearer " + token, mBooksList.get(position).getId());
-
-                                deleteBook.enqueue(new Callback<ResponseBody>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                                    }
-                                });
-
-
                                 Call<ResponseBody> addBook = RetrofitClient
                                         .getInstance()
                                         .getBookSpaceAPI()
@@ -152,23 +135,10 @@ public class BooksListAdapter extends BaseAdapter {
                                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                                     }
                                 });
+
+
                                 break;
                             case 1:
-                                Call<ResponseBody> deleteBook2 = RetrofitClient
-                                        .getInstance()
-                                        .getBookSpaceAPI()
-                                        .deleteBook("Bearer " + token, mBooksList.get(position).getId());
-
-                                deleteBook2.enqueue(new Callback<ResponseBody>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                                    }
-                                });
 
                                 Call<ResponseBody> addBook2 = RetrofitClient
                                         .getInstance()
@@ -180,9 +150,9 @@ public class BooksListAdapter extends BaseAdapter {
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                         Toast toast = Toast.makeText(v.getContext(),"The status of book was changed on reading",Toast.LENGTH_SHORT);
                                         toast.show();
-
                                         mBooksList.remove(mBooksList.get(position));
                                         notifyDataSetChanged();
+
                                     }
 
                                     @Override
@@ -190,23 +160,9 @@ public class BooksListAdapter extends BaseAdapter {
 
                                     }
                                 });
+
                                 break;
                             case 2:
-                                Call<ResponseBody> deleteBook3 = RetrofitClient
-                                        .getInstance()
-                                        .getBookSpaceAPI()
-                                        .deleteBook("Bearer " + token, mBooksList.get(position).getId());
-
-                                deleteBook3.enqueue(new Callback<ResponseBody>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                                    }
-                                });
 
                                 Call<ResponseBody> addBook3 = RetrofitClient
                                         .getInstance()
@@ -228,6 +184,7 @@ public class BooksListAdapter extends BaseAdapter {
 
                                     }
                                 });
+
                                 break;
                         }
                     }
