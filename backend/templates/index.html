@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
+<head>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="codepixer">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>BookSpace</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,600|Roboto:400,400i,500" rel="stylesheet">
+	<!--
+			CSS
+			============================================= -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/linearicons.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/nice-select.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/hexagons.min.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+</head>
+
+<body>
+	<!-- start banner Area -->
+	<section class="home-banner-area">
+		<div class="container">
+			<div class="row fullscreen d-flex align-items-center justify-content-between">
+				<div class="home-banner-content col-lg-6 col-md-6">
+					<h1>
+						Reading opens <br>up new words
+					</h1>
+					<p>the best way to keep track of your reading list and never forget about new books you bought last month.</p>
+					<form id="android-form" method="post" action="{{ url_for('indexpage') }}">
+					<div class="download-button d-flex flex-row justify-content-start">
+						<div class="buttons dark flex-row d-flex">
+							<i class="fa fa-android" aria-hidden="true"></i>
+							<div class="desc">
+								<a onclick="submit_form()">
+									<p>
+										<span>Available</span> <br>
+										on Android devices
+									</p>
+								</a>
+							</div>
+						</div>
+					</div>
+					</form>
+				</div>
+				<div class="banner-img col-lg-4 col-md-6">
+					<img class="img-fluid" src="{{ url_for('static', filename='img/banner-img.png')}}" alt="">
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<!-- Start fact Area -->
+	<section class="fact-area">
+		<div class="container">
+			<div class="fact-box">
+				<div class="row align-items-center">
+					<div class="col single-fact">
+						<h2>1K+</h2>
+						<p>Total Downloads</p>
+					</div>
+					<div class="col single-fact">
+						<h2>300+</h2>
+						<p>Positive Reviews</p>
+					</div>
+					<div class="col single-fact">
+						<h2>700+</h2>
+						<p>Daily Visitors</p>
+					</div>
+					<div class="col single-fact">
+						<h2>0.02%</h2>
+						<p>Uninstallation Rate</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End fact Area -->
+
+	<!-- Start about Area -->
+	<section class="about-area">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6 home-about-right home-about-right2">
+					<h1>
+						We provide an <br>
+						efficient way to keep <br>
+						your library organized
+					</h1>
+					<p>
+						Our app allows you to store all your books in one place, keep your reading lists in order,
+						store favorite quotes and book related notes in one place, review books and rate them.
+					</p>
+					<div class="download-button d-flex flex-row justify-content-start">
+						<div class="buttons dark flex-row d-flex">
+							<i class="fa fa-android" aria-hidden="true"></i>
+							<div class="desc">
+								<a onclick="submit_form()">
+									<p>
+										<span>Available</span> <br>
+										on Android devices
+									</p>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5 home-about-left">
+					<img class="img-fluid" src="{{ url_for('static', filename='img/iphone.png')}}" alt="">
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End about Area -->
+
+	<!-- Start about-video Area -->
+	<section class="about-video-area section-gap">
+		<div class="vdo-bg">
+			<div class="container">
+				<div class="row align-items-center justify-content-center">
+					<div class="col-lg-12 about-video-right justify-content-center align-items-center d-flex relative">
+						<div class="overlay overlay-bg"></div>
+						<a class="play-btn" href="https://www.youtube.com/watch?v=ARA0AxrnHdM"><img class="img-fluid mx-auto"
+																									src="{{ url_for('static', filename='img/play-btn.png')}}"
+							 alt=""></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End about-video Area -->
+
+	<!-- Start Screenshot Area -->
+	<section class="screenshot-area section-gap-top">
+		<div class="container">
+			<div class="row d-flex justify-content-center">
+				<div class="col-lg-6">
+					<div class="section-title text-center">
+						<h2>Featured Screens</h2>
+						<p>Our best features that will make BookSpace your new favorite app.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="owl-carousel owl-screenshot	">
+					<div class="single-screenshot">
+						<img class="img-fluid" src="{{ url_for('static', filename='img/screenshots/s1.jpg')}}" alt="">
+					</div>
+					<div class="single-screenshot">
+						<img class="img-fluid" src="{{ url_for('static', filename='img/screenshots/s2.jpg')}}" alt="">
+					</div>
+					<div class="single-screenshot">
+						<img class="img-fluid" src="{{ url_for('static', filename='img/screenshots/s3.jpg')}}" alt="">
+					</div>
+					<div class="single-screenshot">
+						<img class="img-fluid" src="{{ url_for('static', filename='img/screenshots/s4.jpg')}}" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+		<br> <br>
+	</section>
+	<!-- End Screenshot Area -->
+
+	<!-- Start Footer Area -->
+	<footer class="footer-area section-gap  navbar-fixed-bottom">
+		<div class="container">
+<!--			<div class="footer-bottom row align-items-center">-->
+<!--				<p class="footer-text m-0 col-lg-6 col-md-12">&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+<!--Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>-->
+<!--&lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;</p>-->
+<!--				<div class="col-lg-6 col-md-6 social-link">-->
+<!--					<div class="download-button d-flex flex-row justify-content-end">-->
+<!--						<div class="buttons gray flex-row d-flex">-->
+<!--							<i class="fa fa-apple" aria-hidden="true"></i>-->
+<!--							<div class="desc">-->
+<!--								<a href="#">-->
+<!--									<p>-->
+<!--										<span>Available</span> <br>-->
+<!--										on App Store-->
+<!--									</p>-->
+<!--								</a>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="buttons gray flex-row d-flex">-->
+<!--							<i class="fa fa-android" aria-hidden="true"></i>-->
+<!--							<div class="desc">-->
+<!--								<a href="#">-->
+<!--									<p>-->
+<!--										<span>Available</span> <br>-->
+<!--										on Play Store-->
+<!--									</p>-->
+<!--								</a>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+			<div class="row">
+			<div class="col-7 col-6 single-footer-widget">
+				<h4>Newsletter</h4>
+				<p>Subscribe to be the first one to know about upcoming updates.</p>
+				<div class="form-wrap" id="mc_embed_signup">
+					<form class="form-inline" id="email-form" method="post" action="{{ url_for('indexemail') }}">
+						<input class="form-control" name="email" placeholder="Your Email Address"
+							   onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '"
+							   required="" type="email">
+						<button class="click-btn btn btn-default" onclick="email_form()"><span class="lnr lnr-arrow-right"></span></button>
+						<div style="position: absolute; left: -5000px;">
+						</div>
+
+						<div class="info"></div>
+					</form>
+				</div>
+			</div>
+			<div class="col-5 single-footer-widget">
+				<h4>Contact us:   380-95-000-00-00</h4>
+				<h4>Telegram:  @bookspace</h4>
+				<h4>Twitter:   @bookspaceapp</h4>
+				<h4>Instagram: bookspace</h4>
+			</div>
+				<p>(c) BookSpace, 2019.</p>
+			</div>
+
+
+		</div>
+	</footer>
+	<!-- End Footer Area -->
+
+	<script>
+		function submit_form() {
+			var form = document.getElementById('android-form');
+			form.submit();
+		}
+		function email_form() {
+			var form = document.getElementById('email-form');
+			form.submit();
+		}
+	</script>
+
+	<script src="{{ url_for('static', filename='js/vendor/jquery-2.2.4.min.js')}}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	 crossorigin="anonymous"></script>
+	<script src="{{ url_for('static', filename='js/tilt.jquery.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/vendor/bootstrap.min.js')}}"></script>
+	<script type="text/javascript"
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+	<script src="{{ url_for('static', filename='js/easing.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/hoverIntent.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/superfish.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/jquery.ajaxchimp.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/owl.carousel.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/owl-carousel-thumb.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/hexagons.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/jquery.nice-select.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/waypoints.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/mail-script.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/main.js')}}"></script>
+</body>
+
+</html>

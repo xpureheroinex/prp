@@ -1,6 +1,7 @@
 import random
 import string
 
+from flask import render_template, make_response, send_file
 from flask_mail import Message
 from werkzeug.utils import redirect
 
@@ -700,8 +701,52 @@ class Search(Resource):
                     "genre": book.genre
                 }
                 info.append(listbook)
-            return {'count': len(info), 'books: info, 'status': 200}
+            return {'count': len(info), 'books': info, 'status': 200}
         return _BAD_REQUEST
 
 
 api.add_resource(Search, '/books/search')
+
+
+class IndexPage(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('email')
+
+    def get(self):
+        return make_response(render_template('index.html'), 200)
+
+    def post(self):
+        args = self.parser.parse_args()
+        search = args['email']
+        try:
+            return send_file('static/files/app-debug.apk',
+                             as_attachment=True,
+                             attachment_filename='app.apk')
+        except Exception as e:
+            return str(e)
+
+
+api.add_resource(IndexPage, '/index')
+
+
+class IndexEmail(Resource):
+    def __init__(self):
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('email')
+
+    def post(self):
+        args = self.parser.parse_args()
+        email = args['email']
+        print(email, 'HERE')
+        if email is not None:
+            msg = Message(f"BookSpace newsletter",
+                          recipients=[email])
+            msg.body = f"Welcome onboard! You've been subscribed to BookSpace newsletter. "
+            mail.send(msg)
+            return _GOOD_REQUEST
+        else:
+            return _BAD_REQUEST
+
+
+api.add_resource(IndexEmail, '/index/email')
