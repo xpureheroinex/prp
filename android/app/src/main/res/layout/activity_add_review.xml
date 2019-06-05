@@ -101,7 +101,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="28dp"
             android:background="@drawable/button"
-            android:onClick="onClickHide"
+            android:onClick="onClickAddReview"
             android:text="Add review"
             android:textAllCaps="false"
             android:textSize="20sp"

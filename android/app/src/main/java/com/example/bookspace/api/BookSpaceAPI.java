@@ -122,8 +122,7 @@ public interface BookSpaceAPI {
     //range = week || month || year
     @GET("/books/{id}/reviews")
     Call<GetReviewsResponse> getReviews(@Header("Authorization") String token,
-                                        @Path("id") Integer bookId,
-                                        @Query("range") String range);
+                                        @Path("id") Integer bookId);
     //добавление
     @FormUrlEncoded
     @POST("/books/{id}/reviews")

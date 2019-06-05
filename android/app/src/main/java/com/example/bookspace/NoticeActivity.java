@@ -21,7 +21,9 @@ public class NoticeActivity extends AppCompatActivity {
         textAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), BookPageActivity.class));
+                Intent inten = new Intent(getApplicationContext(), BookPageActivity.class);
+                inten.putExtra("bookId", bookId);
+                startActivity(inten);
             }
         });
 
@@ -29,7 +31,9 @@ public class NoticeActivity extends AppCompatActivity {
         textReviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ReviewsActivity.class));
+                Intent inten = new Intent(getApplicationContext(), ReviewsActivity.class);
+                inten.putExtra("bookId", bookId);
+                startActivity(inten);
             }
         });
     }
