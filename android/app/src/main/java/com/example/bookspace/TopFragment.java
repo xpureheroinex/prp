@@ -35,6 +35,7 @@ public class TopFragment extends Fragment {
     BooksListAdapterTop adapterTop;
     List<MainPageBook> mBooksListTop;
     final String LOG_TAG = "myLogs";
+    int[] booksId;
 
     @Nullable
     @Override
@@ -43,14 +44,7 @@ public class TopFragment extends Fragment {
         View view = inflater.inflate(R.layout.top_fragment,container,false);
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
         bookListTop = view.findViewById(R.id.listTop);
-        bookListTop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "lalala", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
+        ImageButton statusButton = view.findViewById(R.id.addbtn1);
 
         Call<TopResponse> getTop = RetrofitClient
                 .getInstance()
@@ -61,11 +55,14 @@ public class TopFragment extends Fragment {
             @Override
             public void onResponse(Call<TopResponse> call, Response<TopResponse> response) {
                 MainPageBook[] books = response.body().getBooks();
+                int count = books.length;
+                booksId = new int[count];
 
                 mBooksListTop = new ArrayList<>();
 
-                for(MainPageBook book : books){
-                    mBooksListTop.add(book);
+                for(int i = 0; i < count; i++){
+                    mBooksListTop.add(books[i]);
+                    booksId[i] = books[i].getId();
                 }
 
                 adapterTop = new BooksListAdapterTop(getContext(), mBooksListTop);
@@ -78,10 +75,13 @@ public class TopFragment extends Fragment {
             }
         });
 
-
+        bookListTop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), String.valueOf(booksId[position]), Toast.LENGTH_SHORT).show();
+            }
+        });
 
        return view;
     }
-
-
 }
