@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSplashScreen"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="137dp"
+        android:layout_weight="9"
+        android:background="#FBFBFB"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnfr6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="7"
+            android:background="#757575"
+            android:fontFamily="@font/roboto_medium"
+            android:onClick="onSelectFragment3"
+            android:text="Year"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnfr7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="7"
+            android:background="#BFBFBF"
+            android:fontFamily="@font/roboto_medium"
+            android:onClick="onSelectFragment3"
+            android:text="Month"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/btnfr8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="7"
+            android:background="#BFBFBF"
+            android:fontFamily="@font/roboto_medium"
+            android:onClick="onSelectFragment3"
+            android:text="Week"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="6"
+        android:orientation="vertical"
+        ></LinearLayout>
+</LinearLayout>

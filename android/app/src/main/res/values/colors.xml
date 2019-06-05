@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorSplashScreen">#F5F5F5</color>
+    <color name="colorPrimary">#61B3E7</color>
+    <color name="colorPrimaryDark">#00695C</color>
+    <color name="colorPrimaryLight">#CEF2F7</color>
+    <color name="colorText">#FFFFFF</color>
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextSecondary">#757575</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="colorAccent">#00695c</color>
+    <color name="duskYellow">#FFFCE203</color>
+    <color name="lightGrey">#FFB8B8B3</color>
+    <color name="colorLightBlue">#D9ECF5</color>
+    <color name="colorTextPrimaryForZhenYa">#303030</color>
+</resources>

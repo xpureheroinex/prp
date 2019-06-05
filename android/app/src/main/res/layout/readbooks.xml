@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSplashScreen">
+    <ListView
+        android:id="@+id/list1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/colorSplashScreen"
+        android:scrollbars="vertical"
+        android:dividerHeight="10dp"
+        />
+
+
+</android.support.constraint.ConstraintLayout>
