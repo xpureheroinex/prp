@@ -28,8 +28,6 @@ public class BooksListAdapter extends BaseAdapter {
     private Context mContext;
     private List<UserBook> mBooksList;
     ImageButton deletebtn;
-//    SharedPreferences prefs = mContext.getSharedPreferences("AppPreferences", MODE_PRIVATE);
-//    String token = prefs.getString("token", "");
 
     public BooksListAdapter(Context mContext,List<UserBook> mBooksList){
         this.mContext = mContext;
