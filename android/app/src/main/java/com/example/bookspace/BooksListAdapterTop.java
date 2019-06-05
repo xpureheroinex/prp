@@ -138,29 +138,8 @@ public class BooksListAdapterTop extends BaseAdapter{
                         }
                     }
                 });
-
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
-
-//
-//
-//                Call<ResponseBody> addBook = RetrofitClient
-//                        .getInstance()
-//                        .getBookSpaceAPI()
-//                        .addBook("Bearer " + token, mBooksListTop.get(position).getId());
-//
-//                addBook.enqueue(new Callback<ResponseBody>() {
-//                    @Override
-//                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                        Toast.makeText(mContextTop, "Book has been added", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-//
-//                    }
-//                });
             }
         });
 
