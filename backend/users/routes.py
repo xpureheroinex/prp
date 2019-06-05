@@ -553,6 +553,7 @@ class HomepageRec(Resource):
                     'author': rec.author,
                     'genre': rec.genre,
                     'rate': rec.rate}
+                recommendations.append(info)
 
             return {'books': recommendations, 'status': 200}
         else:
