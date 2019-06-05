@@ -37,7 +37,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                         .setContentIntent(pendingIntent)
                         .setSmallIcon(android.R.drawable.arrow_up_float)
-                        .setContentTitle("Morning Notification")
+                        .setContentTitle("Notification")
                         .setAutoCancel(true);
 
         return builder;

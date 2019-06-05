@@ -28,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
@@ -56,15 +57,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class user_page extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, CompoundButton.OnCheckedChangeListener {
     private TextView mReadTextView;
     List<UserBook> mBooksList2;
     List<Integer> mBooksList1;
     ImageButton deletebtn;
     ImageButton addbtn;
     private Context mContext;
-    private EditText hours;
-    private EditText minutes;
+    private int hour;
+    private int minute;
 
 
     @Override
@@ -266,14 +267,10 @@ public class user_page extends AppCompatActivity
                 startActivity(new Intent(getApplicationContext(), Search.class));
             }
         });
-        Switch switch1 = (Switch)findViewById(R.id.switch1);
-        if(switch1.isChecked()){
-            clickToggleButtonRTC(switch1);
-        }
+        NotificationHelper.scheduleRepeatingRTCNotification(mContext, hour, minute);
+        NotificationHelper.enableBootReceiver(mContext);
 
     }
-
-
 
     private void initializeCountDrawer() {
 
@@ -766,6 +763,9 @@ public class user_page extends AppCompatActivity
             Empty startFragment = new Empty();
             transaction.add(R.id.ll2,startFragment);
             transaction.commit();
+
+
+
         } else if (id == R.id.nav_statistic) {
             setTitle("Statistics");
             Statistics2 statistics2 = new Statistics2();
@@ -812,11 +812,26 @@ public class user_page extends AppCompatActivity
         boolean isEnabled = ((ToggleButton)view).isEnabled();
 
         if (isEnabled) {
-            NotificationHelper.scheduleRepeatingRTCNotification(mContext, hours.getText().toString(), minutes.getText().toString());
+            NotificationHelper.scheduleRepeatingRTCNotification(mContext, hour, minute);
             NotificationHelper.enableBootReceiver(mContext);
         } else {
             NotificationHelper.cancelAlarmRTC();
             NotificationHelper.disableBootReceiver(mContext);
+        }
+    }
+
+    public void cancelAlarms(View view) {
+        NotificationHelper.cancelAlarmRTC();
+        NotificationHelper.disableBootReceiver(mContext);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(isChecked){
+            clickToggleButtonRTC(buttonView);
+        }
+        else{
+            cancelAlarms(buttonView);
         }
     }
 }
