@@ -179,4 +179,9 @@ public interface BookSpaceAPI {
     //получение рекомендаций
     @GET("/home/rec")
     Call<TopResponse> getRecs(@Header("Authorization") String token);
+
+    //удаление книги
+    @DELETE("/books/{id}")
+    Call<ResponseBody> deleteBook(@Header("Authorization") String token,
+                                  @Path("id") Integer bookId);
 }

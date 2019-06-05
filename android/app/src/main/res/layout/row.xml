@@ -6,7 +6,11 @@
     android:background="@drawable/corners_in_views"
 
     android:orientation="horizontal"
-    android:padding="15dp">
+    android:padding="15dp"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:descendantFocusability="blocksDescendants" >
 
     <LinearLayout
         android:layout_width="wrap_content"
