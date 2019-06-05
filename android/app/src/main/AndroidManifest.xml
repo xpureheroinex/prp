@@ -25,6 +25,17 @@
             android:name=".ReviewsActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
+            android:name=".Search"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".user_page">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+        <activity
             android:name=".BookPageActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
@@ -50,15 +61,17 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
         <activity
             android:name=".user_page"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-
+                <action android:name="android.intent.action.SEARCH"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 </manifest>

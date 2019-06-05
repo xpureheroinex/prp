@@ -17,6 +17,13 @@ public class UserBook {
     @Expose
     private String genre;
 
+    public UserBook(int id, String title, String author, String genre) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+    }
+
     public int getId() {
         return id;
     }

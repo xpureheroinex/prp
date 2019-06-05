@@ -20,6 +20,14 @@ public class MainPageBook {
     @Expose
     private double rate;
 
+    public MainPageBook(int id, String title, String author, String genre, double rate) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.rate =rate;
+    }
+
     public Integer getId() {
         return id;
     }
