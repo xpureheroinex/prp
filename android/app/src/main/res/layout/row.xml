@@ -6,10 +6,14 @@
     android:background="@drawable/corners_in_views"
 
     android:orientation="horizontal"
-    android:padding="15dp">
+    android:padding="15dp"
+    android:clickable="false"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:descendantFocusability="blocksDescendants" >
 
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -20,7 +24,7 @@
 
             <TextView
                 android:id="@+id/statusBookTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:fontFamily="@font/roboto_medium"
@@ -31,9 +35,10 @@
 
             <TextView
                 android:id="@+id/statusBookRate"
-                android:layout_width="25dp"
+                android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/button"
                 android:fontFamily="@font/roboto_medium"
@@ -52,22 +57,23 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/statusBookGenre"
-                android:layout_width="100dp"
+                android:id="@+id/statusBookAuthor"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:fontFamily="@font/roboto_light"
-                android:text="Genre"
+                android:text="Author"
                 android:textColor="@color/colorTextSecondary"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/statusBookAuthor"
-                android:layout_width="95dp"
+                android:id="@+id/statusBookGenre"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_light"
-                android:text="Author"
+                android:text="Genre"
                 android:textColor="@color/colorTextSecondary"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -82,7 +88,7 @@
             android:id="@+id/addbtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="10dp"
             android:background="@color/colorSplashScreen"
             android:onClick="Add"
 

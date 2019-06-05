@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +29,8 @@ public class ReadBooks extends Fragment {
     ListView lvBooks1;
     BooksListAdapter adapter1;
     List<UserBook> mBooksList1;
+    int[] booksId;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class ReadBooks extends Fragment {
         View view = inflater.inflate(R.layout.readbooks,container,false);
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
         lvBooks1 = view.findViewById(R.id.list1);
+
 
         Call<GetBooksResponse> getReadBooks = RetrofitClient
                 .getInstance()
@@ -45,11 +49,13 @@ public class ReadBooks extends Fragment {
             @Override
             public void onResponse(Call<GetBooksResponse> call, Response<GetBooksResponse> response) {
                 UserBook[] userBooks = response.body().getInfo();
+                booksId = new int[userBooks.length];
 
                 mBooksList1 = new ArrayList<>();
 
-                for(UserBook book : userBooks){
-                    mBooksList1.add(book);
+                for(int i = 0; i < userBooks.length; i++){
+                    mBooksList1.add(userBooks[i]);
+                    booksId[i] = userBooks[i].getId();
                 }
 
                 adapter1 = new BooksListAdapter(getContext(),mBooksList1);
@@ -66,8 +72,7 @@ public class ReadBooks extends Fragment {
         lvBooks1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(getContext(),"Hy" + view.getTag(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), String.valueOf(adapter1.getItemId(position)), Toast.LENGTH_SHORT).show();
             }
         });
 

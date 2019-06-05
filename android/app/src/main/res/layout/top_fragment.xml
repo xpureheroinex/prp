@@ -3,15 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSplashScreen">
+    android:background="@color/colorSplashScreen"
+    android:clickable="false"
+    android:descendantFocusability="blocksDescendants"
+    android:focusable="false"
+    android:focusableInTouchMode="false">
 
     <ListView
-        android:id="@+id/list4"
+        android:id="@+id/listTop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/colorSplashScreen"
-        android:scrollbars="vertical"
         android:dividerHeight="10dp"
+        android:scrollbars="vertical"
 
         />
 
