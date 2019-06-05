@@ -231,7 +231,7 @@ public class BookPageActivity extends AppCompatActivity {
                         Call<GetBookResponse> call_getRate = RetrofitClient
                                 .getInstance()
                                 .getBookSpaceAPI()
-                                .getBook("Bearer " + token_rate, 11);
+                                .getBook("Bearer " + token_rate, bookId);
 
                         call_getRate.enqueue(new Callback<GetBookResponse>() {
                             @Override

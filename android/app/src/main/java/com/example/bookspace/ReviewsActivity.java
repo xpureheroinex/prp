@@ -37,6 +37,8 @@ public class ReviewsActivity extends AppCompatActivity {
     ReviewsAdapter adapter4;
     List<ReviewsClass> mBooksList4;
 
+    public String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,7 @@ public class ReviewsActivity extends AppCompatActivity {
         bookId = inten.getIntExtra("bookId", 11);
 
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
-        String token = prefs.getString("token", "token is null");
+        token = prefs.getString("token", "token is null");
 
         Call<GetReviewsResponse> call = RetrofitClient
                 .getInstance()
@@ -74,7 +76,7 @@ public class ReviewsActivity extends AppCompatActivity {
                     lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                            //maybe new event for reviews
                         }
                     });
                 }
@@ -90,7 +92,9 @@ public class ReviewsActivity extends AppCompatActivity {
         textAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), BookPageActivity.class));
+                Intent inten = new Intent(getApplicationContext(), BookPageActivity.class);
+                inten.putExtra("bookId", bookId);
+                startActivity(inten);
             }
         });
 
@@ -98,29 +102,69 @@ public class ReviewsActivity extends AppCompatActivity {
         textNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), NoticeActivity.class));
+                Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
+                inten.putExtra("bookId", bookId);
+                startActivity(inten);
             }
         });
+
+        Button toAddReview = (Button) findViewById(R.id.buttonReviews);
+        toAddReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickbutton(token, bookId);
+            }
+        });
+
     }
 
-    public void onClickbuttonReview(View v){
-        SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
-        String token = prefs.getString("token", "token is null");
+    public void onClickbutton(String token, int bookId){
+        final String token1 = token;
+        final int id = bookId;
 
         Call<GetBookResponse> call7 = RetrofitClient
                 .getInstance()
                 .getBookSpaceAPI()
-                .getBook("Bearer " + token, bookId);
+                .getBook("Bearer " + token1, id);
 
         call7.enqueue(new Callback<GetBookResponse>() {
             @Override
             public void onResponse(Call<GetBookResponse> call, Response<GetBookResponse> response) {
-                Button but = (Button) findViewById(R.id.buttonReviews);
                 Book resp = response.body().getBook();
                 if(resp.getList() == null)
                     Toast.makeText(ReviewsActivity.this, "Add this book to profile to add review", Toast.LENGTH_LONG).show();
-                else
-                    startActivity(new Intent(getApplicationContext(), AddReviewActivity.class));
+                else {
+                    Call<GetReviewsResponse> call7 = RetrofitClient
+                            .getInstance()
+                            .getBookSpaceAPI()
+                            .getReviews("Bearer " + token1, id);
+
+                    call7.enqueue(new Callback<GetReviewsResponse>() {
+                        @Override
+                        public void onResponse(Call<GetReviewsResponse> call, Response<GetReviewsResponse> response) {
+                            int status1 = response.body().getStatus();
+                            if (status1 == 404) {
+                                Intent inten = new Intent(getApplicationContext(), AddReviewActivity.class);
+                                inten.putExtra("bookId", id);
+                                startActivity(inten);
+                            } else {
+                                Boolean status = response.body().getReview();
+                                if (status == false)
+                                    Toast.makeText(ReviewsActivity.this, "You already added review", Toast.LENGTH_LONG).show();
+                                else {
+                                    Intent inten = new Intent(getApplicationContext(), AddReviewActivity.class);
+                                    inten.putExtra("bookId", id);
+                                    startActivity(inten);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<GetReviewsResponse> call, Throwable t) {
+                            Toast.makeText(ReviewsActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
 
             @Override

@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 public class AddNoteActivity extends AppCompatActivity {
+    public int bookId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +20,9 @@ public class AddNoteActivity extends AppCompatActivity {
         textCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), NoticeActivity.class));
+                Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
+                inten.putExtra("bookId", bookId);
+                startActivity(inten);
             }
         });
     }

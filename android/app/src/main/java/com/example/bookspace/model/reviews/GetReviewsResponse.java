@@ -18,6 +18,9 @@ public class GetReviewsResponse {
     @SerializedName("info")
     @Expose
     private Review[] info;
+    @SerializedName("can_write")
+    @Expose
+    private Boolean review;
 
     public int getStatus() {
         return status;
@@ -50,4 +53,8 @@ public class GetReviewsResponse {
     public void setInfo(Review[] info) {
         this.info = info;
     }
+
+    public Boolean getReview() { return review; }
+
+    public void setReview(Boolean review){ this.review = review; }
 }
