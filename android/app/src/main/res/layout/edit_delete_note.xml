@@ -48,6 +48,7 @@
         android:layout_height="640dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/colorLightBlue"
         android:onClick="onClickHide"
         app:layout_constraintBottom_toBottomOf="parent"
