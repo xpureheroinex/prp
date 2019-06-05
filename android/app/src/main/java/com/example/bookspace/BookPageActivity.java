@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.solver.widgets.ConstraintTableLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,6 +49,22 @@ public class BookPageActivity extends AppCompatActivity {
 
         Intent inten = getIntent();
         bookId = inten.getIntExtra("bookId", 11);
+
+        //настраиваем toolbar
+        Toolbar basicToolbar = findViewById(R.id.basicToolbar);
+        setSupportActionBar(basicToolbar);
+        getSupportActionBar().setTitle("Book Page");
+        basicToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+
+
+        //устанавливаем обработчик нажатия для back arrow иконки
+        basicToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), user_page.class));
+            }
+        });
+
 
         TextView textReviews = findViewById(R.id.textReviews);
         textReviews.setOnClickListener(new View.OnClickListener() {
