@@ -86,6 +86,14 @@ public class BooksListAdapter2 extends BaseAdapter{
                         .contains(charText)){
                     mBooksList1.add(book);
                 }
+                else if(book.getAuthor().toLowerCase(Locale.getDefault())
+                        .contains(charText)){
+                    mBooksList1.add(book);
+                }
+                else if(book.getGenre().toLowerCase(Locale.getDefault())
+                        .contains(charText)){
+                    mBooksList1.add(book);
+                }
             }
         }
 

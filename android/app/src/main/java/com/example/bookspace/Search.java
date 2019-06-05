@@ -3,6 +3,7 @@ package com.example.bookspace;
 import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,8 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -60,8 +63,9 @@ public class Search extends AppCompatActivity {
         setContentView(R.layout.search_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
+        setTitle("Search");
 
-
+        setTitleColor(Color.WHITE);
         lvBooks = findViewById(R.id.listview);
 
 

@@ -13,18 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_marginLeft="320dp"
-        android:layout_marginTop="550dp"
-        app:srcCompat="@drawable/ic_search_black_24dp"
-        />
     </RelativeLayout>
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fl"
+        android:layout_width="100dp"
+        android:layout_height="180dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragments"
+        app:layout_constraintTop_toBottomOf="@+id/fragments"
+        app:srcCompat="@drawable/ic_search_black_24dp" />
 
 
 </android.support.constraint.ConstraintLayout>
