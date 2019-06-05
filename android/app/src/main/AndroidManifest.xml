@@ -73,5 +73,12 @@
             </intent-filter>
 
         </activity>
+
+    <receiver android:name=".notification.AlarmBootReceiver"
+        android:enabled="false">
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+        </intent-filter>
+    </receiver>
     </application>
 </manifest>

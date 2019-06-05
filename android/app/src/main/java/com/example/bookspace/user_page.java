@@ -1,6 +1,8 @@
 package com.example.bookspace;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,9 +30,11 @@ import android.widget.Button;
 
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.GetBooksResponse;
@@ -38,8 +42,10 @@ import com.example.bookspace.model.books.UserBook;
 import com.example.bookspace.model.profile.ProfileResponse;
 import com.example.bookspace.model.profile.User;
 import com.example.bookspace.model.statistics.SetPlanResponse;
+import com.example.bookspace.notification.NotificationHelper;
 
 import java.nio.channels.FileLock;
+import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,6 +62,9 @@ public class user_page extends AppCompatActivity
     List<Integer> mBooksList1;
     ImageButton deletebtn;
     ImageButton addbtn;
+    private Context mContext;
+    private EditText hours;
+    private EditText minutes;
 
 
     @Override
@@ -90,6 +99,10 @@ public class user_page extends AppCompatActivity
         TopFragment startFragment = new TopFragment();
         transaction.add(R.id.ll3, startFragment);
         transaction.commit();
+
+        mContext = getApplicationContext();
+
+
 
 
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
@@ -253,6 +266,10 @@ public class user_page extends AppCompatActivity
                 startActivity(new Intent(getApplicationContext(), Search.class));
             }
         });
+        Switch switch1 = (Switch)findViewById(R.id.switch1);
+        if(switch1.isChecked()){
+            clickToggleButtonRTC(switch1);
+        }
 
     }
 
@@ -789,5 +806,17 @@ public class user_page extends AppCompatActivity
     @Override
     public boolean onQueryTextChange(String s) {
         return true;
+    }
+
+    public void clickToggleButtonRTC(View view) {
+        boolean isEnabled = ((ToggleButton)view).isEnabled();
+
+        if (isEnabled) {
+            NotificationHelper.scheduleRepeatingRTCNotification(mContext, hours.getText().toString(), minutes.getText().toString());
+            NotificationHelper.enableBootReceiver(mContext);
+        } else {
+            NotificationHelper.cancelAlarmRTC();
+            NotificationHelper.disableBootReceiver(mContext);
+        }
     }
 }
