@@ -1,6 +1,8 @@
 package com.example.bookspace;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.ContextMenu;
 import android.view.View;
@@ -28,8 +30,7 @@ public class BooksListAdapter extends BaseAdapter {
     private Context mContext;
     private List<UserBook> mBooksList;
     ImageButton deletebtn;
-//    SharedPreferences prefs = mContext.getSharedPreferences("AppPreferences", MODE_PRIVATE);
-//    String token = prefs.getString("token", "");
+    ImageButton changeStatus;
 
     public BooksListAdapter(Context mContext,List<UserBook> mBooksList){
         this.mContext = mContext;
@@ -60,7 +61,7 @@ public class BooksListAdapter extends BaseAdapter {
         TextView myAuthor = row.findViewById(R.id.statusBookAuthor);
 
         myTitle.setText(mBooksList.get(position).getTitle());
-       // myRate.setText(String.valueOf(mBooksList.get(position).getRate()));
+        myRate.setText(String.valueOf(mBooksList.get(position).getRate()));
         myGenre.setText(mBooksList.get(position).getGenre());
         myAuthor.setText(mBooksList.get(position).getAuthor());
 
@@ -94,6 +95,146 @@ public class BooksListAdapter extends BaseAdapter {
               notifyDataSetChanged();
 
           }
+        });
+
+        changeStatus = row.findViewById(R.id.addbtn);
+        changeStatus.setTag(mBooksList.get(position).getId());
+
+        changeStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                SharedPreferences prefs = v.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE);
+                final String token = prefs.getString("token", "");
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Choose status:");
+
+                String[] items= {"Read", "Reading", "Will Read"};
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case 0:
+
+                                Call<ResponseBody> deleteBook = RetrofitClient
+                                        .getInstance()
+                                        .getBookSpaceAPI()
+                                        .deleteBook("Bearer " + token, mBooksList.get(position).getId());
+
+                                deleteBook.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                    }
+                                });
+
+
+                                Call<ResponseBody> addBook = RetrofitClient
+                                        .getInstance()
+                                        .getBookSpaceAPI()
+                                        .addBook("Bearer " + token, mBooksList.get(position).getId(), "DN");
+
+                                addBook.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        Toast toast = Toast.makeText(v.getContext(),"The status of book was changed on read",Toast.LENGTH_SHORT);
+                                        toast.show();
+
+                                        mBooksList.remove(mBooksList.get(position));
+                                        notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    }
+                                });
+                                break;
+                            case 1:
+                                Call<ResponseBody> deleteBook2 = RetrofitClient
+                                        .getInstance()
+                                        .getBookSpaceAPI()
+                                        .deleteBook("Bearer " + token, mBooksList.get(position).getId());
+
+                                deleteBook2.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                    }
+                                });
+
+                                Call<ResponseBody> addBook2 = RetrofitClient
+                                        .getInstance()
+                                        .getBookSpaceAPI()
+                                        .addBook("Bearer " + token, mBooksList.get(position).getId(), "IP");
+
+                                addBook2.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        Toast toast = Toast.makeText(v.getContext(),"The status of book was changed on reading",Toast.LENGTH_SHORT);
+                                        toast.show();
+
+                                        mBooksList.remove(mBooksList.get(position));
+                                        notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                    }
+                                });
+                                break;
+                            case 2:
+                                Call<ResponseBody> deleteBook3 = RetrofitClient
+                                        .getInstance()
+                                        .getBookSpaceAPI()
+                                        .deleteBook("Bearer " + token, mBooksList.get(position).getId());
+
+                                deleteBook3.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                    }
+                                });
+
+                                Call<ResponseBody> addBook3 = RetrofitClient
+                                        .getInstance()
+                                        .getBookSpaceAPI()
+                                        .addBook("Bearer " + token, mBooksList.get(position).getId(), "WR");
+
+                                addBook3.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        Toast toast = Toast.makeText(v.getContext(),"The status of book was changed on will read",Toast.LENGTH_SHORT);
+                                        toast.show();
+
+                                        mBooksList.remove(mBooksList.get(position));
+                                        notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                    }
+                                });
+                                break;
+                        }
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
         });
         return row;
     }

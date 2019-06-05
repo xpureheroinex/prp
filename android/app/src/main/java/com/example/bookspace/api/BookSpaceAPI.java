@@ -184,4 +184,10 @@ public interface BookSpaceAPI {
     @DELETE("/books/{id}")
     Call<ResponseBody> deleteBook(@Header("Authorization") String token,
                                   @Path("id") Integer bookId);
+
+    //добавление статуса книге
+    @PUT("/books/{id}")
+    Call<ResponseBody> addBook(@Header("Authorization") String token,
+                               @Path("id") Integer bookId,
+                               @Query("status") String status);
 }
