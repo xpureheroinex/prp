@@ -9,8 +9,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.example.bookspace.model.RetrofitClient;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RecoveryActivity extends AppCompatActivity implements RecoveryFragment.OnFragmentInteractionListener{
 
@@ -38,11 +46,30 @@ public class RecoveryActivity extends AppCompatActivity implements RecoveryFragm
         FrameLayout fragmentContainer = findViewById(R.id.recFragmentContainer);
         TextView fragmentTitle = findViewById(R.id.textViewFragTitle);
         Button nextButton = findViewById(R.id.buttonRecNext);
+        final EditText email = findViewById(R.id.editTextRecEmail);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment();
+
+                Call<ResponseBody> restorePassword = RetrofitClient
+                        .getInstance()
+                        .getBookSpaceAPI()
+                        .restorePassword(email.getText().toString());
+
+                restorePassword.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        openFragment();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                    }
+                });
+
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.bookspace;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -66,7 +67,9 @@ public class WillReadBooks extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getContext(),"Hy" + view.getTag(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), BookPageActivity.class);
+                intent.putExtra("bookId", mBooksList3.get(position).getId());
+                startActivity(intent);
             }
         });
         return view;

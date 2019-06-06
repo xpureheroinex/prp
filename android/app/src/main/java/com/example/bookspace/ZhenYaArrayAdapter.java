@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ import java.util.Locale;
         this.mBooksList1 = mBooksList;
         this.arrayList = new ArrayList<MainPageBook>();
         this.arrayList.addAll(mBooksList);
+
     }
     @Override
     public int getCount() {
@@ -48,6 +50,7 @@ import java.util.Locale;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
 
         View row1 = View.inflate(mContext1, R.layout.row1, null);
         TextView myTitle = row1.findViewById(R.id.topBookTitle);
@@ -91,6 +94,4 @@ import java.util.Locale;
         notifyDataSetChanged();
     }
 }
-
-
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.solver.widgets.ConstraintTableLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,8 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
+import com.example.bookspace.model.SimilarBooks;
 import com.example.bookspace.model.books.Book;
 import com.example.bookspace.model.books.GetBookResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -33,6 +38,10 @@ public class BookPageActivity extends AppCompatActivity {
     public int i;
     public int[] idBook;
 
+    ListView lvBooks4;
+    ZhenYaArrayAdapter adapter4;
+    List<SimilarBooks> mBooksList4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +49,22 @@ public class BookPageActivity extends AppCompatActivity {
 
         Intent inten = getIntent();
         bookId = inten.getIntExtra("bookId", 11);
+
+        //настраиваем toolbar
+        Toolbar basicToolbar = findViewById(R.id.basicToolbar);
+        setSupportActionBar(basicToolbar);
+        getSupportActionBar().setTitle("Book Page");
+        basicToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+
+
+        //устанавливаем обработчик нажатия для back arrow иконки
+        basicToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), user_page.class));
+            }
+        });
+
 
         TextView textReviews = findViewById(R.id.textReviews);
         textReviews.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +93,6 @@ public class BookPageActivity extends AppCompatActivity {
         final TextView textGenre = (TextView) findViewById(R.id.textGenre);
         final TextView textAuthor = (TextView) findViewById(R.id.textAuthor);
         final TextView textNumberofPages = (TextView) findViewById(R.id.textNumberOfPages);
-        final ListView lView = (ListView) findViewById(R.id.ListOfBooks);
 
         Call<GetBookResponse> call7 = RetrofitClient
                 .getInstance()
@@ -90,19 +114,21 @@ public class BookPageActivity extends AppCompatActivity {
                     TextView txt1Book = new TextView(BookPageActivity.this);
                     txt1Book.setTextColor(getResources().getColor(R.color.colorTextPrimary));
                     txt1Book.setTextSize(24);
-                    txt1Book.setText("Not found");
+                    txt1Book.setText("Similar books not found in our database");
                     cLayout.addView(txt1Book);
                 }else{
-                    String[] ListOfBooks = new String[resp1.length];
+                    mBooksList4 = new ArrayList<>();
                     idBook = new int[resp1.length];
                     for(i = 0; i < resp1.length; i++) {
-                        ListOfBooks[i] = resp1[i].getTitle() + "\n\n" + "Author: " +
-                                resp1[i].getAuthor() + "\nGenre: " + resp1[i].getGenre();
+                        mBooksList4.add(new SimilarBooks(i,resp1[i].getTitle(),
+                                "Author: " + resp1[i].getAuthor(),
+                                "Genre:" + resp1[i].getGenre()));
                         idBook[i] = resp1[i].getId();
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ListOfBooks);
-                    lView.setAdapter(adapter);
-                    lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    lvBooks4 = (ListView) findViewById(R.id.ListOfBooks);
+                    adapter4 = new ZhenYaArrayAdapter(getApplicationContext(),mBooksList4);
+                    lvBooks4.setAdapter(adapter4);
+                    lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent inten = new Intent(getApplicationContext(), BookPageActivity.class);
@@ -222,7 +248,7 @@ public class BookPageActivity extends AppCompatActivity {
                         Call<GetBookResponse> call_getRate = RetrofitClient
                                 .getInstance()
                                 .getBookSpaceAPI()
-                                .getBook("Bearer " + token_rate, 11);
+                                .getBook("Bearer " + token_rate, bookId);
 
                         call_getRate.enqueue(new Callback<GetBookResponse>() {
                             @Override

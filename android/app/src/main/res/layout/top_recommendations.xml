@@ -17,9 +17,12 @@
 
             android:layout_weight="2"
             android:background="#757575"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
             android:onClick="onSelectFragment1"
             android:text="Top"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnfr5"
@@ -28,9 +31,12 @@
 
             android:layout_weight="1"
             android:background="#BFBFBF"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
             android:onClick="onSelectFragment1"
             android:text="Recommendations"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

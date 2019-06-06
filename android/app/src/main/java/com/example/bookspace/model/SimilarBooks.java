@@ -1,20 +1,16 @@
-package com.example.bookspace;
+package com.example.bookspace.model;
 
-
-public class Books {
+public class SimilarBooks {
     private int id;
     private String name;
-    private double rate;
-    private String date;
     private String author;
+    private String genre;
 
-    public Books(int id, String name, double rate, String date, String author ) {
+    public SimilarBooks(int id, String name, String author , String genre) {
         this.id = id;
         this.name = name;
-        this.rate = rate;
-        this.date = date;
         this.author = author;
-
+        this.genre = genre;
     }
 
     public int getId() {
@@ -33,27 +29,19 @@ public class Books {
         this.name = name;
     }
 
-    public double getRate() {
-        return rate;
-    }
-
-    public void setRate(double rate) {
-        this.rate = rate;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public String getAuthor() {
         return author;
     }
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

@@ -122,8 +122,7 @@ public interface BookSpaceAPI {
     //range = week || month || year
     @GET("/books/{id}/reviews")
     Call<GetReviewsResponse> getReviews(@Header("Authorization") String token,
-                                        @Path("id") Integer bookId,
-                                        @Query("range") String range);
+                                        @Path("id") Integer bookId);
     //добавление
     @FormUrlEncoded
     @POST("/books/{id}/reviews")
@@ -175,4 +174,21 @@ public interface BookSpaceAPI {
     //получение списка запланированных книг
     @GET("/books/future")
     Call<GetBooksResponse> getFutureBooks(@Header("Authorization") String token);
+
+    //получение рекомендаций
+    @GET("/home/rec")
+    Call<TopResponse> getRecs(@Header("Authorization") String token);
+
+    //удаление книги
+    @DELETE("/books/{id}")
+    Call<ResponseBody> deleteBook(@Header("Authorization") String token,
+                                  @Path("id") Integer bookId);
+
+    //добавление статуса книге
+    @PUT("/books/{id}")
+    Call<ResponseBody> addBook(@Header("Authorization") String token,
+                               @Path("id") Integer bookId,
+                               @Query("status") String status);
+
+
 }
