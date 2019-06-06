@@ -16,6 +16,17 @@ public class UserBook {
     @SerializedName("genre")
     @Expose
     private String genre;
+    @SerializedName("rate")
+    @Expose
+    private double rate;
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
 
     public UserBook(int id, String title, String author, String genre) {
         this.id = id;
