@@ -96,6 +96,7 @@ public class user_page extends AppCompatActivity
         String token = prefs.getString("token", "token is null");
 
 
+
         //-------------------- test queries
 
 
@@ -238,13 +239,6 @@ public class user_page extends AppCompatActivity
             }
         });
 
-        Button bu = (Button) findViewById(R.id.button2);
-        bu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), BookPageActivity.class));
-            }
-        });
 
         FloatingActionButton fl = (FloatingActionButton) findViewById(R.id.fl);
         fl.setOnClickListener(new View.OnClickListener() {
@@ -253,6 +247,7 @@ public class user_page extends AppCompatActivity
                 startActivity(new Intent(getApplicationContext(), Search.class));
             }
         });
+
 
     }
 
@@ -312,45 +307,34 @@ public class user_page extends AppCompatActivity
         alertDialog.show();
     }
 
-    public void Add(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose status:");
+    public void Add(View view){
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Choose status:");
+//
+//        String[] items= {"Read", "Reading", "Will Read"};
+//        builder.setItems(items, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                switch (which){
+//                    case 0:
+//                        Toast toast = Toast.makeText(getApplicationContext(),"The status of book was changed on read",Toast.LENGTH_SHORT);
+//                        toast.show();
+//                        break;
+//                    case 1:
+//                        Toast toast1 = Toast.makeText(getApplicationContext(),"The status of book was changed on reading",Toast.LENGTH_SHORT);
+//                        toast1.show();
+//                        break;
+//                    case 2:
+//                        Toast toast2 = Toast.makeText(getApplicationContext(),"The status of book was changed on will read",Toast.LENGTH_SHORT);
+//                        toast2.show();
+//                        break;
+//                }
+//            }
+//        });
+//
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
 
-        String[] items = {"Read", "Reading", "Will Read"};
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                addbtn = (ImageButton) findViewById(R.id.addbtn);
-                switch (which) {
-                    case 0:
-
-                        addbtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                int index = (Integer) v.getTag();
-                                mBooksList2.remove(index);
-                                mBooksList1.add(index);
-                                notify();
-
-                            }
-                        });
-                        Toast toast1 = Toast.makeText(getApplicationContext(), "The status of book was changed on read", Toast.LENGTH_SHORT);
-                        toast1.show();
-                        break;
-                    case 1:
-                        Toast toast = Toast.makeText(getApplicationContext(), "The status of book was changed on reading", Toast.LENGTH_SHORT);
-                        toast.show();
-                        break;
-                    case 2:
-                        Toast toast2 = Toast.makeText(getApplicationContext(), "The status of book was changed on will read", Toast.LENGTH_SHORT);
-                        toast2.show();
-                        break;
-                }
-            }
-        });
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
 
     }
 
@@ -528,7 +512,7 @@ public class user_page extends AppCompatActivity
                 public void onFailure(Call<SetPlanResponse> call, Throwable t) {
                 }
             });
-            Toast.makeText(getApplicationContext(), "Your targets has been saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Your targets have been saved", Toast.LENGTH_SHORT).show();
         }
 
     }

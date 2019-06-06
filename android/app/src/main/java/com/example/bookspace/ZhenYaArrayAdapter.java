@@ -7,22 +7,25 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.bookspace.Books;
+
 import com.example.bookspace.R;
 import com.example.bookspace.model.books.MainPageBook;
 import com.example.bookspace.model.books.UserBook;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class BooksListAdapter2 extends BaseAdapter{
+
+ class BooksListAdapter2 extends BaseAdapter{
     Context mContext1;
     List<MainPageBook> mBooksList1;
     ArrayList<MainPageBook> arrayList;
-    ImageButton deletebtn;
 
-    public BooksListAdapter2(Context mContext,List<MainPageBook> mBooksList){
+
+
+    public BooksListAdapter2 (Context mContext,List<MainPageBook> mBooksList){
         this.mContext1 = mContext;
         this.mBooksList1 = mBooksList;
         this.arrayList = new ArrayList<MainPageBook>();
@@ -45,27 +48,14 @@ public class BooksListAdapter2 extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View row1 = View.inflate(mContext1, R.layout.row1, null);
         TextView myTitle = row1.findViewById(R.id.topBookTitle);
         TextView myRate = row1.findViewById(R.id.topBookRate);
         TextView myAuthor = row1.findViewById(R.id.topBookAuthor);
         TextView myGenre = row1.findViewById(R.id.topBookGenre);
-
-
-
         row1.setTag(mBooksList1.get(position).getId());
 
-        //deletebtn = (ImageButton) row1.findViewById(R.id.deletebtn);
-        //deletebtn.setTag(mBooksList1.get(position).getId());
-       // deletebtn.setOnClickListener(new View.OnClickListener() {
-          //  @Override
-           // public void onClick(View v) {
-             //  int index = (int) v.getTag();
-             //   mBooksList1.remove(index);
-              //  notifyDataSetChanged();
-
-           // }
-       // });
         myTitle.setText(mBooksList1.get(position).getTitle());
         myRate.setText(String.valueOf(mBooksList1.get(position).getRate()));
         myAuthor.setText(mBooksList1.get(position).getAuthor());
@@ -73,6 +63,7 @@ public class BooksListAdapter2 extends BaseAdapter{
 
         return row1;
     }
+
 
     public void filter(String charText){
         charText = charText.toLowerCase(Locale.getDefault());
@@ -100,3 +91,6 @@ public class BooksListAdapter2 extends BaseAdapter{
         notifyDataSetChanged();
     }
 }
+
+
+
