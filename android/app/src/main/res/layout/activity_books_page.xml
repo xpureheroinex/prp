@@ -8,73 +8,22 @@
     android:background="@color/colorSplashScreen"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="145dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Book Page"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <include
+        android:id="@+id/basicToolbar"
+        layout="@layout/basic_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.029999971" />
-
-    <TextView
-        android:id="@+id/textBack"
-        android:layout_width="75dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Back"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textTitle"
-        app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.039" />
-
-    <TextView
-        android:id="@+id/textEditStatus"
-        android:layout_width="112dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="editStatus"
-        android:text="Status"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textTitle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.039" />
+        app:layout_constraintBottom_toTopOf="@id/Options"/>
 
     <LinearLayout
         android:id="@+id/Options"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle"
-        app:layout_constraintVertical_bias="0.008">
+        app:layout_constraintTop_toBottomOf="@+id/basicToolbar">
 
         <TextView
             android:id="@+id/textAbout"
@@ -82,10 +31,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
-            android:text="\nAbout"
-            android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp" />
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="About"
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textReviews"
@@ -93,10 +46,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
-            android:text="\nReviews"
-            android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp" />
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="Reviews"
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textNotice"
@@ -104,181 +61,140 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
-            android:text="\nNotice"
-            android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp" />
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="Notice"
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/BookLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+    <LinearLayout
+        android:id="@+id/linearRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="8dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Options">
-
-        <TextView
-            android:id="@+id/textName"
-            android:layout_width="260dp"
-            android:layout_height="65dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="monospace"
-            android:text="Name"
-            android:textColor="@color/colorTextPrimaryForZhenYa"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textGoToRating"
-            app:layout_constraintHorizontal_bias="0.272"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.012" />
+        app:layout_constraintBottom_toTopOf="@id/textSimilarBooks"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout1">
 
         <TextView
             android:id="@+id/textGoToRating"
-            android:layout_width="74dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:onClick="showRatingDialog"
             android:text="Rate"
+            android:layout_weight="1"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.011" />
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textEditStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="editStatus"
+            android:text="Status"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/linearRate"
+        app:layout_constraintTop_toBottomOf="@id/Options"
+        app:layout_constraintHorizontal_bias="0.05">
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Name"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textGrade"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto"
             android:text="Grade:"
-            android:textAlignment="textStart"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.02"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textName"
-            app:layout_constraintVertical_bias="0.007" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textGenre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto"
             android:text="Genre:"
-            android:textAlignment="center"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.02"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textGrade"
-            app:layout_constraintVertical_bias="0.04" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textAuthor"
             android:layout_width="wrap_content"
-            android:layout_height="23dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/roboto"
             android:text="Author: "
-            android:textAlignment="center"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.02"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textGenre"
-            app:layout_constraintVertical_bias="0.02" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textNumberOfPages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Number of Pages: "
-            android:textAlignment="textStart"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.02"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textAuthor"
-            app:layout_constraintVertical_bias="0.04" />
-
-        <TextView
-            android:id="@+id/textSimilarBooks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Similar Books"
-            android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
-            android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textNumberOfPages"
-            app:layout_constraintVertical_bias="0.059" />
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintlayout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textSimilarBooks">
+            android:fontFamily="@font/roboto"
+            android:text="Pages:"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="18sp" />
 
-            <ListView
-                android:id="@+id/ListOfBooks"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/textSimilarBooks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Similar Books"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ListOfBooks"
+        app:layout_constraintTop_toBottomOf="@id/linearRate"/>
+
+    <ListView
+        android:id="@+id/ListOfBooks"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textSimilarBooks" />
 
 </android.support.constraint.ConstraintLayout>

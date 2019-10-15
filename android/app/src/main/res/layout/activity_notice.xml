@@ -6,54 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".NoticeActivity">
 
-    <TextView
-        android:id="@+id/textTitle2"
-        android:layout_width="145dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Name"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <include
+        android:id="@+id/basicToolbar"
+        layout="@layout/basic_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.029999971" />
-
-    <TextView
-        android:id="@+id/textToBooks2"
-        android:layout_width="75dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Back"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textTitle"
-        app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.039" />
+        />
 
     <LinearLayout
         android:id="@+id/Options"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonReviews"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle2"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/basicToolbar">
 
         <TextView
             android:id="@+id/textAbout"
@@ -61,9 +30,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
-            android:text="\nAbout"
-            android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="About"
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
             android:textSize="16sp" />
 
         <TextView
@@ -72,9 +44,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
-            android:text="\nReviews"
-            android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="Reviews"
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
             android:textSize="16sp" />
 
         <TextView
@@ -83,49 +58,52 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/textlines"
-            android:text="\nNotice"
-            android:textAlignment="center"
-            android:textColor="@color/colorTextPrimary"
+            android:backgroundTint="#BFBFBF"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:text="Notice"
+            android:textAllCaps="true"
+            android:textColor="@color/colorText"
             android:textSize="16sp" />
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorDivider"
+    <Button
+        android:id="@+id/buttonReviews"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/roboto_medium"
+        android:onClick="onClickbuttonNote"
+        android:text="Add note"
+        android:textColor="@color/colorText"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/ListNotes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Options" />
+
+    <TextView
+        android:id="@+id/textViewNoNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="24sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Options">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/colorDivider">
+    <ListView
+        android:id="@+id/ListNotes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonReviews" />
 
-            <Button
-                android:id="@+id/buttonReviews"
-                android:layout_width="286dp"
-                android:layout_height="58dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/button"
-                android:onClick="onClickbuttonNote"
-                android:text="Add note"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-    </ScrollView>
 </android.support.constraint.ConstraintLayout>

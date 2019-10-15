@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:screenOrientation="portrait">
+        <activity
+            android:name=".EditDeleteNote"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".AddNoteActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>

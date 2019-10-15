@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static RetrofitClient mInstance;
-    private static final String BASE_URL = "https://backprp.herokuapp.com";
+    private static final String BASE_URL = "https://bookspace-backend.herokuapp.com/";
     private Retrofit mRetrofit;
 
     private RetrofitClient() {

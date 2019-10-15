@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -46,6 +47,21 @@ public class ReviewsActivity extends AppCompatActivity {
 
         Intent inten = getIntent();
         bookId = inten.getIntExtra("bookId", 11);
+
+        //настраиваем toolbar
+        Toolbar basicToolbar = findViewById(R.id.basicToolbar);
+        setSupportActionBar(basicToolbar);
+        getSupportActionBar().setTitle("Reviews");
+        basicToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+
+
+        //устанавливаем обработчик нажатия для back arrow иконки
+        basicToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), user_page.class));
+            }
+        });
 
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         token = prefs.getString("token", "token is null");
