@@ -29,6 +29,9 @@ public class User {
     @SerializedName("future")
     @Expose
     private int future;
+    @SerializedName("avatar")
+    @Expose
+    private String avatar;
 
     public String getUsername() {
         return username;
@@ -92,5 +95,13 @@ public class User {
 
     public void setFuture(int future) {
         this.future = future;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String future) {
+        this.avatar = avatar;
     }
 }

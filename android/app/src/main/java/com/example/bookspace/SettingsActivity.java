@@ -31,6 +31,8 @@ public class SettingsActivity extends AppCompatActivity {
             newFragment = new ChangePassword();
         } else if (view == findViewById(R.id.btnfr3)) {
             newFragment = new SetTargets();
+        } else if (view == findViewById(R.id.btnfr9)) {
+            newFragment = new ChangeAvatar();
         } else {
             newFragment = new Empty();
         }
@@ -47,6 +49,10 @@ public class SettingsActivity extends AppCompatActivity {
     }
     public void onShowPassword(View view){
         Toast toast = Toast.makeText(getApplicationContext(),"Your password name was changed",Toast.LENGTH_SHORT);
+        toast.show();
+    }
+    public void onShowAvatar(View view){
+        Toast toast = Toast.makeText(getApplicationContext(),"Your avatar was changed",Toast.LENGTH_SHORT);
         toast.show();
     }
     public void onShowTarget(View view){

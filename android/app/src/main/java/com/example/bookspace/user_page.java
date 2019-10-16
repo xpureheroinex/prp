@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,6 +50,7 @@ import com.example.bookspace.model.reviews.GetReviewsResponse;
 import com.example.bookspace.model.reviews.Review;
 import com.example.bookspace.model.statistics.SetPlanResponse;
 
+import java.net.URL;
 import java.security.PrivateKey;
 import java.util.List;
 import java.util.ArrayList;
@@ -241,6 +244,43 @@ public void Delete(final View view){
             });
         }
     }
+
+    public void onShowAvatar (final View view){
+
+        //меняем юзернейм
+        /*EditText newUsername = findViewById(R.id.editTextNewUsername);
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9_]+");
+        Matcher matcher = pattern.matcher(newUsername.getText().toString());
+
+        if(matcher.matches()){
+            Call<ResponseBody> callTest = RetrofitClient
+                    .getInstance()
+                    .getBookSpaceAPI()
+                    .changeProfile("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""),
+                            newUsername.getText().toString(),
+                            null);
+
+            callTest.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Toast.makeText(getApplicationContext(),"Your username was changed",Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(),"Connection failed",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            //отображаем юзернейм и емейл
+            final TextView profileUsername = findViewById(R.id.textViewProfileUsername);
+            profileUsername.setText(newUsername.getText().toString());
+
+        } else{
+            newUsername.setError("Username can only contain latin letters, digits or underscores");
+        }*/
+    }
     //нажатие на кнопку SetReadingTargets
     public void onShowTarget(View view){
 
@@ -411,6 +451,7 @@ public void Delete(final View view){
         //отображаем юзернейм и емейл
         final TextView profileUsername = findViewById(R.id.textViewProfileUsername);
         final TextView profileEmail = findViewById(R.id.textViewProfileEmail);
+        final ImageView profilePhoto = findViewById(R.id.imageViewAvatar);
 
         Call<ProfileResponse> getProfileInfo = RetrofitClient
                 .getInstance()
@@ -426,6 +467,8 @@ public void Delete(final View view){
                 try{
                     profileUsername.setText(user.getUsername());
                     profileEmail.setText(user.getEmail());
+                    URL newurl = new URL(user.getAvatar());
+                    profilePhoto.setImageBitmap(BitmapFactory.decodeStream(newurl.openConnection().getInputStream()));
                 } catch(Exception ignore){}
             }
             @Override
@@ -454,6 +497,8 @@ public void Delete(final View view){
             newFragment = new ChangePassword();
         } else if (view == findViewById(R.id.btnfr3)) {
             newFragment = new SetTargets();
+        } else if (view == findViewById(R.id.btnfr9)) {
+            newFragment = new ChangeAvatar();
         } else {
             newFragment = new Empty();
         }
