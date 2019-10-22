@@ -29,6 +29,10 @@ public class User {
     @SerializedName("future")
     @Expose
     private int future;
+    @SerializedName("role")
+    @Expose
+    private String role;
+
 
     public String getUsername() {
         return username;
@@ -92,5 +96,9 @@ public class User {
 
     public void setFuture(int future) {
         this.future = future;
+    }
+
+    public String getRole() {
+        return role;
     }
 }

@@ -1,24 +1,16 @@
 package com.example.bookspace;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresPermission;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,40 +23,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
-import com.example.bookspace.model.books.GetBooksResponse;
-import com.example.bookspace.model.notes.GetNotesResponse;
-import com.example.bookspace.model.notes.Note;
 import com.example.bookspace.model.profile.ImageResponse;
 import com.example.bookspace.model.profile.ProfileResponse;
 import com.example.bookspace.model.profile.User;
-import com.example.bookspace.model.reviews.GetReviewsResponse;
-import com.example.bookspace.model.reviews.Review;
 import com.example.bookspace.model.statistics.SetPlanResponse;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.security.PrivateKey;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,24 +51,22 @@ public class user_page extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TextView mReadTextView;
     private static final int RESULT_LOAD_IMAGE = 1;
-    public Bitmap bmapAvatar = null;
-
-
+    public Bitmap bmapAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         mReadTextView = (TextView) MenuItemCompat.getActionView(navigationView.getMenu().findItem(R.id.nav_read));
         initializeCountDrawer();
@@ -145,7 +117,7 @@ public class user_page extends AppCompatActivity
         }
     }
 
-
+    //region initialize count drawers
     private void initializeCountDrawer(){
         mReadTextView.setGravity(Gravity.CENTER_VERTICAL);
         mReadTextView.setTypeface(null, Typeface.BOLD);
@@ -161,6 +133,7 @@ public class user_page extends AppCompatActivity
         mReadTextView.setTypeface(null, Typeface.BOLD);
         mReadTextView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
     }
+    //endregion
 
 public void Delete(final View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -182,36 +155,6 @@ public void Delete(final View view){
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-    }
-
-    public void Add(View view){
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Choose status:");
-//
-//        String[] items= {"Read", "Reading", "Will Read"};
-//        builder.setItems(items, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                switch (which){
-//                    case 0:
-//                        Toast toast = Toast.makeText(getApplicationContext(),"The status of book was changed on read",Toast.LENGTH_SHORT);
-//                        toast.show();
-//                        break;
-//                    case 1:
-//                        Toast toast1 = Toast.makeText(getApplicationContext(),"The status of book was changed on reading",Toast.LENGTH_SHORT);
-//                        toast1.show();
-//                        break;
-//                    case 2:
-//                        Toast toast2 = Toast.makeText(getApplicationContext(),"The status of book was changed on will read",Toast.LENGTH_SHORT);
-//                        toast2.show();
-//                        break;
-//                }
-//            }
-//        });
-//
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-
     }
 
     //нажатие на кнопку ChangeUsername
@@ -243,7 +186,7 @@ public void Delete(final View view){
                 }
             });
 
-            //отображаем юзернейм и емейл
+            //show username
             final TextView profileUsername = findViewById(R.id.textViewProfileUsername);
             profileUsername.setText(newUsername.getText().toString());
 
@@ -285,27 +228,6 @@ public void Delete(final View view){
     }
 
     public void onShowAvatar (final View view){
-        /*display user photo
-        final ImageView setPhoto = findViewById(R.id.imageAvatar2);
-
-        Call<ImageResponse> getProfileImage = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .getProfileImage("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
-
-        getProfileImage.enqueue(new Callback<ImageResponse>() {
-            @Override
-            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
-                ImageResponse resp = response.body();
-                String image = resp.getImage();
-                Bitmap myBitmap = decodeBase64(image.replace("data:image/png;base64,", ""));
-                setPhoto.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 150, 150, false));
-            }
-            @Override
-            public void onFailure(Call<ImageResponse> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });*/
 
         //change user photo
         if(bmapAvatar == null){
@@ -447,8 +369,6 @@ public void Delete(final View view){
 
     }
 
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -505,10 +425,10 @@ public void Delete(final View view){
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.user_page, menu);
 
-
-        //отображаем юзернейм и емейл
+        //region display username and email
         final TextView profileUsername = findViewById(R.id.textViewProfileUsername);
         final TextView profileEmail = findViewById(R.id.textViewProfileEmail);
+        final TextView profileRole = findViewById(R.id.textViewProfileRole);
 
         Call<ProfileResponse> getProfileInfo = RetrofitClient
                 .getInstance()
@@ -524,6 +444,7 @@ public void Delete(final View view){
                 try{
                     profileUsername.setText(user.getUsername());
                     profileEmail.setText(user.getEmail());
+                    profileRole.setText(user.getRole());
                 } catch(Exception ignore){}
             }
             @Override
@@ -531,8 +452,9 @@ public void Delete(final View view){
                 t.printStackTrace();
             }
         });
+        //endregion
 
-        //display user photo
+        //region display user photo
         final ImageView profilePhoto = findViewById(R.id.imageViewAvatar);
 
         Call<ImageResponse> getProfileImage = RetrofitClient
@@ -543,20 +465,25 @@ public void Delete(final View view){
         getProfileImage.enqueue(new Callback<ImageResponse>() {
             @Override
             public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
-                ImageResponse resp = response.body();
-                String image = resp.getImage();
-                Bitmap myBitmap = decodeBase64(image.replace("data:image/png;base64,", ""));
-                profilePhoto.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 80, 80, false));
+                try{
+                    ImageResponse resp = response.body();
+                    String image = resp.getImage();
+                    Bitmap myBitmap = decodeBase64(image.replace("data:image/png;base64,", ""));
+                    profilePhoto.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 80, 80, false));
+                }
+                catch(Exception ignored) { }
             }
             @Override
             public void onFailure(Call<ImageResponse> call, Throwable t) {
                 t.printStackTrace();
             }
         });
+        //endregion
 
         return true;
     }
 
+    //region image encoding
     public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality){
         ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
         image.compress(compressFormat, quality, byteArrayOS);
@@ -567,6 +494,7 @@ public void Delete(final View view){
         byte[] decodeBytes = Base64.decode(input, 0);
         return BitmapFactory.decodeByteArray(decodeBytes, 0, decodeBytes.length);
     }
+    //endregion
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -722,7 +650,7 @@ public void Delete(final View view){
             transaction.commit();
 
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
