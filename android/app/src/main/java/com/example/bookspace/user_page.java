@@ -6,7 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -99,8 +104,6 @@ public class user_page extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
-
-        bmapAvatar = null;
 
         switch(requestCode){
             case RESULT_LOAD_IMAGE:
@@ -234,7 +237,7 @@ public void Delete(final View view){
             Toast.makeText(getApplicationContext(),"You did not choose user image",Toast.LENGTH_SHORT).show();
         }
         else {
-            String strBase64 = encodeToBase64(bmapAvatar, Bitmap.CompressFormat.PNG, 100);
+            String strBase64 = encodeToBase64(bmapAvatar, Bitmap.CompressFormat.JPEG, 100);
             String result = "data:image/png;base64," + strBase64;
 
             Call<ResponseBody> callTest = RetrofitClient
@@ -257,7 +260,9 @@ public void Delete(final View view){
 
             //display changed avatar
             final ImageView profilePhoto = findViewById(R.id.imageViewAvatar);
-            profilePhoto.setImageBitmap(Bitmap.createScaledBitmap(bmapAvatar, 80, 80, false));
+            Bitmap imageBitmap = Bitmap.createScaledBitmap(bmapAvatar, 80, 80, false);
+            imageBitmap = getCircledBitmap(imageBitmap);
+            profilePhoto.setImageBitmap(imageBitmap);
         }
     }
 
@@ -380,7 +385,6 @@ public void Delete(final View view){
     }
 
     public void onClickLogOut(View v){
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Are you sure you want to Logout?")
                     .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
@@ -412,12 +416,24 @@ public void Delete(final View view){
         editor.remove("token");
         editor.apply();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-
                         }
                     });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+    }
 
+    public static Bitmap getCircledBitmap(Bitmap bitmap) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+        return output;
     }
 
     @Override
@@ -444,7 +460,8 @@ public void Delete(final View view){
                 try{
                     profileUsername.setText(user.getUsername());
                     profileEmail.setText(user.getEmail());
-                    profileRole.setText(user.getRole());
+                    profileRole.setText(String.format("%s%s", user.getRole().substring(0, 1).toUpperCase(), user.getRole().substring(1)));
+
                 } catch(Exception ignore){}
             }
             @Override
@@ -469,7 +486,8 @@ public void Delete(final View view){
                     ImageResponse resp = response.body();
                     String image = resp.getImage();
                     Bitmap myBitmap = decodeBase64(image.replace("data:image/png;base64,", ""));
-                    profilePhoto.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 80, 80, false));
+                    myBitmap = getCircledBitmap(Bitmap.createScaledBitmap(myBitmap, 80, 80, false));
+                    profilePhoto.setImageBitmap(myBitmap);
                 }
                 catch(Exception ignored) { }
             }
