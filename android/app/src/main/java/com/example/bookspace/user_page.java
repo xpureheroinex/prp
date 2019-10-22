@@ -6,10 +6,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
@@ -23,6 +29,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,12 +51,16 @@ import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.GetBooksResponse;
 import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.notes.Note;
+import com.example.bookspace.model.profile.ImageResponse;
 import com.example.bookspace.model.profile.ProfileResponse;
 import com.example.bookspace.model.profile.User;
 import com.example.bookspace.model.reviews.GetReviewsResponse;
 import com.example.bookspace.model.reviews.Review;
 import com.example.bookspace.model.statistics.SetPlanResponse;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.security.PrivateKey;
 import java.util.List;
@@ -65,6 +76,8 @@ import retrofit2.Response;
 public class user_page extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private TextView mReadTextView;
+    private static final int RESULT_LOAD_IMAGE = 1;
+    public Bitmap bmapAvatar = null;
 
 
 
@@ -103,7 +116,33 @@ public class user_page extends AppCompatActivity
 
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String token = prefs.getString("token", "token is null");
+    }
 
+    public void onClickUpload(View view) {
+        Intent i = new Intent(Intent.ACTION_PICK);
+        i.setType("image/*");
+        startActivityForResult(i, RESULT_LOAD_IMAGE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        bmapAvatar = null;
+
+        switch(requestCode){
+            case RESULT_LOAD_IMAGE:
+            if(resultCode == RESULT_OK){
+                Uri selectedImage = data.getData();
+                try {
+                    bmapAvatar = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                }
+                catch(IOException e){
+                    e.printStackTrace();
+                }
+                Toast.makeText(getApplicationContext(),"Image was chosen",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 
@@ -246,41 +285,60 @@ public void Delete(final View view){
     }
 
     public void onShowAvatar (final View view){
+        /*display user photo
+        final ImageView setPhoto = findViewById(R.id.imageAvatar2);
 
-        //меняем юзернейм
-        /*EditText newUsername = findViewById(R.id.editTextNewUsername);
-        Pattern pattern = Pattern.compile("[a-zA-Z0-9_]+");
-        Matcher matcher = pattern.matcher(newUsername.getText().toString());
+        Call<ImageResponse> getProfileImage = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .getProfileImage("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
 
-        if(matcher.matches()){
+        getProfileImage.enqueue(new Callback<ImageResponse>() {
+            @Override
+            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
+                ImageResponse resp = response.body();
+                String image = resp.getImage();
+                Bitmap myBitmap = decodeBase64(image.replace("data:image/png;base64,", ""));
+                setPhoto.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 150, 150, false));
+            }
+            @Override
+            public void onFailure(Call<ImageResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });*/
+
+        //change user photo
+        if(bmapAvatar == null){
+            Toast.makeText(getApplicationContext(),"You did not choose user image",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            String strBase64 = encodeToBase64(bmapAvatar, Bitmap.CompressFormat.PNG, 100);
+            String result = "data:image/png;base64," + strBase64;
+
             Call<ResponseBody> callTest = RetrofitClient
                     .getInstance()
                     .getBookSpaceAPI()
-                    .changeProfile("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""),
-                            newUsername.getText().toString(),
-                            null);
+                    .changeImage("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""),
+                            result);
 
             callTest.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Toast.makeText(getApplicationContext(),"Your username was changed",Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getApplicationContext(), "Your avatar was saved", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(),"Connection failed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Connection failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
-            //отображаем юзернейм и емейл
-            final TextView profileUsername = findViewById(R.id.textViewProfileUsername);
-            profileUsername.setText(newUsername.getText().toString());
-
-        } else{
-            newUsername.setError("Username can only contain latin letters, digits or underscores");
-        }*/
+            //display changed avatar
+            final ImageView profilePhoto = findViewById(R.id.imageViewAvatar);
+            profilePhoto.setImageBitmap(Bitmap.createScaledBitmap(bmapAvatar, 80, 80, false));
+        }
     }
+
     //нажатие на кнопку SetReadingTargets
     public void onShowTarget(View view){
 
@@ -430,7 +488,7 @@ public void Delete(final View view){
 
                             }
                         });
-                        SharedPreferences.Editor editor = prefs.edit();
+        SharedPreferences.Editor editor = prefs.edit();
         editor.remove("token");
         editor.apply();
                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -451,7 +509,6 @@ public void Delete(final View view){
         //отображаем юзернейм и емейл
         final TextView profileUsername = findViewById(R.id.textViewProfileUsername);
         final TextView profileEmail = findViewById(R.id.textViewProfileEmail);
-        final ImageView profilePhoto = findViewById(R.id.imageViewAvatar);
 
         Call<ProfileResponse> getProfileInfo = RetrofitClient
                 .getInstance()
@@ -467,8 +524,6 @@ public void Delete(final View view){
                 try{
                     profileUsername.setText(user.getUsername());
                     profileEmail.setText(user.getEmail());
-                    URL newurl = new URL(user.getAvatar());
-                    profilePhoto.setImageBitmap(BitmapFactory.decodeStream(newurl.openConnection().getInputStream()));
                 } catch(Exception ignore){}
             }
             @Override
@@ -476,7 +531,41 @@ public void Delete(final View view){
                 t.printStackTrace();
             }
         });
+
+        //display user photo
+        final ImageView profilePhoto = findViewById(R.id.imageViewAvatar);
+
+        Call<ImageResponse> getProfileImage = RetrofitClient
+                .getInstance()
+                .getBookSpaceAPI()
+                .getProfileImage("Bearer " + getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", ""));
+
+        getProfileImage.enqueue(new Callback<ImageResponse>() {
+            @Override
+            public void onResponse(Call<ImageResponse> call, Response<ImageResponse> response) {
+                ImageResponse resp = response.body();
+                String image = resp.getImage();
+                Bitmap myBitmap = decodeBase64(image.replace("data:image/png;base64,", ""));
+                profilePhoto.setImageBitmap(Bitmap.createScaledBitmap(myBitmap, 80, 80, false));
+            }
+            @Override
+            public void onFailure(Call<ImageResponse> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
         return true;
+    }
+
+    public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality){
+        ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
+        image.compress(compressFormat, quality, byteArrayOS);
+        return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.DEFAULT);
+    }
+
+    public static Bitmap decodeBase64(String input){
+        byte[] decodeBytes = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodeBytes, 0, decodeBytes.length);
     }
 
     @Override

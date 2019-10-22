@@ -7,6 +7,7 @@ import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.registration.CreateUserResponse;
 import com.example.bookspace.model.login.LoginResponse;
 import com.example.bookspace.model.profile.ProfileResponse;
+import com.example.bookspace.model.profile.ImageResponse;
 import com.example.bookspace.model.reviews.GetReviewsResponse;
 import com.example.bookspace.model.statistics.SetPlanResponse;
 import com.example.bookspace.model.statistics.StatisticsResponse;
@@ -61,6 +62,16 @@ public interface BookSpaceAPI {
     //получаем информацию о пользователе
     @GET("/profile")
     Call<ProfileResponse> getProfileInfo(@Header("Authorization") String token);
+
+    //получаем аватар
+    @GET("/profile/image")
+    Call<ImageResponse> getProfileImage(@Header("Authorization") String token);
+
+    //change avatar
+    @FormUrlEncoded
+    @POST("/profile/image")
+    Call<ResponseBody> changeImage(@Header("Authorization") String token,
+                                   @Field("image") String image);
 
     //запрос для изменения юзернейма или пароля
     @PUT("/profile")
