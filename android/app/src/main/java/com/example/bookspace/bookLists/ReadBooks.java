@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.bookLists;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.bookspace.BookPageActivity;
+import com.example.bookspace.BooksListAdapter;
+import com.example.bookspace.R;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.GetBooksResponse;
 import com.example.bookspace.model.books.UserBook;
@@ -25,51 +29,59 @@ import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ReadingBooks extends Fragment {
-    ListView lvBooks2;
-    BooksListAdapter adapter2;
-    List<UserBook> mBooksList2;
+public class ReadBooks extends Fragment {
+    ListView lvBooks1;
+    BooksListAdapter adapter1;
+    List<UserBook> mBooksList1;
+    int[] booksId;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view =inflater.inflate(R.layout.readingbooks,container,false);
+        View view = inflater.inflate(R.layout.readbooks,container,false);
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
-        lvBooks2 = view.findViewById(R.id.list2);
+        lvBooks1 = view.findViewById(R.id.list1);
 
-        Call<GetBooksResponse> getInProgressBooks = RetrofitClient
+
+        Call<GetBooksResponse> getReadBooks = RetrofitClient
                 .getInstance()
                 .getBookSpaceAPI()
-                .getInProgressBooks("Bearer " + token);
+                .getReadBooks("Bearer " + token);
 
-        getInProgressBooks.enqueue(new Callback<GetBooksResponse>() {
+        getReadBooks.enqueue(new Callback<GetBooksResponse>() {
             @Override
             public void onResponse(Call<GetBooksResponse> call, Response<GetBooksResponse> response) {
                 UserBook[] userBooks = response.body().getInfo();
-                mBooksList2 = new ArrayList<>();
+                booksId = new int[userBooks.length];
 
-                for(UserBook book : userBooks){
-                    mBooksList2.add(book);
+                mBooksList1 = new ArrayList<>();
+
+                for(int i = 0; i < userBooks.length; i++){
+                    mBooksList1.add(userBooks[i]);
+                    booksId[i] = userBooks[i].getId();
                 }
 
-                adapter2 = new BooksListAdapter(getContext(),mBooksList2);
-                lvBooks2.setAdapter(adapter2);
+                adapter1 = new BooksListAdapter(getContext(),mBooksList1);
+                lvBooks1.setAdapter(adapter1);
             }
 
             @Override
             public void onFailure(Call<GetBooksResponse> call, Throwable t) {
+
             }
         });
 
-        lvBooks2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        lvBooks1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Intent intent = new Intent(getContext(), BookPageActivity.class);
-                intent.putExtra("bookId", mBooksList2.get(position).getId());
+                intent.putExtra("bookId", mBooksList1.get(position).getId());
                 startActivity(intent);
             }
         });
+
         return view;
     }
 }

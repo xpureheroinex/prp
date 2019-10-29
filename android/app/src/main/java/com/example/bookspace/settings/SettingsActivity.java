@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.settings;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,8 +6,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.bookspace.Empty;
+import com.example.bookspace.R;
+import com.example.bookspace.settings.ChangeAvatar;
+import com.example.bookspace.settings.ChangeName;
+import com.example.bookspace.settings.ChangePassword;
+import com.example.bookspace.statistics.SetTargets;
 
 public class SettingsActivity extends AppCompatActivity {
 

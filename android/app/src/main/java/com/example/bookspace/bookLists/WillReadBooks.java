@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.bookLists;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.bookspace.BookPageActivity;
+import com.example.bookspace.BooksListAdapter;
+import com.example.bookspace.R;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.GetBooksResponse;
 import com.example.bookspace.model.books.UserBook;

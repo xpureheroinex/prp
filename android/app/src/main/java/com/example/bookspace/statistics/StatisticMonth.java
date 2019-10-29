@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.statistics;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.bookspace.R;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.statistics.StatisticsData;
 import com.example.bookspace.model.statistics.StatisticsResponse;

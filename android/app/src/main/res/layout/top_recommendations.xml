@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnfr4"
+            android:id="@+id/topButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -19,13 +19,13 @@
             android:background="#757575"
             android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:onClick="onSelectFragment1"
+            android:onClick="onClickTopButton"
             android:text="Top"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btnfr5"
+            android:id="@+id/recommendationsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -33,7 +33,7 @@
             android:background="#BFBFBF"
             android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:onClick="onSelectFragment1"
+            android:onClick="onClickRecommendationsButton"
             android:text="Recommendations"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
@@ -41,10 +41,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll3"
+        android:id="@+id/fragmentsTopRecsContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.7"
-        android:orientation="vertical"
-        android:background="@color/colorSplashScreen"></LinearLayout>
+        android:background="@color/colorSplashScreen"
+        android:orientation="vertical"></LinearLayout>
 </LinearLayout>

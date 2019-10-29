@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,17 +36,15 @@ public class TopFragment extends Fragment {
     ListView bookListTop;
     BooksListAdapterTop adapterTop;
     List<MainPageBook> mBooksListTop;
-    final String LOG_TAG = "myLogs";
     int[] booksId;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.top_fragment,container,false);
+        View view = inflater.inflate(R.layout.top_fragment, container,false);
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
         bookListTop = view.findViewById(R.id.listTop);
-        ImageButton statusButton = view.findViewById(R.id.addbtn1);
 
         Call<TopResponse> getTop = RetrofitClient
                 .getInstance()
@@ -86,4 +86,5 @@ public class TopFragment extends Fragment {
 
        return view;
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.registration;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -14,9 +14,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookspace.MainActivity;
+import com.example.bookspace.R;
 import com.example.bookspace.model.registration.CreateUserResponse;
 import com.example.bookspace.model.login.LoginResponse;
 import com.example.bookspace.model.RetrofitClient;
+import com.example.bookspace.user_page;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -30,7 +33,6 @@ import com.google.android.gms.common.api.Status;
 
 import java.util.Random;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

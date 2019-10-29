@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.registration;
 
 import android.content.Intent;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.bookspace.R;
 
 public class RecoveryFragment extends Fragment {
 
