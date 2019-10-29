@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.bookspace.registration.LoginActivity;
+import com.example.bookspace.registration.RegistrationActivity;
+
 public class MainActivity extends AppCompatActivity {
 
 

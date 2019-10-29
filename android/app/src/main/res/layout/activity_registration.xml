@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSplashScreen"
-    tools:context=".RegistrationActivity">
+    tools:context=".registration.RegistrationActivity">
 
     <include
         android:id="@+id/basicToolbar"

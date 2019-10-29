@@ -26,7 +26,6 @@ import retrofit2.Response;
 
 public class TopRecommendations extends AppCompatActivity {
 
-
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -35,31 +34,14 @@ public class TopRecommendations extends AppCompatActivity {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction transaction = fm.beginTransaction();
             RecommendFragment startFragment = new RecommendFragment();
-            transaction.add(R.id.ll3, startFragment);
+            transaction.add(R.id.fragmentsTopRecsContainer, startFragment);
             transaction.commit();
         }
-
 
         @Nullable
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.top_recommendations,container,false);
 
             return view;
-        }
-
-        public void onSelectFragment1(View view) {
-            Fragment newFragment;
-            if (view == findViewById(R.id.btnfr4)) {
-                newFragment = new TopFragment();
-            } else if (view == findViewById(R.id.btnfr5)) {
-                newFragment = new RecommendFragment();
-            } else {
-                newFragment = new TopFragment();
-            }
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.ll3, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
-
         }
     }

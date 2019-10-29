@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.statistics;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.example.bookspace.R;
 
 public class StatisticActivity extends AppCompatActivity {
 

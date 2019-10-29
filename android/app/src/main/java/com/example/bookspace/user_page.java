@@ -36,11 +36,24 @@ import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.bookspace.bookLists.ReadBooks;
+import com.example.bookspace.bookLists.ReadingBooks;
+import com.example.bookspace.bookLists.WillReadBooks;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.profile.ImageResponse;
 import com.example.bookspace.model.profile.ProfileResponse;
 import com.example.bookspace.model.profile.User;
 import com.example.bookspace.model.statistics.SetPlanResponse;
+import com.example.bookspace.registration.LoginActivity;
+import com.example.bookspace.settings.ChangeAvatar;
+import com.example.bookspace.settings.ChangeName;
+import com.example.bookspace.settings.ChangePassword;
+import com.example.bookspace.settings.Settings2;
+import com.example.bookspace.statistics.SetTargets;
+import com.example.bookspace.statistics.StatisticMonth;
+import com.example.bookspace.statistics.StatisticWeek;
+import com.example.bookspace.statistics.StatisticYear;
+import com.example.bookspace.statistics.Statistics2;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -81,15 +94,19 @@ public class user_page extends AppCompatActivity
         initializeCountDrawer2();
 
         setTitle("BookSpace");
+        // ----------------------------------------------------------------------
         TopRecommends2 topRecommends2 = new TopRecommends2();
+
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragments, topRecommends2).commit();
 
         FragmentManager fom = getSupportFragmentManager();
         FragmentTransaction transaction = fom.beginTransaction();
         TopFragment startFragment = new TopFragment();
-        transaction.add(R.id.ll3, startFragment);
+        transaction.add(R.id.fragmentsTopRecsContainer, startFragment);
         transaction.commit();
+        Toast.makeText(getApplicationContext(),"top fragment created",Toast.LENGTH_SHORT).show();
+
 
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String token = prefs.getString("token", "token is null");
@@ -516,11 +533,6 @@ public void Delete(final View view){
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -546,26 +558,30 @@ public void Delete(final View view){
 
     public void onSelectFragment1(View view) {
         Fragment newFragment;
-        if (view == findViewById(R.id.btnfr4)) {
-            newFragment = new TopFragment();
-            findViewById(R.id.btnfr4).setBackgroundColor(Color.parseColor("#757575"));
-            findViewById(R.id.btnfr5).setBackgroundColor(Color.parseColor("#bdbdbd"));
-
-
-        } else if (view == findViewById(R.id.btnfr5)) {
+//        if (view == findViewById(R.id.topButton)) {
+//            newFragment = new TopFragment();
+//            findViewById(R.id.topButton).setBackgroundColor(Color.parseColor("#757575"));
+//            findViewById(R.id.recommendationsButton).setBackgroundColor(Color.parseColor("#bdbdbd"));
+//
+//
+//        }
+        if (view == findViewById(R.id.recommendationsButton)) {
             newFragment = new RecommendFragment();
-            findViewById(R.id.btnfr5).setBackgroundColor(Color.parseColor("#757575"));
-            findViewById(R.id.btnfr4).setBackgroundColor(Color.parseColor("#bdbdbd"));
+            findViewById(R.id.recommendationsButton).setBackgroundColor(Color.parseColor("#757575"));
+            findViewById(R.id.topButton).setBackgroundColor(Color.parseColor("#bdbdbd"));
+            Toast.makeText(getApplicationContext(),"recs clicked",Toast.LENGTH_SHORT).show();
+
         } else {
             newFragment = new TopFragment();
-            findViewById(R.id.btnfr4).setBackgroundColor(Color.parseColor("#757575"));
+            findViewById(R.id.topButton).setBackgroundColor(Color.parseColor("#757575"));
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.ll3, newFragment);
+        transaction.replace(R.id.fragmentsTopRecsContainer, newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
+    //statistics
     public void onSelectFragment3(View view) {
         Fragment newFragment;
         if (view == findViewById(R.id.btnfr6)) {
@@ -609,7 +625,7 @@ public void Delete(final View view){
             FragmentManager fom = getSupportFragmentManager();
             FragmentTransaction transaction = fom.beginTransaction();
             TopFragment startFragment = new TopFragment();
-            transaction.add(R.id.ll3, startFragment);
+            transaction.add(R.id.fragmentsTopRecsContainer, startFragment);
             transaction.commit();
 
         } else if (id == R.id.nav_read) {
@@ -664,7 +680,7 @@ public void Delete(final View view){
             FragmentManager fom = getSupportFragmentManager();
             FragmentTransaction transaction = fom.beginTransaction();
             TopFragment startFragment = new TopFragment();
-            transaction.add(R.id.ll3, startFragment);
+            transaction.add(R.id.fragmentsTopRecsContainer, startFragment);
             transaction.commit();
 
         }

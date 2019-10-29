@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.statistics;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.content.SharedPreferences;
 
 
+import com.example.bookspace.R;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.profile.ProfileResponse;
 import com.example.bookspace.model.profile.User;

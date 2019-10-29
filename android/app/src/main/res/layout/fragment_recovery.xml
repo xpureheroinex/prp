@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:background="@color/colorSplashScreen"
-    tools:context=".RecoveryFragment">
+    tools:context=".registration.RecoveryFragment">
 
 
     <TextView

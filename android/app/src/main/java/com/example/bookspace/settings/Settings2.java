@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.settings;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bookspace.R;
 import com.example.bookspace.model.RetrofitClient;
 
 import okhttp3.ResponseBody;

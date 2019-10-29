@@ -34,13 +34,13 @@
             android:name=".BookPageActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
-            android:name=".RecoveryActivity"
+            android:name=".registration.RecoveryActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".registration.LoginActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".registration.RegistrationActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".SplashActivity"

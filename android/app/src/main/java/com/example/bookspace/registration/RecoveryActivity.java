@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.registration;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.bookspace.R;
 import com.example.bookspace.model.RetrofitClient;
 
 import okhttp3.ResponseBody;

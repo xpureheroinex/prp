@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.registration;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +13,9 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.bookspace.MainActivity;
+import com.example.bookspace.R;
+import com.example.bookspace.SuccessfullyRegisteredFragment;
 import com.example.bookspace.model.registration.CreateUserResponse;
 import com.example.bookspace.model.RetrofitClient;
 
@@ -23,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegistrationActivity extends AppCompatActivity implements SuccessfullyRegisteredFragment.OnFragmentInteractionListener{
+public class RegistrationActivity extends AppCompatActivity implements SuccessfullyRegisteredFragment.OnFragmentInteractionListener {
 
     public static final Pattern VALID_EMAIL_ADDRESS =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
