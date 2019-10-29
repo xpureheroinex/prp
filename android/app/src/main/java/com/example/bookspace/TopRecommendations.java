@@ -40,8 +40,6 @@ public class TopRecommendations extends AppCompatActivity {
 
         @Nullable
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.top_recommendations,container,false);
-
-            return view;
+            return inflater.inflate(R.layout.top_recommendations,container,false);
         }
     }
