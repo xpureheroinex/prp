@@ -1,5 +1,6 @@
 package com.example.bookspace;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.bookspace.model.RetrofitClient;
@@ -35,7 +37,6 @@ public class RecommendFragment extends Fragment {
         View view = inflater.inflate(R.layout.recommend_fragment,container,false);
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
         bookListElement = view.findViewById(R.id.listRec);
-
 
         Call<TopResponse> getRecs = RetrofitClient
                 .getInstance()
@@ -69,6 +70,14 @@ public class RecommendFragment extends Fragment {
             }
         });
 
+        bookListElement.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), BookPageActivity.class);
+                intent.putExtra("bookId", bookList.get(position).getId());
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }

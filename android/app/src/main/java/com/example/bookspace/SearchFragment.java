@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -77,6 +78,16 @@ public class SearchFragment extends Fragment {
             }
         });
         preferences.edit().remove("query").apply();
+
+        bookListElement.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), BookPageActivity.class);
+                intent.putExtra("bookId", bookList.get(position).getId());
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 }

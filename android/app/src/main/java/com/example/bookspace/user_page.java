@@ -601,7 +601,6 @@ public class user_page extends AppCompatActivity
         transaction.replace(R.id.fragmentsTopRecsContainer, recsFragment).commit();
         view.setBackgroundColor(Color.parseColor("#757575"));
         findViewById(R.id.topButton).setBackgroundColor(Color.parseColor("#bdbdbd"));
-        Toast.makeText(getApplicationContext(),"recs clicked",Toast.LENGTH_SHORT).show();
     }
 
     //statistics
