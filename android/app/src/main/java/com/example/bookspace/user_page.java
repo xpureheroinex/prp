@@ -1,6 +1,8 @@
 package com.example.bookspace;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +34,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
@@ -147,7 +150,7 @@ public class user_page extends AppCompatActivity
     }
     //endregion
 
-public void Delete(final View view){
+    public void Delete(final View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you want to delete this book?")
         .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
@@ -445,6 +448,16 @@ public void Delete(final View view){
         return output;
     }
 
+    public void callSearch(String query){
+        SharedPreferences preferences = getSharedPreferences("AppPreferences", MODE_PRIVATE);
+        preferences.edit().putString("query", query).apply();
+        Fragment searchFragment = new SearchFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentsTopRecsContainer, searchFragment).commit();
+        findViewById(R.id.topButton).setBackgroundColor(Color.parseColor("#bdbdbd"));
+        findViewById(R.id.recommendationsButton).setBackgroundColor(Color.parseColor("#bdbdbd"));
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -454,6 +467,31 @@ public void Delete(final View view){
         final TextView profileUsername = findViewById(R.id.textViewProfileUsername);
         final TextView profileEmail = findViewById(R.id.textViewProfileEmail);
         final TextView profileRole = findViewById(R.id.textViewProfileRole);
+
+        //searchable configuration
+        SearchManager sManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final SearchView sView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+        sView.setSearchableInfo(sManager.getSearchableInfo(getComponentName()));
+        sView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextChange(String newText){
+                if(!newText.equals("")) {
+                    callSearch(newText);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query){
+                if(!query.equals("")){
+                    callSearch(query);
+                }
+                sView.setQuery("", false);
+                sView.setIconified(true);
+                sView.clearFocus();
+                return true;
+            }
+        });
 
         Call<ProfileResponse> getProfileInfo = RetrofitClient
                 .getInstance()
@@ -599,6 +637,11 @@ public void Delete(final View view){
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        SearchView sView = (SearchView) findViewById(R.id.app_bar_search);
+        sView.setQuery("", false);
+        sView.setIconified(true);
+        sView.clearFocus();
+
 
         if (id == R.id.nav_home) {
             setTitle("BookSpace");

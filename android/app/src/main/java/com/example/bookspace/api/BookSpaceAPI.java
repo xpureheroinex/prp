@@ -2,6 +2,7 @@ package com.example.bookspace.api;
 
 import com.example.bookspace.model.books.GetBookResponse;
 import com.example.bookspace.model.books.GetBooksResponse;
+import com.example.bookspace.model.books.SearchBookResponse;
 import com.example.bookspace.model.books.TopResponse;
 import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.registration.CreateUserResponse;
@@ -201,5 +202,9 @@ public interface BookSpaceAPI {
                                @Path("id") Integer bookId,
                                @Query("status") String status);
 
+    //поиск книги
 
+    @POST("/books/search")
+    Call<SearchBookResponse> searchBook(@Header("Authorization") String token,
+                                        @Query("search") String search);
 }
