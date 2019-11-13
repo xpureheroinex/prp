@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="120dp"
     android:layout_marginTop="10dp"
     android:background="@drawable/corners_in_views"
 
@@ -12,95 +13,86 @@
     android:focusableInTouchMode="false"
     android:descendantFocusability="blocksDescendants" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/statusBookTitle"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_weight="3"
+        android:fontFamily="sans-serif-light"
+        android:text="NameBook"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/statusBookAuthor"
+        android:layout_width="200dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="3"
+        android:fontFamily="sans-serif-light"
+        android:text="Author"
+        android:textColor="@color/colorTextSecondary"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/statusBookTitle"
+        app:layout_constraintTop_toBottomOf="@+id/statusBookTitle" />
 
-            <TextView
-                android:id="@+id/statusBookTitle"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:fontFamily="@font/roboto_medium"
-                android:text="NameBook"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="17dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/statusBookRate"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/button"
-                android:fontFamily="@font/roboto_medium"
-                android:text="1"
-                android:textAlignment="center"
-                android:textColor="#ffffff"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/statusBookAuthor"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:fontFamily="@font/roboto_light"
-                android:text="Author"
-                android:textColor="@color/colorTextSecondary"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/statusBookGenre"
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/roboto_light"
-                android:text="Genre"
-                android:textColor="@color/colorTextSecondary"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/statusBookGenre"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="end">
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-light"
+        android:text="Genre"
+        android:textColor="@color/colorTextSecondary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/statusBookAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/statusBookAuthor" />
 
-        <ImageButton
-            android:id="@+id/addbtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@color/colorSplashScreen"
-            android:onClick="Add"
+    <ImageButton
+        android:id="@+id/deletebtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/transparent"
+        android:onClick="Delete"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            android:src="@drawable/ic_add_book" />
+    <ImageButton
+        android:id="@+id/addbtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
 
-        <ImageButton
-            android:id="@+id/deletebtn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="@color/colorSplashScreen"
-            android:onClick="Delete"
-            android:src="@drawable/ic_delete" />
-    </LinearLayout>
-</LinearLayout>
+        android:background="@android:color/transparent"
+        android:onClick="Add"
+        android:src="@drawable/ic_add_book"
+        app:layout_constraintBottom_toBottomOf="@+id/deletebtn"
+        app:layout_constraintEnd_toStartOf="@+id/deletebtn"
+        app:layout_constraintTop_toTopOf="@+id/deletebtn" />
+
+    <TextView
+        android:id="@+id/statusBookRate"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/roboto_medium"
+        android:text="1"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/statusBookTitle"
+        app:layout_constraintStart_toEndOf="@+id/statusBookTitle"
+        app:layout_constraintTop_toTopOf="@+id/statusBookTitle" />
+
+</android.support.constraint.ConstraintLayout>

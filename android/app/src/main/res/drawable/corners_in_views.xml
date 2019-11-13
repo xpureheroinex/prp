@@ -3,5 +3,5 @@
     android:background="@color/colorSplashScreen">
     <corners android:radius="0dp" />
     <stroke android:width="2dp"
-        android:color="@color/colorDivider" />
+        android:color="@color/design_default_color_primary" />
 </shape>
