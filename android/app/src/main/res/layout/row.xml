@@ -3,32 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:layout_marginTop="10dp"
     android:background="@drawable/corners_in_views"
 
-    android:orientation="horizontal"
-    android:padding="15dp"
     android:clickable="false"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:descendantFocusability="blocksDescendants"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:descendantFocusability="blocksDescendants" >
+    android:orientation="horizontal"
+    android:padding="15dp">
 
     <TextView
         android:id="@+id/statusBookTitle"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:fontFamily="sans-serif-light"
         android:text="NameBook"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/statusBookAuthor"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="18dp"
         android:layout_marginTop="8dp"
         android:layout_weight="3"
@@ -41,7 +42,7 @@
 
     <TextView
         android:id="@+id/statusBookGenre"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_weight="1"
@@ -58,7 +59,6 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:background="@android:color/transparent"
         android:onClick="Delete"
@@ -82,17 +82,17 @@
 
     <TextView
         android:id="@+id/statusBookRate"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_weight="1"
         android:fontFamily="@font/roboto_medium"
         android:text="1"
         android:textAlignment="center"
         android:textColor="#000000"
+        android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/statusBookTitle"
-        app:layout_constraintStart_toEndOf="@+id/statusBookTitle"
-        app:layout_constraintTop_toTopOf="@+id/statusBookTitle" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/statusBookTitle"
+        app:layout_constraintStart_toEndOf="@+id/statusBookTitle" />
 
 </android.support.constraint.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -57,9 +58,21 @@ public class BooksListAdapterTop extends BaseAdapter{
 
         myTitle.setText(mBooksListTop.get(position).getTitle());
         myRate.setText(String.valueOf(mBooksListTop.get(position).getRate()));
+
+        //set relevant rating color
+        double rateValue = mBooksListTop.get(position).getRate();
+        if(rateValue >= 0 && rateValue < 3){
+            myRate.setTextColor(Color.parseColor("#D50000"));
+        }
+        else if(rateValue >= 3 && rateValue < 4){
+            myRate.setTextColor(Color.parseColor("#ffd600"));
+        }
+        else if(rateValue >= 4 && rateValue <= 5){
+            myRate.setTextColor(Color.parseColor("#1faa00"));
+        }
+
         myAuthor.setText(mBooksListTop.get(position).getAuthor());
         myGenre.setText(mBooksListTop.get(position).getGenre());
-
         addButton = row1.findViewById(R.id.addbtn1);
         addButton.setTag(mBooksListTop.get(position).getId());
 

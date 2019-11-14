@@ -15,9 +15,9 @@
         android:layout_height="match_parent"
         android:divider="@color/colorSplashScreen"
         android:dividerHeight="10dp"
-        android:scrollbars="vertical"
+        android:padding="10dp"
 
-        />
+        android:scrollbars="none" />
 
 
 

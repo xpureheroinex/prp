@@ -1,101 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="15dp"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
     android:background="@drawable/corners_in_views"
     android:clickable="false"
+    android:descendantFocusability="blocksDescendants"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:descendantFocusability="blocksDescendants" >
+    android:orientation="horizontal"
+    android:padding="15dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <ImageButton
+        android:id="@+id/addbtn1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorSplashScreen"
+
         android:clickable="false"
         android:focusable="false"
-        android:focusableInTouchMode="false">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false">
+        android:focusableInTouchMode="false"
+        android:onClick="Add"
+        android:src="@drawable/ic_add_book"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/topBookTitle"
-                android:layout_width="210dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:fontFamily="@font/roboto_medium"
-                android:text="NameBook"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="17dp"
-                android:textStyle="bold"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false">
-
-            <TextView
-                android:id="@+id/topBookAuthor"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:fontFamily="@font/roboto_light"
-                android:text="Author"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-
-            <TextView
-                android:id="@+id/topBookGenre"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/roboto_light"
-                android:text="Genre"
-                android:textSize="14sp"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"/>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
+    <TextView
+        android:id="@+id/topBookTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
+        android:layout_weight="3"
         android:clickable="false"
         android:focusable="false"
-        android:focusableInTouchMode="false">
+        android:focusableInTouchMode="false"
+        android:fontFamily="sans-serif-light"
+        android:text="NameBook"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/addbtn1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="30dp"
-            android:background="@color/colorSplashScreen"
-            android:clickable="false"
-            android:focusable="false"
+    <TextView
+        android:id="@+id/topBookGenre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:fontFamily="sans-serif-light"
+        android:text="Genre"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/topBookAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/topBookAuthor" />
 
-            android:focusableInTouchMode="false"
-            android:onClick="Add"
-            android:src="@drawable/ic_add_book" />
+    <TextView
+        android:id="@+id/topBookAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="3"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:fontFamily="sans-serif-light"
+        android:text="Author"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/topBookTitle"
+        app:layout_constraintTop_toBottomOf="@+id/topBookTitle" />
 
-    </LinearLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
