@@ -53,6 +53,7 @@ public class SearchBookAdapter extends BaseAdapter {
         TextView myAuthor = row2.findViewById(R.id.topBookAuthor);
         TextView myGenre = row2.findViewById(R.id.topBookGenre);
 
+
         myTitle.setText(mBooksListTop.get(position).getTitle());
         myAuthor.setText(mBooksListTop.get(position).getAuthor());
         myGenre.setText(mBooksListTop.get(position).getGenre());

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,7 +37,7 @@ public class BookPageActivity extends AppCompatActivity {
     public int[] idBook;
 
     ListView lvBooks4;
-    ZhenYaArrayAdapter adapter4;
+    SimilarBooksAdapter adapter4;
     List<SimilarBooks> mBooksList4;
     ImageButton editStatusButton;
 
@@ -101,6 +102,19 @@ public class BookPageActivity extends AppCompatActivity {
                 Book resp = response.body().getBook();
                 textName.setText(resp.getTitle());
                 textGrade.setText(String.valueOf(resp.getRate()));
+
+                //        set relevant rating color
+                double rateValue = resp.getRate();
+                if(rateValue >= 0 && rateValue < 3){
+                    textGrade.setTextColor(Color.parseColor("#D50000"));
+                }
+                else if(rateValue >= 3 && rateValue < 4){
+                    textGrade.setTextColor(Color.parseColor("#ffd600"));
+                }
+                else if(rateValue >= 4 && rateValue <= 5){
+                    textGrade.setTextColor(Color.parseColor("#1faa00"));
+                }
+
                 textGenreAndPages.setText(resp.getGenre().concat(", " + String.valueOf(resp.getPages()).concat(" pages")));
                 textAuthor.setText(resp.getAuthor());
                 final Book[] resp1 = resp.getRecs();
@@ -108,7 +122,7 @@ public class BookPageActivity extends AppCompatActivity {
                     TextView txt1Book = new TextView(BookPageActivity.this);
                     txt1Book.setTextColor(getResources().getColor(R.color.colorTextPrimary));
                     txt1Book.setTextSize(24);
-                    txt1Book.setText("Similar books not found in our database");
+                    txt1Book.setText("Similar books not found");
                 }else{
                     mBooksList4 = new ArrayList<>();
                     idBook = new int[resp1.length];
@@ -119,7 +133,7 @@ public class BookPageActivity extends AppCompatActivity {
                         idBook[i] = resp1[i].getId();
                     }
                     lvBooks4 = findViewById(R.id.ListOfBooks);
-                    adapter4 = new ZhenYaArrayAdapter(getApplicationContext(),mBooksList4);
+                    adapter4 = new SimilarBooksAdapter(getApplicationContext(),mBooksList4);
                     lvBooks4.setAdapter(adapter4);
                     lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -140,6 +154,14 @@ public class BookPageActivity extends AppCompatActivity {
     }
 
     private final int IDD_LIST_Status = 1;
+
+    public void editStatus(View v) {
+        switch (v.getId()) {
+            case R.id.editStatusButton:
+                showDialog(IDD_LIST_Status);
+                break;
+        }
+    }
 
     protected Dialog onCreateDialog ( int id){
             switch (id) {
