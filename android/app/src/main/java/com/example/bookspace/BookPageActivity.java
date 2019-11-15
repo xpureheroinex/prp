@@ -88,11 +88,11 @@ public class BookPageActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String token = prefs.getString("token", "token is null");
-        final TextView textName = (TextView) findViewById(R.id.textName);
-        final TextView textGrade = (TextView) findViewById(R.id.textGrade);
-        final TextView textGenre = (TextView) findViewById(R.id.textGenre);
-        final TextView textAuthor = (TextView) findViewById(R.id.textAuthor);
-        final TextView textNumberofPages = (TextView) findViewById(R.id.textNumberOfPages);
+        final TextView textName = findViewById(R.id.textName);
+        final TextView textGrade = findViewById(R.id.textGrade);
+        final TextView textGenre = findViewById(R.id.textGenre);
+        final TextView textAuthor = findViewById(R.id.textAuthor);
+        final TextView textNumberOfPages = findViewById(R.id.textNumberOfPages);
 
         Call<GetBookResponse> call7 = RetrofitClient
                 .getInstance()
@@ -104,18 +104,16 @@ public class BookPageActivity extends AppCompatActivity {
             public void onResponse(Call<GetBookResponse> call, Response<GetBookResponse> response) {
                 Book resp = response.body().getBook();
                 textName.setText(resp.getTitle());
-                textGrade.setText("Grade: " + String.valueOf(resp.getRate()));
-                textGenre.setText("Genre: " + resp.getGenre());
-                textAuthor.setText("Author: " + resp.getAuthor());
-                textNumberofPages.setText("Number of pages: " + String.valueOf(resp.getPages()));
+                textGrade.setText(String.valueOf(resp.getRate()));
+                textGenre.setText(resp.getGenre());
+                textAuthor.setText(resp.getAuthor());
+                textNumberOfPages.setText(String.valueOf(resp.getPages()).concat(" pages"));
                 final Book[] resp1 = resp.getRecs();
                 if(resp1.length == 0){
-                    //ConstraintLayout cLayout = (ConstraintLayout) findViewById(R.id.constraintlayout);
                     TextView txt1Book = new TextView(BookPageActivity.this);
                     txt1Book.setTextColor(getResources().getColor(R.color.colorTextPrimary));
                     txt1Book.setTextSize(24);
                     txt1Book.setText("Similar books not found in our database");
-                    //cLayout.addView(txt1Book);
                 }else{
                     mBooksList4 = new ArrayList<>();
                     idBook = new int[resp1.length];
@@ -125,7 +123,7 @@ public class BookPageActivity extends AppCompatActivity {
                                 "Genre:" + resp1[i].getGenre()));
                         idBook[i] = resp1[i].getId();
                     }
-                    lvBooks4 = (ListView) findViewById(R.id.ListOfBooks);
+                    lvBooks4 = findViewById(R.id.ListOfBooks);
                     adapter4 = new ZhenYaArrayAdapter(getApplicationContext(),mBooksList4);
                     lvBooks4.setAdapter(adapter4);
                     lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -147,14 +145,6 @@ public class BookPageActivity extends AppCompatActivity {
     }
 
     private final int IDD_LIST_Status = 1;
-
-    public void editStatus(View v) {
-        switch (v.getId()) {
-            case R.id.textEditStatus:
-                showDialog(IDD_LIST_Status);
-                break;
-        }
-    }
 
     protected Dialog onCreateDialog ( int id){
             switch (id) {
