@@ -6,14 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.solver.widgets.ConstraintTableLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -41,6 +38,7 @@ public class BookPageActivity extends AppCompatActivity {
     ListView lvBooks4;
     ZhenYaArrayAdapter adapter4;
     List<SimilarBooks> mBooksList4;
+    ImageButton editStatusButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +62,6 @@ public class BookPageActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), user_page.class));
             }
         });
-
 
         TextView textReviews = findViewById(R.id.textReviews);
         textReviews.setOnClickListener(new View.OnClickListener() {
@@ -90,9 +87,8 @@ public class BookPageActivity extends AppCompatActivity {
         String token = prefs.getString("token", "token is null");
         final TextView textName = findViewById(R.id.textName);
         final TextView textGrade = findViewById(R.id.textGrade);
-        final TextView textGenre = findViewById(R.id.textGenre);
+        final TextView textGenreAndPages = findViewById(R.id.textGenreAndPages);
         final TextView textAuthor = findViewById(R.id.textAuthor);
-        final TextView textNumberOfPages = findViewById(R.id.textNumberOfPages);
 
         Call<GetBookResponse> call7 = RetrofitClient
                 .getInstance()
@@ -105,9 +101,8 @@ public class BookPageActivity extends AppCompatActivity {
                 Book resp = response.body().getBook();
                 textName.setText(resp.getTitle());
                 textGrade.setText(String.valueOf(resp.getRate()));
-                textGenre.setText(resp.getGenre());
+                textGenreAndPages.setText(resp.getGenre().concat(", " + String.valueOf(resp.getPages()).concat(" pages")));
                 textAuthor.setText(resp.getAuthor());
-                textNumberOfPages.setText(String.valueOf(resp.getPages()).concat(" pages"));
                 final Book[] resp1 = resp.getRecs();
                 if(resp1.length == 0){
                     TextView txt1Book = new TextView(BookPageActivity.this);
@@ -195,6 +190,8 @@ public class BookPageActivity extends AppCompatActivity {
             }
     }
 
+
+
     public void showRatingDialog(View view) {
 
         final AlertDialog.Builder ratingdialog = new AlertDialog.Builder(this);
@@ -205,9 +202,9 @@ public class BookPageActivity extends AppCompatActivity {
         ratingdialog.setView(linearlayout);
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         final String token_rate = prefs.getString("token", "token is null");
-        final TextView textGrade = (TextView) findViewById(R.id.textGrade);
+        final TextView textGrade = findViewById(R.id.textGrade);
 
-        final RatingBar rating = (RatingBar)linearlayout.findViewById(R.id.ratingbar);
+        final RatingBar rating = linearlayout.findViewById(R.id.ratingbar);
         ratingdialog.setCancelable(false);
 
         ratingdialog.setPositiveButton("OK",
@@ -244,7 +241,7 @@ public class BookPageActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<GetBookResponse> call, Response<GetBookResponse> response) {
                                 Book resp = response.body().getBook();
-                                textGrade.setText("Grade: " + String.valueOf(resp.getRate()));
+                                textGrade.setText(String.valueOf(resp.getRate()));
                             }
 
                             @Override

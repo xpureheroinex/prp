@@ -78,9 +78,9 @@ public class BooksListAdapter extends BaseAdapter {
 
         myGenre.setText(mBooksList.get(position).getGenre());
         myAuthor.setText(mBooksList.get(position).getAuthor());
+
         deletebtn = row.findViewById(R.id.deletebtn);
         deletebtn.setTag(mBooksList.get(position).getId());
-
         deletebtn.setOnClickListener(new View.OnClickListener() {
           @Override
         public void onClick(View v) {

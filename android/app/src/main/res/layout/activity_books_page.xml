@@ -99,18 +99,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textName" />
 
     <TextView
-        android:id="@+id/textNumberOfPages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Pages"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/textGenre"
-        app:layout_constraintTop_toBottomOf="@+id/textGenre" />
-
-    <TextView
         android:id="@+id/textGrade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,13 +106,13 @@
         android:fontFamily="sans-serif-light"
         android:text="Grade"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/textName"
         app:layout_constraintStart_toEndOf="@+id/textName" />
 
     <TextView
-        android:id="@+id/textGenre"
+        android:id="@+id/textGenreAndPages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -139,13 +127,14 @@
         android:id="@+id/textSimilarBooks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto_medium"
         android:text="Similar Books"
         android:textColor="@color/colorTextPrimary"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNumberOfPages" />
+        app:layout_constraintTop_toBottomOf="@+id/editStatusButton" />
 
     <ListView
         android:id="@+id/ListOfBooks"
@@ -156,22 +145,26 @@
 
     <ImageButton
         android:id="@+id/editStatusButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/screen_background_light_transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textGrade"
-        app:srcCompat="@drawable/ic_add_book" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_add_book"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textGenreAndPages" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@android:drawable/screen_background_light_transparent"
-        app:layout_constraintEnd_toStartOf="@+id/editStatusButton"
-        app:layout_constraintTop_toBottomOf="@+id/Options"
-        app:srcCompat="@drawable/ic_star_icon" />
+        android:id="@+id/rateButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:onClick="showRatingDialog"
+        android:src="@drawable/ic_star_icon"
+        app:layout_constraintStart_toEndOf="@+id/editStatusButton"
+        app:layout_constraintTop_toTopOf="@+id/editStatusButton" />
 
 </android.support.constraint.ConstraintLayout>
