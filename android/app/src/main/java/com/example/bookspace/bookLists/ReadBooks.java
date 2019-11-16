@@ -55,7 +55,7 @@ public class ReadBooks extends Fragment {
                 userBookList = new ArrayList<>();
 
                 for(int i = 0; i < userBooks.length; i++){
-                    userBooks[i].setTitle(CutTitle(userBooks[i].getTitle()));
+                    userBooks[i].setTitle(userBooks[i].getTitle());
                     userBookList.add(userBooks[i]);
                     booksId[i] = userBooks[i].getId();
                 }
@@ -82,7 +82,4 @@ public class ReadBooks extends Fragment {
         return view;
     }
 
-    private String CutTitle(String title){
-        return title.length() > 20 ? title.substring(0, 19).concat("...") : title;
-    }
 }

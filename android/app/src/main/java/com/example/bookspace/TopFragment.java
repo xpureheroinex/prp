@@ -54,7 +54,7 @@ public class TopFragment extends Fragment {
                 mainPageBooks = new ArrayList<>();
 
                 for(int i = 0; i < count; i++){
-                    books[i].setTitle(CutTitle(books[i].getTitle()));
+                    books[i].setTitle(books[i].getTitle());
                     mainPageBooks.add(books[i]);
                     booksId[i] = books[i].getId();
                 }
@@ -80,9 +80,4 @@ public class TopFragment extends Fragment {
 
        return view;
     }
-
-    private String CutTitle(String title){
-        return title.length() > 23 ? title.substring(0, 22).concat("...") : title;
-    }
-
 }

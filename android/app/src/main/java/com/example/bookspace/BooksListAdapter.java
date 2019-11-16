@@ -61,7 +61,7 @@ public class BooksListAdapter extends BaseAdapter {
         TextView myGenre = row.findViewById(R.id.statusBookGenre);
         TextView myAuthor = row.findViewById(R.id.statusBookAuthor);
 
-        myTitle.setText(CutTitle(mBooksList.get(position).getTitle()));
+        myTitle.setText(mBooksList.get(position).getTitle());
         myRate.setText(String.valueOf(mBooksList.get(position).getRate()));
 
 //        set relevant rating color
@@ -209,7 +209,4 @@ public class BooksListAdapter extends BaseAdapter {
         return row;
     }
 
-    private String CutTitle(String title){
-        return title.length() > 21 ? title.substring(0, 20).concat("...") : title;
-    }
 }

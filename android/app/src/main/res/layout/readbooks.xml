@@ -12,8 +12,7 @@
         android:divider="@color/colorSplashScreen"
         android:dividerHeight="10dp"
         android:padding="10dp"
-        android:scrollbars="none"
-        android:smoothScrollbar="false" />
+        android:scrollbars="vertical"/>
 
 
 </android.support.constraint.ConstraintLayout>
