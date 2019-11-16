@@ -9,9 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.bookspace.BookPageActivity;
 import com.example.bookspace.BooksListAdapter;
@@ -30,9 +28,9 @@ import retrofit2.Response;
 import static android.content.Context.MODE_PRIVATE;
 
 public class ReadBooks extends Fragment {
-    ListView lvBooks1;
-    BooksListAdapter adapter1;
-    List<UserBook> mBooksList1;
+    ListView readBooksListView;
+    BooksListAdapter booksListAdapter;
+    List<UserBook> userBookList;
     int[] booksId;
 
     @Nullable
@@ -41,7 +39,7 @@ public class ReadBooks extends Fragment {
 
         View view = inflater.inflate(R.layout.readbooks,container,false);
         final String token = this.getContext().getSharedPreferences("AppPreferences", MODE_PRIVATE).getString("token", "");
-        lvBooks1 = view.findViewById(R.id.list1);
+        readBooksListView = view.findViewById(R.id.readBooksList);
 
 
         Call<GetBooksResponse> getReadBooks = RetrofitClient
@@ -54,16 +52,16 @@ public class ReadBooks extends Fragment {
             public void onResponse(Call<GetBooksResponse> call, Response<GetBooksResponse> response) {
                 UserBook[] userBooks = response.body().getInfo();
                 booksId = new int[userBooks.length];
-
-                mBooksList1 = new ArrayList<>();
+                userBookList = new ArrayList<>();
 
                 for(int i = 0; i < userBooks.length; i++){
-                    mBooksList1.add(userBooks[i]);
+                    userBooks[i].setTitle(userBooks[i].getTitle());
+                    userBookList.add(userBooks[i]);
                     booksId[i] = userBooks[i].getId();
                 }
 
-                adapter1 = new BooksListAdapter(getContext(),mBooksList1);
-                lvBooks1.setAdapter(adapter1);
+                booksListAdapter = new BooksListAdapter(getContext(), userBookList);
+                readBooksListView.setAdapter(booksListAdapter);
             }
 
             @Override
@@ -72,16 +70,16 @@ public class ReadBooks extends Fragment {
             }
         });
 
-
-        lvBooks1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        readBooksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), BookPageActivity.class);
-                intent.putExtra("bookId", mBooksList1.get(position).getId());
+                intent.putExtra("bookId", userBookList.get(position).getId());
                 startActivity(intent);
             }
         });
 
         return view;
     }
+
 }

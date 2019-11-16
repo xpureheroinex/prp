@@ -54,6 +54,7 @@ public class RecommendFragment extends Fragment {
                     bookList = new ArrayList<>();
 
                     for(int i = 0; i < count; i++){
+                        books[i].setTitle(books[i].getTitle());
                         bookList.add(books[i]);
                         booksId[i] = books[i].getId();
                     }

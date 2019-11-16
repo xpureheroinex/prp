@@ -5,16 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.MainPageBook;
@@ -27,15 +22,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class TopFragment extends Fragment {
 
     ListView bookListTop;
     BooksListAdapterTop adapterTop;
-    List<MainPageBook> mBooksListTop;
+    List<MainPageBook> mainPageBooks;
     int[] booksId;
 
     @Nullable
@@ -58,14 +51,15 @@ public class TopFragment extends Fragment {
                 int count = books.length;
                 booksId = new int[count];
 
-                mBooksListTop = new ArrayList<>();
+                mainPageBooks = new ArrayList<>();
 
                 for(int i = 0; i < count; i++){
-                    mBooksListTop.add(books[i]);
+                    books[i].setTitle(books[i].getTitle());
+                    mainPageBooks.add(books[i]);
                     booksId[i] = books[i].getId();
                 }
 
-                adapterTop = new BooksListAdapterTop(getContext(), mBooksListTop);
+                adapterTop = new BooksListAdapterTop(getContext(), mainPageBooks);
                 bookListTop.setAdapter(adapterTop);
             }
 
@@ -79,12 +73,11 @@ public class TopFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), BookPageActivity.class);
-                intent.putExtra("bookId", mBooksListTop.get(position).getId());
+                intent.putExtra("bookId", mainPageBooks.get(position).getId());
                 startActivity(intent);
             }
         });
 
        return view;
     }
-
 }

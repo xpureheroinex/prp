@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +63,21 @@ public class BooksListAdapter extends BaseAdapter {
 
         myTitle.setText(mBooksList.get(position).getTitle());
         myRate.setText(String.valueOf(mBooksList.get(position).getRate()));
+
+//        set relevant rating color
+        double rateValue = mBooksList.get(position).getRate();
+        if(rateValue >= 0 && rateValue < 3){
+            myRate.setTextColor(Color.parseColor("#D50000"));
+        }
+        else if(rateValue >= 3 && rateValue < 4){
+            myRate.setTextColor(Color.parseColor("#ffd600"));
+        }
+        else if(rateValue >= 4 && rateValue <= 5){
+            myRate.setTextColor(Color.parseColor("#1faa00"));
+        }
+
         myGenre.setText(mBooksList.get(position).getGenre());
         myAuthor.setText(mBooksList.get(position).getAuthor());
-
         deletebtn = row.findViewById(R.id.deletebtn);
         deletebtn.setTag(mBooksList.get(position).getId());
 
@@ -195,4 +208,5 @@ public class BooksListAdapter extends BaseAdapter {
         });
         return row;
     }
+
 }
