@@ -18,7 +18,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/colorSplashScreen"
+        android:background="@android:color/transparent"
 
         android:clickable="false"
         android:focusable="false"
@@ -37,6 +37,9 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:fontFamily="sans-serif-light"
+        android:ellipsize="end"
+        android:maxWidth="200dp"
+        android:maxLines="1"
         android:text="NameBook"
         android:textColor="@color/colorTextPrimary"
         android:textSize="17sp"
