@@ -10,9 +10,6 @@ import android.widget.Toast;
 
 import com.example.bookspace.Empty;
 import com.example.bookspace.R;
-import com.example.bookspace.settings.ChangeAvatar;
-import com.example.bookspace.settings.ChangeName;
-import com.example.bookspace.settings.ChangePassword;
 import com.example.bookspace.statistics.SetTargets;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -31,13 +28,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
     public void onSelectFragment(View view) {
         Fragment newFragment;
-        if (view == findViewById(R.id.btnfr1)) {
+        if (view == findViewById(R.id.buttonChangeUsername)) {
             newFragment = new ChangeName();
-        } else if (view == findViewById(R.id.btnfr2)) {
+        } else if (view == findViewById(R.id.buttonChangePassword)) {
             newFragment = new ChangePassword();
-        } else if (view == findViewById(R.id.btnfr3)) {
+        } else if (view == findViewById(R.id.buttonSetTargets)) {
             newFragment = new SetTargets();
-        } else if (view == findViewById(R.id.btnfr9)) {
+        } else if (view == findViewById(R.id.buttonChangeAvatar)) {
             newFragment = new ChangeAvatar();
         } else {
             newFragment = new Empty();
