@@ -75,9 +75,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-
         android:background="@android:color/transparent"
-        android:onClick="Add"
         android:src="@drawable/ic_add_book"
         app:layout_constraintBottom_toBottomOf="@+id/deletebtn"
         app:layout_constraintEnd_toStartOf="@+id/deletebtn"

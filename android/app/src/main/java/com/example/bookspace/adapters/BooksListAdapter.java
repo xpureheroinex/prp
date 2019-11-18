@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookspace.R;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.UserBook;
 
@@ -54,7 +55,7 @@ public class BooksListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, final View convertView, ViewGroup parent) {
-        View row = View.inflate(mContext,R.layout.row, null);
+        View row = View.inflate(mContext, R.layout.row, null);
 
         TextView myTitle = row.findViewById(R.id.statusBookTitle);
         TextView myRate = row.findViewById(R.id.statusBookRate);
@@ -78,9 +79,9 @@ public class BooksListAdapter extends BaseAdapter {
 
         myGenre.setText(mBooksList.get(position).getGenre());
         myAuthor.setText(mBooksList.get(position).getAuthor());
+
         deletebtn = row.findViewById(R.id.deletebtn);
         deletebtn.setTag(mBooksList.get(position).getId());
-
         deletebtn.setOnClickListener(new View.OnClickListener() {
           @Override
         public void onClick(View v) {

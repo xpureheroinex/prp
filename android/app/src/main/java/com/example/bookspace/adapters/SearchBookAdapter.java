@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookspace.R;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.SearchBook;
 
@@ -52,6 +53,7 @@ public class SearchBookAdapter extends BaseAdapter {
         TextView myTitle = row2.findViewById(R.id.topBookTitle);
         TextView myAuthor = row2.findViewById(R.id.topBookAuthor);
         TextView myGenre = row2.findViewById(R.id.topBookGenre);
+
 
         myTitle.setText(mBooksListTop.get(position).getTitle());
         myAuthor.setText(mBooksListTop.get(position).getAuthor());
