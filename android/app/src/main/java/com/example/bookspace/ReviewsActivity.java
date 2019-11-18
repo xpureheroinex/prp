@@ -2,22 +2,17 @@ package com.example.bookspace;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookspace.model.RetrofitClient;
-import com.example.bookspace.model.SimilarBooks;
 import com.example.bookspace.model.books.Book;
 import com.example.bookspace.model.books.GetBookResponse;
 import com.example.bookspace.model.reviews.GetReviewsResponse;
@@ -104,7 +99,7 @@ public class ReviewsActivity extends AppCompatActivity {
             }
         });
 
-        TextView textAbout = findViewById(R.id.textAbout);
+        TextView textAbout = findViewById(R.id.aboutButton);
         textAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +109,7 @@ public class ReviewsActivity extends AppCompatActivity {
             }
         });
 
-        TextView textNotice = findViewById(R.id.textNotice);
+        TextView textNotice = findViewById(R.id.noticeButton);
         textNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

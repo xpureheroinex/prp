@@ -16,8 +16,6 @@ import com.example.bookspace.model.books.Book;
 import com.example.bookspace.model.books.GetBookResponse;
 import com.example.bookspace.model.notes.GetNotesResponse;
 import com.example.bookspace.model.notes.Note;
-import com.example.bookspace.model.reviews.GetReviewsResponse;
-import com.example.bookspace.model.reviews.Review;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +104,7 @@ public class NoticeActivity extends AppCompatActivity {
             }
         });
 
-        TextView textAbout = findViewById(R.id.textAbout);
+        TextView textAbout = findViewById(R.id.aboutButton);
         textAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +114,7 @@ public class NoticeActivity extends AppCompatActivity {
             }
         });
 
-        TextView textReviews = findViewById(R.id.textReviews);
+        TextView textReviews = findViewById(R.id.reviewsButton);
         textReviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
