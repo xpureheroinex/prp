@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookspace.adapters.NoteAdapter;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.Book;
 import com.example.bookspace.model.books.GetBookResponse;

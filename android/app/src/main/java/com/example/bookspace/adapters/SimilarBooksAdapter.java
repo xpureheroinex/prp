@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.adapters;
 
 import android.content.Context;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.bookspace.R;
 import com.example.bookspace.model.SimilarBooks;
 
 import java.util.List;

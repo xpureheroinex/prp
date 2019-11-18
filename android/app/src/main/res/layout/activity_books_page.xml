@@ -36,6 +36,7 @@
             android:background="#757575"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
+            android:onClick="onButtonBarClicked"
             android:text="About"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
@@ -49,6 +50,7 @@
             android:background="#757575"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
+            android:onClick="onButtonBarClicked"
             android:text="Reviews"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
@@ -62,6 +64,7 @@
             android:background="#757575"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
+            android:onClick="onButtonBarClicked"
             android:text="Notice"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />

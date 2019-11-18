@@ -1,7 +1,6 @@
 package com.example.bookspace;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookspace.adapters.SimilarBooksAdapter;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.SimilarBooks;
 import com.example.bookspace.model.books.Book;
@@ -118,10 +118,6 @@ public class BookAboutFragment extends Fragment {
                 }
             });
         }
-
-
         return view;
     }
-
-
 }

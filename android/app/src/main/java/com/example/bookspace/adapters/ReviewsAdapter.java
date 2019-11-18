@@ -1,10 +1,13 @@
-package com.example.bookspace;
+package com.example.bookspace.adapters;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.bookspace.R;
+import com.example.bookspace.ReviewsClass;
 
 import java.util.List;
 

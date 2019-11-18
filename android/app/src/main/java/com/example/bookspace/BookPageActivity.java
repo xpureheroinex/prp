@@ -61,13 +61,34 @@ public class BookPageActivity extends AppCompatActivity {
             }
         });
         //endregion
-
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putInt("bookId", bookId);
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
+//        Button aboutButton = findViewById(R.id.aboutButton);
+//        aboutButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                BookAboutFragment bookAboutFragment = new BookAboutFragment();
+//                bookAboutFragment.setArguments(bundle);
+//
+////        FragmentManager fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction().add(R.id.bookPageFragmentContainer, bookAboutFragment).commit();
+//            }
+//        });
+
+//        Button reviewsButton = findViewById(R.id.reviewsButton);
+//        reviewsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                BookReviewsFragment bookReviewsFragment = new BookReviewsFragment();
+//                bookReviewsFragment.setArguments(bundle);
+//                fragmentManager.beginTransaction().add(R.id.bookPageFragmentContainer, bookReviewsFragment).commit();
+//            }
+//        });
+
         BookAboutFragment bookAboutFragment = new BookAboutFragment();
         bookAboutFragment.setArguments(bundle);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.bookPageFragmentContainer, bookAboutFragment).commit();
 
     }
@@ -199,6 +220,31 @@ public class BookPageActivity extends AppCompatActivity {
 
         ratingdialog.create();
         ratingdialog.show();
+    }
+
+    public void onButtonBarClicked(View view){
+        Intent intent = getIntent();
+        bookId = intent.getIntExtra("bookId", 11);
+
+        final Bundle bundle = new Bundle();
+        bundle.putInt("bookId", bookId);
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if(view.getId() == R.id.aboutButton){
+            BookAboutFragment bookAboutFragment = new BookAboutFragment();
+            bookAboutFragment.setArguments(bundle);
+            fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, bookAboutFragment).commit();
+        }
+        else if(view.getId() == R.id.reviewsButton){
+            BookReviewsFragment bookReviewsFragment = new BookReviewsFragment();
+            bookReviewsFragment.setArguments(bundle);
+            fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, bookReviewsFragment).commit();
+        }
+        else if(view.getId() == R.id.noticeButton){
+            BookNoticeFragment bookNoticeFragment = new BookNoticeFragment();
+            bookNoticeFragment.setArguments(bundle);
+            fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, bookNoticeFragment).commit();
+        }
     }
 }
 
