@@ -8,6 +8,17 @@
     android:orientation="vertical"
     tools:textcolor="#000000">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="203dp"
+        android:layout_height="156dp"
+        android:layout_marginBottom="100dp"
+        android:src="@mipmap/ic_launcher_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
     <Button
         android:id="@+id/buttonChangePassword"
         style="@style/Widget.AppCompat.Button.Borderless"
@@ -21,7 +32,7 @@
         android:text="Change password"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/buttonChangeUsername"
         app:layout_constraintTop_toBottomOf="@+id/buttonChangeUsername" />
@@ -39,7 +50,7 @@
         android:text="Set reading targets "
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/buttonChangeAvatar"
         app:layout_constraintTop_toBottomOf="@+id/buttonChangeAvatar" />
@@ -58,7 +69,7 @@
         android:textAlignment="viewStart"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/buttonSetTargets"
         app:layout_constraintTop_toBottomOf="@+id/buttonSetTargets" />
@@ -78,7 +89,7 @@
         android:text="Change user name"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
@@ -99,7 +110,7 @@
         android:text="Change user avatar"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/buttonChangePassword"
         app:layout_constraintTop_toBottomOf="@+id/buttonChangePassword" />

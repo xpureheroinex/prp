@@ -13,11 +13,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-light"
-        android:maxWidth="250dp"
         android:text="Name"
         android:textColor="@color/colorTextPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:maxLines="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,21 +30,22 @@
         android:text="Author"
         android:textColor="@color/colorTextPrimary"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/textName"
-        app:layout_constraintTop_toBottomOf="@+id/textName" />
+        app:layout_constraintStart_toStartOf="@+id/textGenreAndPages"
+        app:layout_constraintTop_toBottomOf="@+id/textGenreAndPages" />
 
     <TextView
         android:id="@+id/textGrade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-light"
         android:text="Grade"
         android:textColor="@color/colorTextPrimary"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textName"
-        app:layout_constraintStart_toEndOf="@+id/textName" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textName" />
 
     <TextView
         android:id="@+id/textGenreAndPages"
@@ -55,8 +56,8 @@
         android:text="Genre"
         android:textColor="@color/colorTextPrimary"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/textAuthor"
-        app:layout_constraintTop_toBottomOf="@+id/textAuthor" />
+        app:layout_constraintStart_toStartOf="@+id/textGrade"
+        app:layout_constraintTop_toBottomOf="@+id/textGrade" />
 
     <TextView
         android:id="@+id/textSimilarBooks"
@@ -69,7 +70,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editStatusButton" />
+        app:layout_constraintTop_toBottomOf="@+id/rateButton" />
 
     <ListView
         android:id="@+id/ListOfBooks"
@@ -90,12 +91,12 @@
         android:layout_height="40dp"
 
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:onClick="editStatus"
         android:src="@drawable/ic_add_book"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textGenreAndPages" />
+        app:layout_constraintTop_toBottomOf="@+id/textAuthor" />
 
     <ImageButton
         android:id="@+id/rateButton"
@@ -106,6 +107,6 @@
         android:background="@android:color/transparent"
         android:onClick="showRatingDialog"
         android:src="@drawable/ic_star_icon"
-        app:layout_constraintStart_toEndOf="@+id/editStatusButton"
-        app:layout_constraintTop_toTopOf="@+id/editStatusButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/editStatusButton"
+        app:layout_constraintStart_toEndOf="@+id/editStatusButton" />
 </android.support.constraint.ConstraintLayout>

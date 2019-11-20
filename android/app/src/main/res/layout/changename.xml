@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSplashScreen"
-    >
+    android:orientation="vertical"
+    android:paddingTop="30dp">
 
     <TextView
         android:id="@+id/textView2"
@@ -13,10 +14,11 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
-        android:fontFamily="@font/roboto_medium"
+        android:fontFamily="sans-serif-light"
         android:text="New user name"
         android:textColor="#000000"
-        android:textSize="16sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editTextNewUsername"
@@ -26,19 +28,19 @@
 
         android:layout_marginBottom="10dp"
         android:ems="10"
-        android:fontFamily="@font/roboto_light"
+        android:fontFamily="sans-serif-light"
         android:hint="  UserName"
         android:inputType="textPersonName"
-        android:textSize="14sp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/buttonChangeUsername"
         style="@android:style/Widget.DeviceDefault.Button"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="45dp"
         android:layout_marginBottom="8dp"
 
@@ -47,7 +49,7 @@
         android:onClick="onShowUser"
         android:text="Change"
         android:textColor="#ffffff"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         tools:targetApi="ice_cream_sandwich" />
 
