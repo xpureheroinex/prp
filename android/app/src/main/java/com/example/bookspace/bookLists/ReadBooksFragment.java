@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class ReadBooks extends Fragment {
+public class ReadBooksFragment extends Fragment {
     ListView readBooksListView;
     BooksListAdapter booksListAdapter;
     List<UserBook> userBookList;

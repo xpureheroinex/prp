@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class WillReadBooks extends Fragment {
+public class WillReadBooksFragment extends Fragment {
     ListView lvBooks3;
     BooksListAdapter adapter3;
     List<UserBook> mBooksList3;

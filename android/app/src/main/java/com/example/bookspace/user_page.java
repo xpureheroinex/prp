@@ -39,24 +39,24 @@ import android.widget.TextView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.bookspace.bookLists.ReadBooks;
-import com.example.bookspace.bookLists.ReadingBooks;
-import com.example.bookspace.bookLists.WillReadBooks;
+import com.example.bookspace.bookLists.ReadBooksFragment;
+import com.example.bookspace.bookLists.ReadingBooksFragment;
+import com.example.bookspace.bookLists.WillReadBooksFragment;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.profile.ImageResponse;
 import com.example.bookspace.model.profile.ProfileResponse;
 import com.example.bookspace.model.profile.User;
 import com.example.bookspace.model.statistics.SetPlanResponse;
 import com.example.bookspace.registration.LoginActivity;
-import com.example.bookspace.settings.ChangeAvatar;
-import com.example.bookspace.settings.ChangeName;
-import com.example.bookspace.settings.ChangePassword;
-import com.example.bookspace.settings.Settings2;
-import com.example.bookspace.statistics.SetTargets;
+import com.example.bookspace.settings.ChangeAvatarFragment;
+import com.example.bookspace.settings.ChangeNameFragment;
+import com.example.bookspace.settings.ChangePasswordFragment;
+import com.example.bookspace.settings.SettingsFragment;
+import com.example.bookspace.settings.SetTargetsFragment;
 import com.example.bookspace.statistics.StatisticMonth;
 import com.example.bookspace.statistics.StatisticWeek;
 import com.example.bookspace.statistics.StatisticYear;
-import com.example.bookspace.statistics.Statistics2;
+import com.example.bookspace.statistics.StatisticsFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -209,7 +209,7 @@ public class user_page extends AppCompatActivity
             newUsername.setError("Username can only contain latin letters, digits or underscores");
         }
     }
-    //нажатие на кнопку ChangePassword
+    //нажатие на кнопку ChangePasswordFragment
     public void onShowPassword(View view){
 
         //меняем пароль
@@ -569,18 +569,18 @@ public class user_page extends AppCompatActivity
     public void onSelectFragment(View view) {
         Fragment newFragment;
         if (view == findViewById(R.id.buttonChangeUsername)) {
-            newFragment = new ChangeName();
+            newFragment = new ChangeNameFragment();
         } else if (view == findViewById(R.id.buttonChangePassword)) {
-            newFragment = new ChangePassword();
+            newFragment = new ChangePasswordFragment();
         } else if (view == findViewById(R.id.buttonSetTargets)) {
-            newFragment = new SetTargets();
+            newFragment = new SetTargetsFragment();
         } else if (view == findViewById(R.id.buttonChangeAvatar)) {
-            newFragment = new ChangeAvatar();
+            newFragment = new ChangeAvatarFragment();
         } else {
             newFragment = new Empty();
         }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.ll2,newFragment);
+        transaction.replace(R.id.fragments,newFragment);
         transaction.addToBackStack(null);
         transaction.commit();
 
@@ -657,39 +657,39 @@ public class user_page extends AppCompatActivity
 
         } else if (id == R.id.nav_read) {
             setTitle("Read Books");
-           ReadBooks readBooks = new ReadBooks();
+           ReadBooksFragment readBooksFragment = new ReadBooksFragment();
             FragmentManager fm = getSupportFragmentManager();
-            fm.beginTransaction().replace(R.id.fragments, readBooks).commit();
+            fm.beginTransaction().replace(R.id.fragments, readBooksFragment).commit();
 
 
         } else if (id == R.id.nav_reading) {
            setTitle("Reading Books");
-           ReadingBooks readingBooks = new ReadingBooks();
+           ReadingBooksFragment readingBooksFragment = new ReadingBooksFragment();
            FragmentManager fm = getSupportFragmentManager();
-            fm.beginTransaction().replace(R.id.fragments, readingBooks).commit();
+            fm.beginTransaction().replace(R.id.fragments, readingBooksFragment).commit();
 
         } else if (id == R.id.nav_willread) {
            setTitle("Will Read Books");
-            WillReadBooks willreadBooks = new WillReadBooks();
+            WillReadBooksFragment willreadBooksFragment = new WillReadBooksFragment();
             FragmentManager fm = getSupportFragmentManager();
-            fm.beginTransaction().replace(R.id.fragments, willreadBooks).commit();
+            fm.beginTransaction().replace(R.id.fragments, willreadBooksFragment).commit();
 
         } else if (id == R.id.nav_settings) {
             setTitle("Account settings");
-            Settings2 setting = new Settings2();
+            SettingsFragment setting = new SettingsFragment();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, setting).commit();
 
-            FragmentManager fim = getSupportFragmentManager();
-            FragmentTransaction transaction = fim.beginTransaction();
-            Empty startFragment = new Empty();
-            transaction.add(R.id.ll2,startFragment);
-            transaction.commit();
+//            FragmentManager fim = getSupportFragmentManager();
+//            FragmentTransaction transaction = fim.beginTransaction();
+//            Empty startFragment = new Empty();
+//            transaction.add(R.id.ll2,startFragment);
+//            transaction.commit();
         } else if (id == R.id.nav_statistic) {
             setTitle("Statistics");
-            Statistics2 statistics2 = new Statistics2();
+            StatisticsFragment statisticsFragment = new StatisticsFragment();
             FragmentManager fm = getSupportFragmentManager();
-            fm.beginTransaction().replace(R.id.fragments, statistics2).commit();
+            fm.beginTransaction().replace(R.id.fragments, statisticsFragment).commit();
 
             FragmentManager fem = getSupportFragmentManager();
             FragmentTransaction transaction = fem.beginTransaction();
