@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/book_page"
@@ -19,159 +19,68 @@
     <LinearLayout
         android:id="@+id/Options"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/basicToolbar">
 
-        <TextView
-            android:id="@+id/textAbout"
+
+        <Button
+            android:id="@+id/aboutButton"
+            style="@android:style/ButtonBar"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/textlines"
-            android:backgroundTint="#BFBFBF"
-            android:fontFamily="@font/roboto"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="2"
+            android:background="#757575"
+            android:fontFamily="sans-serif-light"
             android:gravity="center"
+            android:onClick="onButtonBarClicked"
             android:text="About"
-            android:textAllCaps="true"
-            android:textColor="@color/colorText"
-            android:textSize="16sp"
+            android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textReviews"
+        <Button
+            android:id="@+id/reviewsButton"
+            style="@android:style/ButtonBar"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/textlines"
-            android:backgroundTint="#BFBFBF"
-            android:fontFamily="@font/roboto"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="#757575"
+            android:fontFamily="sans-serif-light"
             android:gravity="center"
+            android:onClick="onButtonBarClicked"
             android:text="Reviews"
-            android:textAllCaps="true"
-            android:textColor="@color/colorText"
-            android:textSize="16sp"
+            android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textNotice"
+        <Button
+            android:id="@+id/noticeButton"
+            style="@android:style/ButtonBar"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/textlines"
-            android:backgroundTint="#BFBFBF"
-            android:fontFamily="@font/roboto"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="#757575"
+            android:fontFamily="sans-serif-light"
             android:gravity="center"
+            android:onClick="onButtonBarClicked"
             android:text="Notice"
-            android:textAllCaps="true"
-            android:textColor="@color/colorText"
-            android:textSize="16sp"
+            android:textColor="#FFFFFF"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif-light"
-        android:maxWidth="250dp"
-        android:text="Name"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Options" />
+    <LinearLayout
+        android:id="@+id/bookPageFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Author"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/textName"
-        app:layout_constraintTop_toBottomOf="@+id/textName" />
 
-    <TextView
-        android:id="@+id/textGrade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Grade"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textName"
-        app:layout_constraintStart_toEndOf="@+id/textName" />
 
-    <TextView
-        android:id="@+id/textGenreAndPages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Genre"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/textAuthor"
-        app:layout_constraintTop_toBottomOf="@+id/textAuthor" />
 
-    <TextView
-        android:id="@+id/textSimilarBooks"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Similar Books"
-        android:textColor="@color/colorTextPrimary"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editStatusButton" />
+    </LinearLayout>
 
-    <ListView
-        android:id="@+id/ListOfBooks"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:divider="@color/colorSplashScreen"
-        android:dividerHeight="10dp"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSimilarBooks" />
 
-    <ImageButton
-        android:id="@+id/editStatusButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
 
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        android:onClick="editStatus"
-        android:src="@drawable/ic_add_book"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textGenreAndPages" />
-
-    <ImageButton
-        android:id="@+id/rateButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-
-        android:layout_marginStart="16dp"
-        android:background="@android:color/transparent"
-        android:onClick="showRatingDialog"
-        android:src="@drawable/ic_star_icon"
-        app:layout_constraintStart_toEndOf="@+id/editStatusButton"
-        app:layout_constraintTop_toTopOf="@+id/editStatusButton" />
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

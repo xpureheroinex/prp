@@ -1,4 +1,4 @@
-package com.example.bookspace;
+package com.example.bookspace.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookspace.R;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.MainPageBook;
 import java.util.List;

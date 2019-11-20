@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.bookspace.BookPageActivity;
-import com.example.bookspace.BooksListAdapter;
+import com.example.bookspace.adapters.BooksListAdapter;
 import com.example.bookspace.R;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.GetBooksResponse;

@@ -25,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@+id/basicToolbar">
 
         <TextView
-            android:id="@+id/textAbout"
+            android:id="@+id/aboutButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -39,7 +39,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textReviews"
+            android:id="@+id/reviewsButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -53,7 +53,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textNotice"
+            android:id="@+id/noticeButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
