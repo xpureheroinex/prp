@@ -10,10 +10,6 @@ import android.widget.Toast;
 
 import com.example.bookspace.Empty;
 import com.example.bookspace.R;
-import com.example.bookspace.settings.ChangeAvatar;
-import com.example.bookspace.settings.ChangeName;
-import com.example.bookspace.settings.ChangePassword;
-import com.example.bookspace.statistics.SetTargets;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -22,32 +18,32 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        Empty startFragment = new Empty();
-        transaction.add(R.id.ll2,startFragment);
-        transaction.commit();
+//        FragmentManager fm = getSupportFragmentManager();
+//        FragmentTransaction transaction = fm.beginTransaction();
+//        Empty startFragment = new Empty();
+//        transaction.add(R.id.ll2,startFragment);
+//        transaction.commit();
 
     }
-    public void onSelectFragment(View view) {
-        Fragment newFragment;
-        if (view == findViewById(R.id.btnfr1)) {
-            newFragment = new ChangeName();
-        } else if (view == findViewById(R.id.btnfr2)) {
-            newFragment = new ChangePassword();
-        } else if (view == findViewById(R.id.btnfr3)) {
-            newFragment = new SetTargets();
-        } else if (view == findViewById(R.id.btnfr9)) {
-            newFragment = new ChangeAvatar();
-        } else {
-            newFragment = new Empty();
-        }
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.ll2,newFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-
-    }
+//    public void onSelectFragment(View view) {
+//        Fragment newFragment;
+//        if (view == findViewById(R.id.buttonChangeUsername)) {
+//            newFragment = new ChangeNameFragment();
+//        } else if (view == findViewById(R.id.buttonChangePassword)) {
+//            newFragment = new ChangePasswordFragment();
+//        } else if (view == findViewById(R.id.buttonSetTargets)) {
+//            newFragment = new SetTargetsFragment();
+//        } else if (view == findViewById(R.id.buttonChangeAvatar)) {
+//            newFragment = new ChangeAvatarFragment();
+//        } else {
+//            newFragment = new Empty();
+//        }
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.ll2,newFragment);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+//
+//    }
 
     public void onShowUser (View view){
         Toast toast = Toast.makeText(getApplicationContext(),"Your user name was changed",Toast.LENGTH_SHORT);

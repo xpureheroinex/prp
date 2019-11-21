@@ -10,10 +10,11 @@ import android.view.ViewGroup;
 
 import com.example.bookspace.R;
 
-public class ChangePassword extends Fragment {
+public class ChangeNameFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.changepassword,container,false);
+        return inflater.inflate(R.layout.changename,container,false);
     }
 }
+
