@@ -44,11 +44,6 @@
 //        Intent inten = getIntent();
 //        bookId = inten.getIntExtra("bookId", 11);
 //
-////        //настраиваем toolbar
-////        Toolbar basicToolbar = findViewById(R.id.basicToolbar);
-////        setSupportActionBar(basicToolbar);
-////        getSupportActionBar().setTitle("Reviews");
-////        basicToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
 //
 //
 ////        //устанавливаем обработчик нажатия для back arrow иконки

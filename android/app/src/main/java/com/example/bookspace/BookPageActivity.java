@@ -188,8 +188,6 @@ public class BookPageActivity extends AppCompatActivity {
     }
 
     public void onButtonBarClicked(View view){
-//        Intent intent = getIntent();
-//        bookId = intent.getIntExtra("bookId", 11);
 
         final Bundle bundle = new Bundle();
         bundle.putInt("bookId", bookId);

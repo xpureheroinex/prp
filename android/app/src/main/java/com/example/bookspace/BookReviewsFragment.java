@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -76,13 +78,6 @@ public class BookReviewsFragment extends Fragment {
                         booksListView = view.findViewById(R.id.listReviews);
                         reviewsAdapter = new ReviewsAdapter(getContext(), reviewsClassesList);
                         booksListView.setAdapter(reviewsAdapter);
-
-//                    booksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                            //maybe new event for reviews
-//                        }
-//                    });
                     }
                 }
 
@@ -94,55 +89,17 @@ public class BookReviewsFragment extends Fragment {
 
         }
 
-
+        Button openAddReviewPage = view.findViewById(R.id.buttonOpenAddReviewPage);
+        openAddReviewPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddReviewFragment addReviewFragment = new AddReviewFragment();
+                addReviewFragment.setArguments(getArguments());
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, addReviewFragment).commit();
+            }
+        });
 
         return view;
     }
-
-//    public void onClickAddReview(View v) {
-//        EditText editaddreview = getView().findViewById(R.id.editAddReview);
-//
-//        if(editaddreview.getText().toString().matches("")){
-//            Toast.makeText(getContext(), "You must fill the review field", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//
-//        Call<ResponseBody> call7 = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .postReview("Bearer " + token, bookId, editaddreview.getText().toString());
-//
-//        call7.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//            }
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                Toast.makeText(AddReviewActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//
-//        final RatingBar rating = findViewById(R.id.ratingBarOnAddReview);
-//
-//        Call<ResponseBody> call8 = RetrofitClient
-//                .getInstance()
-//                .getBookSpaceAPI()
-//                .setRate("Bearer " + token, bookId, Math.round(rating.getRating()));
-//
-//        call8.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                Toast.makeText(AddReviewActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        hideKeyboard();
-//        Intent inten = new Intent(getApplicationContext(), ReviewsActivity.class);
-//        inten.putExtra("bookId", bookId);
-//        startActivity(inten);
-//    }
-
 }

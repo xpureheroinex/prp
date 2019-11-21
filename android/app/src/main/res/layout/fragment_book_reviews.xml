@@ -59,12 +59,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonAddReview"
+        android:id="@+id/buttonOpenAddReviewPage"
         android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/button"
-        android:onClick="onClickAddReview"
         android:text="Add review"
         android:textAllCaps="false"
         android:textSize="20sp"
