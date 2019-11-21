@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context=".BookReviewsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="reviews fragment" />
+    <!--    <EditText-->
+    <!--        android:id="@+id/editAddReview"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="100dp"-->
+    <!--        android:background="@color/colorSplashScreen"-->
+    <!--        android:ems="10"-->
+    <!--        android:gravity="start|top"-->
+    <!--        android:hint="Enter your review(max length 200 symbols)"-->
+    <!--        android:inputType="textMultiLine"-->
+    <!--        android:maxLength="200"-->
+    <!--        android:maxLines="10"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-</FrameLayout>
+    <!--    <RatingBar-->
+    <!--        android:id="@+id/ratingBarOnAddReview"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        android:clickable="true"-->
+    <!--        android:isIndicator="false"-->
+    <!--        android:numStars="5"-->
+    <!--        android:onClick="onClickHide"-->
+    <!--        android:rating="0"-->
+    <!--        android:stepSize="1.0"-->
+    <!--        android:theme="@style/RatingBar"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/editAddReview"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/editAddReview" />-->
+
+
+    <ListView
+        android:id="@+id/listReviews"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="All reviews"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonAddReview"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button"
+        android:onClick="onClickAddReview"
+        android:text="Add review"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listReviews" />
+
+</android.support.constraint.ConstraintLayout>

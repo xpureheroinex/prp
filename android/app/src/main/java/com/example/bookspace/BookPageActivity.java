@@ -5,29 +5,17 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.bookspace.model.RetrofitClient;
-import com.example.bookspace.model.SimilarBooks;
 import com.example.bookspace.model.books.Book;
 import com.example.bookspace.model.books.GetBookResponse;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +24,6 @@ import retrofit2.Response;
 public class BookPageActivity extends AppCompatActivity {
     public String status;
     public int bookId;
-    ImageButton editStatusButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,28 +51,6 @@ public class BookPageActivity extends AppCompatActivity {
         final Bundle bundle = new Bundle();
         bundle.putInt("bookId", bookId);
         final FragmentManager fragmentManager = getSupportFragmentManager();
-
-//        Button aboutButton = findViewById(R.id.aboutButton);
-//        aboutButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                BookAboutFragment bookAboutFragment = new BookAboutFragment();
-//                bookAboutFragment.setArguments(bundle);
-//
-////        FragmentManager fragmentManager = getSupportFragmentManager();
-//                fragmentManager.beginTransaction().add(R.id.bookPageFragmentContainer, bookAboutFragment).commit();
-//            }
-//        });
-
-//        Button reviewsButton = findViewById(R.id.reviewsButton);
-//        reviewsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                BookReviewsFragment bookReviewsFragment = new BookReviewsFragment();
-//                bookReviewsFragment.setArguments(bundle);
-//                fragmentManager.beginTransaction().add(R.id.bookPageFragmentContainer, bookReviewsFragment).commit();
-//            }
-//        });
 
         BookAboutFragment bookAboutFragment = new BookAboutFragment();
         bookAboutFragment.setArguments(bundle);
@@ -223,8 +188,8 @@ public class BookPageActivity extends AppCompatActivity {
     }
 
     public void onButtonBarClicked(View view){
-        Intent intent = getIntent();
-        bookId = intent.getIntExtra("bookId", 11);
+//        Intent intent = getIntent();
+//        bookId = intent.getIntExtra("bookId", 11);
 
         final Bundle bundle = new Bundle();
         bundle.putInt("bookId", bookId);

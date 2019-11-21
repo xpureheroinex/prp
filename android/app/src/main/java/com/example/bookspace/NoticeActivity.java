@@ -116,14 +116,14 @@ public class NoticeActivity extends AppCompatActivity {
         });
 
         TextView textReviews = findViewById(R.id.reviewsButton);
-        textReviews.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent inten = new Intent(getApplicationContext(), ReviewsActivity.class);
-                inten.putExtra("bookId", bookId);
-                startActivity(inten);
-            }
-        });
+//        textReviews.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent inten = new Intent(getApplicationContext(), ReviewsActivity.class);
+//                inten.putExtra("bookId", bookId);
+//                startActivity(inten);
+//            }
+//        });
     }
 
     public void onClickbuttonNote(View v){

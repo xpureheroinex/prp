@@ -105,13 +105,13 @@
             android:inputType="textMultiLine"
             android:maxLength="200"
             android:maxLines="10"
-            app:layout_constraintBottom_toTopOf="@+id/buttonAddNote"
+            app:layout_constraintBottom_toTopOf="@+id/buttonAddReview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/buttonAddNote"
+            android:id="@+id/buttonAddReview"
             android:layout_width="130dp"
             android:layout_height="55dp"
             android:layout_marginStart="8dp"

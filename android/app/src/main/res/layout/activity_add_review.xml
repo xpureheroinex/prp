@@ -74,65 +74,65 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.028" />
 
-        <EditText
-            android:id="@+id/editAddReview"
-            android:layout_width="0dp"
-            android:layout_height="399dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/colorSplashScreen"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="Enter your review(max length 200 symbols)"
-            android:inputType="textMultiLine"
-            android:maxLength="200"
-            android:maxLines="10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textlabel" />
+<!--        <EditText-->
+<!--            android:id="@+id/editAddReview"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="399dp"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:background="@color/colorSplashScreen"-->
+<!--            android:ems="10"-->
+<!--            android:gravity="start|top"-->
+<!--            android:hint="Enter your review(max length 200 symbols)"-->
+<!--            android:inputType="textMultiLine"-->
+<!--            android:maxLength="200"-->
+<!--            android:maxLines="10"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textlabel" />-->
 
-        <Button
-            android:id="@+id/buttonAddNote"
-            android:layout_width="236dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="28dp"
-            android:background="@drawable/button"
-            android:onClick="onClickAddReview"
-            android:text="Add review"
-            android:textAllCaps="false"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBarOnAddReview"
-            app:layout_constraintVertical_bias="0.0" />
+<!--        <Button-->
+<!--            android:id="@+id/buttonAddReview"-->
+<!--            android:layout_width="236dp"-->
+<!--            android:layout_height="58dp"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_marginBottom="28dp"-->
+<!--            android:background="@drawable/button"-->
+<!--            android:onClick="onClickAddReview"-->
+<!--            android:text="Add review"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textSize="20sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.496"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/ratingBarOnAddReview"-->
+<!--            app:layout_constraintVertical_bias="0.0" />-->
 
-        <RatingBar
-            android:id="@+id/ratingBarOnAddReview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="100dp"
-            android:clickable="true"
-            android:isIndicator="false"
-            android:numStars="5"
-            android:onClick="onClickHide"
-            android:rating="0"
-            android:stepSize="1.0"
-            android:theme="@style/RatingBar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.487"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editAddReview"
-            app:layout_constraintVertical_bias="0.121" />
+<!--        <RatingBar-->
+<!--            android:id="@+id/ratingBarOnAddReview"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="8dp"-->
+<!--            android:layout_marginBottom="100dp"-->
+<!--            android:clickable="true"-->
+<!--            android:isIndicator="false"-->
+<!--            android:numStars="5"-->
+<!--            android:onClick="onClickHide"-->
+<!--            android:rating="0"-->
+<!--            android:stepSize="1.0"-->
+<!--            android:theme="@style/RatingBar"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.487"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/editAddReview"-->
+<!--            app:layout_constraintVertical_bias="0.121" />-->
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

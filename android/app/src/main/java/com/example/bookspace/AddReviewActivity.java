@@ -39,14 +39,14 @@ public class AddReviewActivity extends AppCompatActivity {
         bookId = inten.getIntExtra("bookId", 11);
 
         TextView textCancel = findViewById(R.id.textCancel);
-        textCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent inten = new Intent(getApplicationContext(), ReviewsActivity.class);
-                inten.putExtra("bookId", bookId);
-                startActivity(inten);
-            }
-        });
+//        textCancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent inten = new Intent(getApplicationContext(), ReviewsActivity.class);
+//                inten.putExtra("bookId", bookId);
+//                startActivity(inten);
+//            }
+//        });
     }
 
     private void hideKeyboard(){
@@ -59,47 +59,47 @@ public class AddReviewActivity extends AppCompatActivity {
     }
 
     public void onClickAddReview(View v) {
-        EditText editaddreview = (EditText) findViewById(R.id.editAddReview);
+//        EditText editaddreview = findViewById(R.id.editAddReview);
 
-        if(editaddreview.getText().toString().matches("")){
-            Toast.makeText(AddReviewActivity.this, "You must fill the review", Toast.LENGTH_LONG).show();
-            return;
-        }
-        Call<ResponseBody> call7 = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .postReview("Bearer " + token, bookId, editaddreview.getText().toString());
-
-        call7.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(AddReviewActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        final RatingBar rating = (RatingBar) findViewById(R.id.ratingBarOnAddReview);
-
-        Call<ResponseBody> call8 = RetrofitClient
-                .getInstance()
-                .getBookSpaceAPI()
-                .setRate("Bearer " + token, bookId, Math.round(rating.getRating()));
-
-        call8.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(AddReviewActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
-            }
-        });
-        hideKeyboard();
-        Intent inten = new Intent(getApplicationContext(), ReviewsActivity.class);
-        inten.putExtra("bookId", bookId);
-        startActivity(inten);
+//        if(editaddreview.getText().toString().matches("")){
+//            Toast.makeText(AddReviewActivity.this, "You must fill the review field", Toast.LENGTH_LONG).show();
+//            return;
+//        }
+//        Call<ResponseBody> call7 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .postReview("Bearer " + token, bookId, editaddreview.getText().toString());
+//
+//        call7.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//            }
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Toast.makeText(AddReviewActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
+//        final RatingBar rating = findViewById(R.id.ratingBarOnAddReview);
+//
+//        Call<ResponseBody> call8 = RetrofitClient
+//                .getInstance()
+//                .getBookSpaceAPI()
+//                .setRate("Bearer " + token, bookId, Math.round(rating.getRating()));
+//
+//        call8.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Toast.makeText(AddReviewActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        hideKeyboard();
+//        Intent inten = new Intent(getApplicationContext(), ReviewsActivity.class);
+//        inten.putExtra("bookId", bookId);
+//        startActivity(inten);
     }
 }
