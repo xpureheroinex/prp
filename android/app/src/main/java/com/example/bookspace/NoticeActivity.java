@@ -1,10 +1,8 @@
 package com.example.bookspace;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -32,34 +30,16 @@ public class NoticeActivity extends AppCompatActivity {
     public int[] noteId;
     public Note[] notes;
 
-    ListView lvBooks4;
-    NoteAdapter adapter4;
-    List<NoteClass> mBooksList4;
+    ListView listView;
+    NoteAdapter noteAdapter;
+    List<NoteClass> noteClassList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notice);
+        setContentView(R.layout.fragment_book_notice);
 
-        Intent inten = getIntent();
-        bookId = inten.getIntExtra("bookId", 11);
 
-        //настраиваем toolbar
-        Toolbar basicToolbar = findViewById(R.id.basicToolbar);
-        setSupportActionBar(basicToolbar);
-        getSupportActionBar().setTitle("Notices");
-        basicToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
-
-        //устанавливаем обработчик нажатия для back arrow иконки
-        basicToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), user_page.class));
-            }
-        });
-
-        SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
-        token = prefs.getString("token", "token is null");
 
         Call<GetNotesResponse> call = RetrofitClient
                 .getInstance()
@@ -76,16 +56,16 @@ public class NoticeActivity extends AppCompatActivity {
                     txtView.setVisibility(View.VISIBLE);
                 } else {
                     noteId = new int[notes.length];
-                    mBooksList4 = new ArrayList<>();
+                    noteClassList = new ArrayList<>();
                     for (i = 0; i < notes.length; i++) {
-                        mBooksList4.add(new NoteClass(i, notes[i].getTitle(),
+                        noteClassList.add(new NoteClass(i, notes[i].getTitle(),
                                 "\n" + notes[i].getText(), "Date: " + notes[i].getCreated()));
                         noteId[i] = notes[i].getId();
                     }
-                    lvBooks4 = (ListView) findViewById(R.id.ListNotes);
-                    adapter4 = new NoteAdapter(getApplicationContext(), mBooksList4);
-                    lvBooks4.setAdapter(adapter4);
-                    lvBooks4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    listView = (ListView) findViewById(R.id.ListNotes);
+                    noteAdapter = new NoteAdapter(getApplicationContext(), noteClassList);
+                    listView.setAdapter(noteAdapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Intent inten = new Intent(getApplicationContext(), EditDeleteNote.class);
@@ -105,17 +85,17 @@ public class NoticeActivity extends AppCompatActivity {
             }
         });
 
-        TextView textAbout = findViewById(R.id.aboutButton);
-        textAbout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent inten = new Intent(getApplicationContext(), BookPageActivity.class);
-                inten.putExtra("bookId", bookId);
-                startActivity(inten);
-            }
-        });
+//        TextView textAbout = findViewById(R.id.aboutButton);
+//        textAbout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent inten = new Intent(getApplicationContext(), BookPageActivity.class);
+//                inten.putExtra("bookId", bookId);
+//                startActivity(inten);
+//            }
+//        });
 
-        TextView textReviews = findViewById(R.id.reviewsButton);
+//        TextView textReviews = findViewById(R.id.reviewsButton);
 //        textReviews.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

@@ -1,14 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookNoticeFragment">
+    android:padding="10dp"
+    tools:context=".NoticeActivity">
 
-    <!-- TODO: Update blank fragment layout -->
+    <Button
+        android:id="@+id/buttonOpenAddNoticePage"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Add note"
+        android:textColor="@color/colorText"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ListNotes" />
+
+    <ListView
+        android:id="@+id/ListNotes"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="16dp"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13">
+
+    </ListView>
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="notice fragment" />
+        android:id="@+id/textViewNoNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="24sp"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="206dp"
+        tools:layout_editor_absoluteY="350dp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="All notices"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

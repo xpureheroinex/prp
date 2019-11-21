@@ -25,7 +25,7 @@ public class AddNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_note);
+        setContentView(R.layout.fragment_add_notice);
 
         Intent inten = getIntent();
         bookId = inten.getIntExtra("bookId", 11);
@@ -33,15 +33,6 @@ public class AddNoteActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         token = prefs.getString("token", "token is null");
 
-        TextView textCancel = findViewById(R.id.textCancel2);
-        textCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
-                inten.putExtra("bookId", bookId);
-                startActivity(inten);
-            }
-        });
     }
 
     private void hideKeyboard(){
@@ -53,9 +44,9 @@ public class AddNoteActivity extends AppCompatActivity {
         hideKeyboard();
     }
 
-    public void onClickZhenYa(View v){
-        EditText eTitle = (EditText) findViewById(R.id.editTitle);
-        EditText eNote = (EditText) findViewById(R.id.editAddNote);
+    public void onClickAddNote(View v){
+        EditText eTitle = findViewById(R.id.editTitle);
+        EditText eNote = findViewById(R.id.editAddNote);
 
         if(eTitle.getText().toString().matches("") || eNote.getText().toString().matches("")){
             Toast.makeText(AddNoteActivity.this, "You must fill in all fields", Toast.LENGTH_LONG).show();
@@ -76,8 +67,5 @@ public class AddNoteActivity extends AppCompatActivity {
                 Toast.makeText(AddNoteActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
             }
         });
-        Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
-        inten.putExtra("bookId", bookId);
-        startActivity(inten);
     }
 }
