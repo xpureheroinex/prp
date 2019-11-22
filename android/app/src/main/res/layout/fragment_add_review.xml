@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <Button
+        android:id="@+id/buttonAddReview"
+        android:layout_width="236dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button"
+        android:text="Add review"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/ratingBarOnAddReview"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBarOnAddReview" />
+
+    <EditText
+        android:id="@+id/editAddReview"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorSplashScreen"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Enter your review(max length 200 symbols)"
+        android:inputType="textMultiLine"
+        android:maxLength="200"
+        android:maxLines="10"
+        app:layout_constraintStart_toStartOf="@+id/textlabel"
+        app:layout_constraintTop_toBottomOf="@+id/textlabel" />
+
+    <TextView
+        android:id="@+id/textlabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="58dp"
+        android:text="Write a review about this book"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RatingBar
+        android:id="@+id/ratingBarOnAddReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="0"
+        android:stepSize="1.0"
+        android:theme="@style/RatingBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editAddReview" />
+
+
+</android.support.constraint.ConstraintLayout>

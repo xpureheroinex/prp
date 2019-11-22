@@ -37,8 +37,8 @@ public class ReviewsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row1 = View.inflate(mContext1, R.layout.reviewview, null);
-        TextView myName = (TextView) row1.findViewById(R.id.textViewUsername);
-        TextView myDate = (TextView) row1.findViewById(R.id.textViewDate);
+        TextView myName = row1.findViewById(R.id.textViewUsername);
+        TextView myDate = row1.findViewById(R.id.textViewDate);
         TextView myReview = (TextView) row1.findViewById(R.id.textViewReview);
 
         myName.setText(mBooksList1.get(position).getName());

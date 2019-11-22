@@ -44,24 +44,15 @@ public class EditDeleteNote extends AppCompatActivity {
         Title = inten.getStringExtra("Title");
         Text = inten.getStringExtra("Text");
 
-        EditText eTitle = (EditText) findViewById(R.id.editTitleEdit);
+        EditText eTitle = findViewById(R.id.editTitleEdit);
         eTitle.setText(Title, TextView.BufferType.EDITABLE);
 
-        EditText eNote = (EditText) findViewById(R.id.editAddNoteEdit);
+        EditText eNote = findViewById(R.id.editAddNoteEdit);
         eNote.setText(Text, TextView.BufferType.EDITABLE);
 
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         token = prefs.getString("token", "token is null");
 
-        TextView textCancel = findViewById(R.id.textCancel3);
-        textCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
-                inten.putExtra("bookId", bookId);
-                startActivity(inten);
-            }
-        });
     }
 
     private void hideKeyboard(){
@@ -74,8 +65,8 @@ public class EditDeleteNote extends AppCompatActivity {
     }
 
     public void onClickEdit(View v){
-        EditText eTitle = (EditText) findViewById(R.id.editTitleEdit);
-        EditText eNote = (EditText) findViewById(R.id.editAddNoteEdit);
+        EditText eTitle = findViewById(R.id.editTitleEdit);
+        EditText eNote = findViewById(R.id.editAddNoteEdit);
 
         if(eTitle.getText().toString().matches("") && eNote.getText().toString().matches("")){
             Toast.makeText(EditDeleteNote.this, "You must fill in all fields", Toast.LENGTH_LONG).show();
@@ -96,9 +87,9 @@ public class EditDeleteNote extends AppCompatActivity {
                     Toast.makeText(EditDeleteNote.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
                 }
             });
-            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
-            inten.putExtra("bookId", bookId);
-            startActivity(inten);
+//            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
+//            inten.putExtra("bookId", bookId);
+//            startActivity(inten);
         } else if(eNote.getText().toString().matches("")) {
             Call<ResponseBody> call = RetrofitClient
                     .getInstance()
@@ -115,9 +106,9 @@ public class EditDeleteNote extends AppCompatActivity {
                     Toast.makeText(EditDeleteNote.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
                 }
             });
-            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
-            inten.putExtra("bookId", bookId);
-            startActivity(inten);
+//            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
+//            inten.putExtra("bookId", bookId);
+//            startActivity(inten);
         } else {
             Call<ResponseBody> call = RetrofitClient
                     .getInstance()
@@ -134,9 +125,9 @@ public class EditDeleteNote extends AppCompatActivity {
                     Toast.makeText(EditDeleteNote.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
                 }
             });
-            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
-            inten.putExtra("bookId", bookId);
-            startActivity(inten);
+//            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
+//            inten.putExtra("bookId", bookId);
+//            startActivity(inten);
         }
     }
 
@@ -167,9 +158,9 @@ public class EditDeleteNote extends AppCompatActivity {
                                     Toast.makeText(EditDeleteNote.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
                                 }
                             });
-                            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
-                            inten.putExtra("bookId", bookId);
-                            startActivity(inten);
+//                            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
+//                            inten.putExtra("bookId", bookId);
+//                            startActivity(inten);
                     }
                 });
         AlertDialog alertDialog = builder.create();
