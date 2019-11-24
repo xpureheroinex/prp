@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -69,9 +70,12 @@ public class SearchBookAdapter extends BaseAdapter {
                 final String token = prefs.getString("token", "");
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Choose status:");
+                builder.setTitle(R.string.bookChoose);
 
-                String[] items= {"Read", "Reading", "Will Read"};
+                final Resources res = mContextTop.getResources();
+
+                String[] items= {res.getString(R.string.bookRead), res.getString(R.string.bookReading),
+                        res.getString(R.string.bookWillRead)};
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -85,7 +89,7 @@ public class SearchBookAdapter extends BaseAdapter {
                                 addBook.enqueue(new Callback<ResponseBody>() {
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                        Toast toast = Toast.makeText(v.getContext(),"The status of book was changed on read",Toast.LENGTH_SHORT);
+                                        Toast toast = Toast.makeText(v.getContext(),res.getString(R.string.statusToRead),Toast.LENGTH_SHORT);
                                         toast.show();
                                     }
 
@@ -104,7 +108,7 @@ public class SearchBookAdapter extends BaseAdapter {
                                 addBook2.enqueue(new Callback<ResponseBody>() {
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                        Toast toast = Toast.makeText(v.getContext(),"The status of book was changed on reading",Toast.LENGTH_SHORT);
+                                        Toast toast = Toast.makeText(v.getContext(),res.getString(R.string.statusToReading),Toast.LENGTH_SHORT);
                                         toast.show();
                                     }
 
@@ -123,7 +127,7 @@ public class SearchBookAdapter extends BaseAdapter {
                                 addBook3.enqueue(new Callback<ResponseBody>() {
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                        Toast toast = Toast.makeText(v.getContext(),"The status of book was changed on will read",Toast.LENGTH_SHORT);
+                                        Toast toast = Toast.makeText(v.getContext(),res.getString(R.string.statusToWillRead),Toast.LENGTH_SHORT);
                                         toast.show();
                                     }
 

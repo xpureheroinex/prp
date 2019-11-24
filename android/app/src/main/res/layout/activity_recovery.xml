@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewNewUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -23,7 +23,7 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/roboto_medium"
         android:stateListAnimator="@null"
-        android:text="Enter your e-mail or login:"
+        android:text="@string/textView2"
         android:textColor="@color/colorTextPrimary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:fontFamily="@font/roboto_light"
-        android:hint="E-mail/login"
+        android:hint="@string/editTextRecEmail"
         android:inputType="text|textEmailAddress"
         android:stateListAnimator="@null"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
         android:background="@drawable/button"
         android:fontFamily="@font/roboto_medium"
         android:stateListAnimator="@null"
-        android:text="NEXT"
+        android:text="@string/buttonRecNext"
         android:textColor="@color/colorText"
         android:textSize="18sp"
         android:textStyle="bold"

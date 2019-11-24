@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-light"
-            android:text="   I want to read"
+            android:text="@string/textView5"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-light"
-            android:text="books a week"
+            android:text="@string/textView6"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-light"
-            android:text="   I want to read"
+            android:text="@string/textView5"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-light"
-            android:text="books a month"
+            android:text="@string/textView8"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-light"
-            android:text="   I want to read"
+            android:text="@string/textView5"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="sans-serif-light"
-            android:text="books a year"
+            android:text="@string/textView10"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -151,7 +151,7 @@
         android:background="@drawable/button"
         android:fontFamily="@font/roboto_medium"
         android:onClick="onShowTarget"
-        android:text="Save"
+        android:text="@string/button3"
         android:textColor="#ffffff"
         android:textSize="16sp"
         android:textStyle="bold"

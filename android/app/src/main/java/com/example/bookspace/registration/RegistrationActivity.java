@@ -68,17 +68,17 @@ public class RegistrationActivity extends AppCompatActivity implements Successfu
                 boolean validData = true;
 
                 if(!matcher.find()){
-                    email.setError("Invalid e-mail, try again");
+                    email.setError(getText(R.string.invalidMail));
                     validData = false;
                 }
 
                 if(!passwordString.equals(confirmPasswordString) || passwordString.equals("") || confirmPasswordString.equals("")){
-                    password.setError("Passwords aren't the same, try again");
+                    password.setError(getText(R.string.invalidPass));
                     validData = false;
                 }
 
                 if(password.length() < 6){
-                    password.setError("Password must be at least 6 characters long");
+                    password.setError(getText(R.string.passLength));
 
                 }
 
@@ -94,7 +94,7 @@ public class RegistrationActivity extends AppCompatActivity implements Successfu
                             try{
                                 CreateUserResponse resp = response.body();
                                 if(resp.getStatus() == 400){
-                                    email.setError("User with this e-mail already exists");
+                                    email.setError(getText(R.string.existUser));
                                 }
                                 else{
                                     openFragment();

@@ -20,7 +20,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:onClick="onClickTopButton"
-            android:text="Top"
+            android:text="@string/topButton"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
@@ -34,7 +34,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:onClick="onClickRecommendationsButton"
-            android:text="Recommendations"
+            android:text="@string/Recom"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 

@@ -49,7 +49,7 @@ public class AddNoticeFragment extends Fragment {
         final int bookId = getArguments().getInt("bookId");
 
         if(eTitle.getText().toString().matches("") || eNote.getText().toString().matches("")){
-            Toast.makeText(getContext(), "You must fill in all fields", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getText(R.string.fillField), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -64,7 +64,7 @@ public class AddNoticeFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
             }
         });
     }

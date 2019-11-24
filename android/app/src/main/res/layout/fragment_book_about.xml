@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Similar Books"
+        android:text="@string/textSimilarBooks"
         android:textColor="@color/colorTextPrimary"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

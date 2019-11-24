@@ -37,7 +37,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:onClick="onButtonBarClicked"
-            android:text="About"
+            android:text="@string/aboutButton"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
@@ -51,7 +51,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:onClick="onButtonBarClicked"
-            android:text="Reviews"
+            android:text="@string/reviewsButton"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
 
@@ -65,7 +65,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:onClick="onButtonBarClicked"
-            android:text="Notice"
+            android:text="@string/noticeButton"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
     </LinearLayout>

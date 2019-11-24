@@ -1,11 +1,14 @@
 package com.example.bookspace;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -29,7 +32,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -60,6 +65,7 @@ import com.example.bookspace.statistics.StatisticsFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -127,7 +133,7 @@ public class user_page extends AppCompatActivity
                 catch(IOException e){
                     e.printStackTrace();
                 }
-                Toast.makeText(getApplicationContext(),"Image was chosen",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),getText(R.string.imageWasChosen),Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -153,17 +159,17 @@ public class user_page extends AppCompatActivity
     public void Delete(final View view){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you want to delete this book?")
-        .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
+        .setCancelable(true).setPositiveButton(getText(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         })
-                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getText(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
 
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast toast = Toast.makeText(getApplicationContext(),"The book was deleted",Toast.LENGTH_SHORT);
+                        Toast toast = Toast.makeText(getApplicationContext(),getText(R.string.bookWasDeleted), Toast.LENGTH_SHORT);
                         toast.show();
 
                     }
@@ -191,13 +197,13 @@ public class user_page extends AppCompatActivity
             callTest.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Toast.makeText(getApplicationContext(),"Your username was changed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),getText(R.string.cLogin),Toast.LENGTH_SHORT).show();
 
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(),"Connection failed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),getText(R.string.connectionFailed),Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -206,7 +212,7 @@ public class user_page extends AppCompatActivity
             profileUsername.setText(newUsername.getText().toString());
 
         } else{
-            newUsername.setError("Username can only contain latin letters, digits or underscores");
+            newUsername.setError(getText(R.string.loginHelp));
         }
     }
     //нажатие на кнопку ChangePasswordFragment
@@ -217,9 +223,9 @@ public class user_page extends AppCompatActivity
         EditText confirmNewPass = findViewById(R.id.editTextConfirmNewPassword);
 
         if(newPass.getText().length() < 6){
-            newPass.setError("Password must be at least 6 characters long");
+            newPass.setError(getText(R.string.passLength));
         } else if(!newPass.getText().toString().equals(confirmNewPass.getText().toString())){
-            confirmNewPass.setError("Passwords aren't the same, try again");
+            confirmNewPass.setError(getText(R.string.invalidPass));
         } else{
             Call<ResponseBody> callTest = RetrofitClient
                     .getInstance()
@@ -231,12 +237,12 @@ public class user_page extends AppCompatActivity
             callTest.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Toast.makeText(getApplicationContext(),"Your password was changed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),getText(R.string.cPass),Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(),"Connection failed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),getText(R.string.connectionFailed),Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -246,7 +252,7 @@ public class user_page extends AppCompatActivity
 
         //change user photo
         if(bmapAvatar == null){
-            Toast.makeText(getApplicationContext(),"You did not choose user image",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),getText(R.string.nullImage),Toast.LENGTH_SHORT).show();
         }
         else {
             String strBase64 = encodeToBase64(bmapAvatar, Bitmap.CompressFormat.JPEG, 100);
@@ -261,12 +267,12 @@ public class user_page extends AppCompatActivity
             callTest.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Toast.makeText(getApplicationContext(), "Your avatar was saved", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getText(R.string.cAvatar), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "Connection failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getText(R.string.connectionFailed), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -292,33 +298,33 @@ public class user_page extends AppCompatActivity
         try{
             targetWeek = Integer.parseInt(weekTarget.getText().toString());
             if(targetWeek < 0){
-                weekTarget.setError("This field must be a positive number");
+                weekTarget.setError(getText(R.string.positiveNumber));
                 validData = false;
             }
         } catch(NumberFormatException ex){
-            weekTarget.setError("This field must be a positive number");
+            weekTarget.setError(getText(R.string.positiveNumber));
             validData = false;
         }
 
         try{
             targetMonth = Integer.parseInt(monthTarget.getText().toString());
             if(targetMonth < 0){
-                monthTarget.setError("This field must be a positive number");
+                monthTarget.setError(getText(R.string.positiveNumber));
                 validData = false;
             }
         } catch(NumberFormatException ex){
-            monthTarget.setError("This field must be a positive number");
+            monthTarget.setError(getText(R.string.positiveNumber));
             validData = false;
         }
 
         try{
             targetYear = Integer.parseInt(yearTarget.getText().toString());
             if(targetYear < 0){
-                yearTarget.setError("This field must be a positive number");
+                yearTarget.setError(getText(R.string.positiveNumber));
                 validData = false;
             }
         } catch(NumberFormatException ex){
-            yearTarget.setError("This field must be a positive number");
+            yearTarget.setError(getText(R.string.positiveNumber));
             validData = false;
         }
 
@@ -381,7 +387,7 @@ public class user_page extends AppCompatActivity
                 public void onFailure(Call<SetPlanResponse> call, Throwable t) {
                 }
             });
-            Toast.makeText(getApplicationContext(), "Your targets have been saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getText(R.string.cTargets), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -398,14 +404,14 @@ public class user_page extends AppCompatActivity
 
     public void onClickLogOut(View v){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are you sure you want to Logout?")
-                    .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
+            builder.setMessage(R.string.logout)
+                    .setCancelable(true).setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
             })
-                    .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
@@ -566,6 +572,35 @@ public class user_page extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void onSwitchLan(View v){
+        String str = getText(R.string.buttonSwitchLanguage).toString();
+        if(!str.contentEquals("Змінити на англійську")) {
+            Locale locale = new Locale("uk");
+            Locale.setDefault(locale);
+            Configuration conf = new Configuration();
+            conf.locale = locale;
+            getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources()
+                    .getDisplayMetrics());
+        } else {
+            Locale locale = new Locale("en");
+            Locale.setDefault(locale);
+            Configuration conf = new Configuration();
+            conf.locale = locale;
+            getBaseContext().getResources().updateConfiguration(conf, getBaseContext().getResources()
+                    .getDisplayMetrics());
+        }
+        finish();
+        startActivity(getIntent());
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if(keyCode == KeyEvent.KEYCODE_BACK)
+            return true;
+        return false;
+    }
+
+
     public void onSelectFragment(View view) {
         Fragment newFragment;
         if (view == findViewById(R.id.buttonChangeUsername)) {
@@ -656,26 +691,26 @@ public class user_page extends AppCompatActivity
             transaction.commit();
 
         } else if (id == R.id.nav_read) {
-            setTitle("Read Books");
+            setTitle(R.string.navRead);
            ReadBooksFragment readBooksFragment = new ReadBooksFragment();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, readBooksFragment).commit();
 
 
         } else if (id == R.id.nav_reading) {
-           setTitle("Reading Books");
+           setTitle(R.string.navReading);
            ReadingBooksFragment readingBooksFragment = new ReadingBooksFragment();
            FragmentManager fm = getSupportFragmentManager();
-            fm.beginTransaction().replace(R.id.fragments, readingBooksFragment).commit();
+           fm.beginTransaction().replace(R.id.fragments, readingBooksFragment).commit();
 
         } else if (id == R.id.nav_willread) {
-           setTitle("Will Read Books");
+           setTitle(R.string.navWillRead);
             WillReadBooksFragment willreadBooksFragment = new WillReadBooksFragment();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, willreadBooksFragment).commit();
 
         } else if (id == R.id.nav_settings) {
-            setTitle("Account settings");
+            setTitle(R.string.navAccountSet);
             SettingsFragment setting = new SettingsFragment();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, setting).commit();
@@ -686,7 +721,7 @@ public class user_page extends AppCompatActivity
 //            transaction.add(R.id.ll2,startFragment);
 //            transaction.commit();
         } else if (id == R.id.nav_statistic) {
-            setTitle("Statistics");
+            setTitle(R.string.navStatistics);
             StatisticsFragment statisticsFragment = new StatisticsFragment();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, statisticsFragment).commit();

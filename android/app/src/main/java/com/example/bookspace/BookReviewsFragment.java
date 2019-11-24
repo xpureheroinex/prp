@@ -76,7 +76,7 @@ public class BookReviewsFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<GetReviewsResponse> call, Throwable t) {
-                    Toast.makeText(getContext(), "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                 }
             });
 

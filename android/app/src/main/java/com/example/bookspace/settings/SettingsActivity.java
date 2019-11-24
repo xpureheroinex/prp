@@ -46,19 +46,19 @@ public class SettingsActivity extends AppCompatActivity {
 //    }
 
     public void onShowUser (View view){
-        Toast toast = Toast.makeText(getApplicationContext(),"Your user name was changed",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(),getText(R.string.cLogin),Toast.LENGTH_SHORT);
         toast.show();
     }
     public void onShowPassword(View view){
-        Toast toast = Toast.makeText(getApplicationContext(),"Your password name was changed",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(),getText(R.string.cPass),Toast.LENGTH_SHORT);
         toast.show();
     }
     public void onShowAvatar(View view){
-        Toast toast = Toast.makeText(getApplicationContext(),"Your avatar was changed",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(),getText(R.string.cAvatar),Toast.LENGTH_SHORT);
         toast.show();
     }
     public void onShowTarget(View view){
-        Toast toast = Toast.makeText(getApplicationContext(),"Your targets name was changed",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(),getText(R.string.cTargets),Toast.LENGTH_SHORT);
         toast.show();
     }
 }

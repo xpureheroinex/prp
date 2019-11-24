@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
 
         TextView textViewSignIn = (TextView) signInButton.getChildAt(0);
-        textViewSignIn.setText("Sign in with Google");
+        textViewSignIn.setText(R.string.googleSignIn);
 
         //настраиваем toolbar
         Toolbar basicToolbar = findViewById(R.id.basicToolbar);
@@ -114,9 +114,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             LoginResponse resp = response.body();
 
                             if(resp.getStatus() == 404){
-                                email.setError("User with this email doesn't exist");
+                                email.setError(getText(R.string.wrongUser));
                             } else if(resp.getStatus() == 400){
-                                password.setError("Wrong password");
+                                password.setError(getText(R.string.wrongPass));
                             } else{
                                 new LoginLoading(response).execute();
                             }
@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                     @Override
                     public void onFailure(Call<LoginResponse> call, Throwable t) {
-                        Toast.makeText(LoginActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 logLoad.execute();
             }
             else
-                Toast.makeText(LoginActivity.this, "Something went wrong...", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -229,7 +229,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    Toast.makeText(LoginActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                 }
             });
             signOut();
@@ -268,7 +268,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         protected void onPreExecute() {
             this.mProgressDialog = new ProgressDialog(LoginActivity.this);
 
-            this.mProgressDialog.setMessage("Checking...");
+            this.mProgressDialog.setMessage(getText(R.string.checking));
             if(!this.mProgressDialog.isShowing())
                 this.mProgressDialog.show();
         }
