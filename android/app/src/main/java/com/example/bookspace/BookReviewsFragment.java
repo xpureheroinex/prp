@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.bookspace.adapters.ReviewsAdapter;
 import com.example.bookspace.model.RetrofitClient;
@@ -60,7 +61,7 @@ public class BookReviewsFragment extends Fragment {
                         reviewsClassesList = new ArrayList<>();
                         for (i = 0; i < info.length; i++) {
                             reviewsClassesList.add(new ReviewsClass(i, info[i].getUsername(),
-                                    "\n" + info[i].getText(), info[i].getCreated()));
+                                    info[i].getText(), info[i].getCreated()));
                         }
 
                         booksListView = view.findViewById(R.id.listReviews);

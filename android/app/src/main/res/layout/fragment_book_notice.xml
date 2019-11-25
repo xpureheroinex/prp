@@ -4,29 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    tools:context=".NoticeActivity">
+    android:padding="10dp">
 
     <Button
         android:id="@+id/buttonOpenAddNoticePage"
         android:layout_width="160dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/button"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/buttonOpenAddNoticePage"
         android:textColor="@color/colorText"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ListNotes" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/ListNotes"
         android:layout_width="0dp"
         android:layout_height="350dp"
         android:layout_marginTop="16dp"
-        android:padding="12dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13">
@@ -40,15 +40,18 @@
         android:textColor="@color/colorTextPrimary"
         android:textSize="24sp"
         android:visibility="invisible"
-        tools:layout_editor_absoluteX="206dp"
-        tools:layout_editor_absoluteY="350dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ListNotes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:text="@string/textView13"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

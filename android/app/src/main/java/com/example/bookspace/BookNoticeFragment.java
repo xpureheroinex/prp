@@ -67,7 +67,7 @@ public class BookNoticeFragment extends Fragment {
                     noteClassList = new ArrayList<>();
                     for (int i = 0; i < notes.length; i++) {
                         noteClassList.add(new NoteClass(i, notes[i].getTitle(),
-                                "\n" + notes[i].getText(), getText(R.string.noteDate) + notes[i].getCreated()));
+                                "\n" + notes[i].getText(), notes[i].getCreated()));
                         noteId[i] = notes[i].getId();
                     }
                     listView = view.findViewById(R.id.ListNotes);

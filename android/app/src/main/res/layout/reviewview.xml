@@ -2,31 +2,24 @@
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="120dp"
     android:background="@drawable/corners_in_views"
     android:clickable="false"
-    android:descendantFocusability="blocksDescendants"
     android:focusable="false"
-    android:focusableInTouchMode="false"
     android:orientation="horizontal"
-    android:padding="15dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/textViewUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="false"
         android:ellipsize="end"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
         android:fontFamily="sans-serif-light"
-        android:maxWidth="200dp"
         android:maxLines="1"
         android:text="Username"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="17sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,24 +28,23 @@
         android:id="@+id/textViewDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        android:focusable="false"
         android:fontFamily="sans-serif-light"
         android:text="Date"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewUsername"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textViewReview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Review"
-        android:maxLines="3"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        android:maxLines="3"
+        android:text="Review"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textViewUsername"
         app:layout_constraintTop_toBottomOf="@+id/textViewUsername" />
-
 
 </android.support.constraint.ConstraintLayout>
