@@ -9,21 +9,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.example.bookspace.adapters.ReviewsAdapter;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.reviews.GetReviewsResponse;
 import com.example.bookspace.model.reviews.Review;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static android.content.Context.MODE_PRIVATE;
-
 
 public class BookReviewsFragment extends Fragment {
     public int bookId;
