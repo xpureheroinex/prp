@@ -24,7 +24,7 @@
             android:background="#757575"
             android:fontFamily="@font/roboto_medium"
             android:onClick="onSelectFragment3"
-            android:text="Year"
+            android:text="@string/btnfr6"
             android:textColor="#ffffff"
             android:textSize="14sp" />
 
@@ -37,7 +37,7 @@
             android:background="#BFBFBF"
             android:fontFamily="@font/roboto_medium"
             android:onClick="onSelectFragment3"
-            android:text="Month"
+            android:text="@string/btnfr7"
             android:textColor="#ffffff"
             android:textSize="14sp" />
 
@@ -50,7 +50,7 @@
             android:background="#BFBFBF"
             android:fontFamily="@font/roboto_medium"
             android:onClick="onSelectFragment3"
-            android:text="Week"
+            android:text="@string/btnfr8"
             android:textColor="#ffffff"
             android:textSize="14sp" />
     </LinearLayout>

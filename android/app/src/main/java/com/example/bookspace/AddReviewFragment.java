@@ -29,7 +29,7 @@ public class AddReviewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_review, container, false);
 
-        Button addReview = view.findViewById(R.id.buttonAddReview);
+        Button addReview = view.findViewById(R.id.buttonDeleteNote);
         addReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +46,7 @@ public class AddReviewFragment extends Fragment {
         final int bookId = getArguments().getInt("bookId");
 
         if(editaddreview.getText().toString().matches("")){
-            Toast.makeText(getContext(), "You must fill the review field", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getText(R.string.fillField), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -62,7 +62,7 @@ public class AddReviewFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -80,7 +80,7 @@ public class AddReviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
             }
         });
     }

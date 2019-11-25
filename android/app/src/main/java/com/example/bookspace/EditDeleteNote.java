@@ -69,7 +69,7 @@ public class EditDeleteNote extends AppCompatActivity {
         EditText eNote = findViewById(R.id.editAddNoteEdit);
 
         if(eTitle.getText().toString().matches("") && eNote.getText().toString().matches("")){
-            Toast.makeText(EditDeleteNote.this, "You must fill in all fields", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditDeleteNote.this, getText(R.string.fillField), Toast.LENGTH_LONG).show();
             return;
         } else if(eTitle.getText().toString().matches("")) {
             Call<ResponseBody> call = RetrofitClient
@@ -84,7 +84,7 @@ public class EditDeleteNote extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(EditDeleteNote.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditDeleteNote.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                 }
             });
 //            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
@@ -103,7 +103,7 @@ public class EditDeleteNote extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(EditDeleteNote.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditDeleteNote.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                 }
             });
 //            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
@@ -122,7 +122,7 @@ public class EditDeleteNote extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(EditDeleteNote.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditDeleteNote.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                 }
             });
 //            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
@@ -133,14 +133,14 @@ public class EditDeleteNote extends AppCompatActivity {
 
     public void onClickDelete(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure, you want to delete this note?")
-                .setCancelable(true).setPositiveButton("No", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.commit)
+                .setCancelable(true).setPositiveButton(getText(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         })
-                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getText(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                             Call<ResponseBody> call = RetrofitClient
@@ -155,7 +155,7 @@ public class EditDeleteNote extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    Toast.makeText(EditDeleteNote.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(EditDeleteNote.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                                 }
                             });
 //                            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);

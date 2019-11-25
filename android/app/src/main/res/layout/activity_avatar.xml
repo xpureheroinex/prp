@@ -7,14 +7,14 @@
     android:background="@color/colorSplashScreen">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewAvatar"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Choose new user photo"
+        android:text="@string/textViewAvatar"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="16sp" />
@@ -34,7 +34,7 @@
         android:background="@drawable/button"
         android:fontFamily="@font/roboto_medium"
         android:onClick="onClickUpload"
-        android:text="Browser..."
+        android:text="@string/buttonUploadPhoto"
         android:textColor="#ffffff"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -54,7 +54,7 @@
         android:background="@drawable/button"
         android:fontFamily="@font/roboto_medium"
         android:onClick="onShowAvatar"
-        android:text="Save"
+        android:text="@string/buttonChangeAvatar"
         android:textColor="#ffffff"
         android:textSize="14sp"
         android:textStyle="bold"

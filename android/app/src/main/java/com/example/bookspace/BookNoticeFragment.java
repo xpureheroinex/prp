@@ -60,14 +60,14 @@ public class BookNoticeFragment extends Fragment {
                 notes = response.body().getNotes();
                 if (notes.length == 0) {
                     TextView txtView = view.findViewById(R.id.textViewNoNotes);
-                    txtView.setText("No notes on this book");
+                    //?????txtView.setText("No notes on this book");
                     txtView.setVisibility(View.VISIBLE);
                 } else {
                     noteId = new int[notes.length];
                     noteClassList = new ArrayList<>();
                     for (int i = 0; i < notes.length; i++) {
                         noteClassList.add(new NoteClass(i, notes[i].getTitle(),
-                                "\n" + notes[i].getText(), "Date: " + notes[i].getCreated()));
+                                "\n" + notes[i].getText(), getText(R.string.noteDate) + notes[i].getCreated()));
                         noteId[i] = notes[i].getId();
                     }
                     listView = view.findViewById(R.id.ListNotes);
@@ -89,7 +89,7 @@ public class BookNoticeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<GetNotesResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
             }
         });
 

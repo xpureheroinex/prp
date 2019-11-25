@@ -36,7 +36,7 @@ public class BookPageActivity extends AppCompatActivity {
         //region настраиваем toolbar
         Toolbar basicToolbar = findViewById(R.id.basicToolbar);
         setSupportActionBar(basicToolbar);
-        getSupportActionBar().setTitle("Book Page");
+        getSupportActionBar().setTitle(R.string.bookPage);
         basicToolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         //endregion
 
@@ -69,12 +69,14 @@ public class BookPageActivity extends AppCompatActivity {
 
     protected Dialog onCreateDialog ( int id){
         if (id == IDD_LIST_Status) {
-            final String[] statusName = {"Read", "Reading", "Will Read"};
+            final String[] statusName = {getText(R.string.bookRead).toString(),
+                    getText(R.string.bookReading).toString(),
+                    getText(R.string.bookWillRead).toString()};
             SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
             final String token = prefs.getString("token", "token is null");
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Choose status:"); // заголовок для диалога
+            builder.setTitle(R.string.bookChoose); // заголовок для диалога
 
             builder.setCancelable(true);
             builder.setItems(statusName, new DialogInterface.OnClickListener() {
@@ -90,6 +92,15 @@ public class BookPageActivity extends AppCompatActivity {
                         case "Will Read":
                             status = "WR";
                             break;
+                        case "Прочитав":
+                            status = "DN";
+                            break;
+                        case "Читаю":
+                            status = "IP";
+                            break;
+                        case "Хочу прочитати":
+                            status = "WR";
+                            break;
                     }
                     Call<ResponseBody> call7 = RetrofitClient
                             .getInstance()
@@ -103,10 +114,10 @@ public class BookPageActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Toast.makeText(BookPageActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                            Toast.makeText(BookPageActivity.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                         }
                     });
-                    Toast.makeText(getApplicationContext(), "Selected status: " + statusName[item],
+                    Toast.makeText(getApplicationContext(), getText(R.string.bookSelected) + " " + statusName[item],
                             Toast.LENGTH_SHORT).show();
                 }
             });
@@ -145,7 +156,7 @@ public class BookPageActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                Toast.makeText(BookPageActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                                Toast.makeText(BookPageActivity.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                             }
                         });
 
@@ -169,14 +180,14 @@ public class BookPageActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Call<GetBookResponse> call, Throwable t) {
-                                Toast.makeText(BookPageActivity.this, "Something went wrong, try again", Toast.LENGTH_LONG).show();
+                                Toast.makeText(BookPageActivity.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                             }
                         });
                         dialog.dismiss();
                     }
                 })
 
-                .setNegativeButton("Cancel",
+                .setNegativeButton(R.string.cancel,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();

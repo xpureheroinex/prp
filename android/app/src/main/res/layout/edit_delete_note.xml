@@ -7,14 +7,14 @@
     android:onClick="onClickHide">
 
     <Button
-        android:id="@+id/buttonAddReview"
+        android:id="@+id/buttonDeleteNote"
         android:layout_width="130dp"
         android:layout_height="55dp"
         android:layout_marginTop="128dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/button"
         android:onClick="onClickDelete"
-        android:text="Delete"
+        android:text="@string/buttonDeleteNote"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/editAddNoteEdit"
@@ -30,7 +30,7 @@
         android:background="@color/colorSplashScreen"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Enter new note..."
+        android:hint="@string/editAddNoteEdit"
         android:inputType="textMultiLine"
         android:maxLength="200"
         android:maxLines="10"
@@ -39,27 +39,27 @@
         app:layout_constraintTop_toBottomOf="@+id/editTitleEdit" />
 
     <TextView
-        android:id="@+id/textlabel"
+        android:id="@+id/textlabelEditNote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:onClick="onClickHide"
-        android:text="Edit or delete your note to the book"
+        android:text="@string/textlabelEditNote"
         android:textColor="@color/colorTextPrimary"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonAddNote2"
+        android:id="@+id/buttonEditNote"
         android:layout_width="130dp"
         android:layout_height="55dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="128dp"
         android:background="@drawable/button"
         android:onClick="onClickEdit"
-        android:text="Edit"
+        android:text="@string/buttonEditNote"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/editAddNoteEdit"
@@ -72,10 +72,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Enter new Title"
+        android:hint="@string/editTitleEdit"
         android:inputType="textPersonName"
         android:maxLength="30"
-        app:layout_constraintStart_toStartOf="@+id/textlabel"
-        app:layout_constraintTop_toBottomOf="@+id/textlabel" />
+        app:layout_constraintStart_toStartOf="@+id/textlabelEditNote"
+        app:layout_constraintTop_toBottomOf="@+id/textlabelEditNote" />
 
 </android.support.constraint.ConstraintLayout>
