@@ -8,22 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.bookspace.adapters.ReviewsAdapter;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.reviews.GetReviewsResponse;
 import com.example.bookspace.model.reviews.Review;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static android.content.Context.MODE_PRIVATE;
-
 
 public class BookReviewsFragment extends Fragment {
     public int bookId;
@@ -65,7 +61,7 @@ public class BookReviewsFragment extends Fragment {
                         reviewsClassesList = new ArrayList<>();
                         for (i = 0; i < info.length; i++) {
                             reviewsClassesList.add(new ReviewsClass(i, info[i].getUsername(),
-                                    "\n" + info[i].getText(), info[i].getCreated()));
+                                    info[i].getText(), info[i].getCreated()));
                         }
 
                         booksListView = view.findViewById(R.id.listReviews);

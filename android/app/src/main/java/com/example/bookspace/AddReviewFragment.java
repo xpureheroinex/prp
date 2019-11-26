@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +30,17 @@ public class AddReviewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_review, container, false);
 
-        Button addReview = view.findViewById(R.id.buttonDeleteNote);
+        Button addReview = view.findViewById(R.id.buttonAddReview);
         addReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onClickAddReview();
+                //TODO: make a resource string
+                Toast.makeText(getContext(), "Your review has been added", Toast.LENGTH_SHORT).show();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                BookReviewsFragment bookReviewsFragment = new BookReviewsFragment();
+                bookReviewsFragment.setArguments(getArguments());
+                fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, bookReviewsFragment).commit();
             }
         });
         return view;

@@ -143,17 +143,17 @@
     <Button
         android:id="@+id/button3"
         style="@android:style/Widget.DeviceDefault.Button"
-        android:layout_width="160dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/button"
-        android:fontFamily="@font/roboto_medium"
+        android:fontFamily="sans-serif-light"
         android:onClick="onShowTarget"
         android:text="@string/button3"
-        android:textColor="#ffffff"
-        android:textSize="16sp"
+        android:textColor=" #2e4053 "
+        android:textSize="14sp"
         android:textStyle="bold"
         tools:targetApi="ice_cream_sandwich" />
 

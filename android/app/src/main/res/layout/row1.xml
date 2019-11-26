@@ -38,6 +38,7 @@
         android:focusableInTouchMode="false"
         android:fontFamily="sans-serif-light"
         android:text="Genre"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/topBookAuthor"

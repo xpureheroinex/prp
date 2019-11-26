@@ -51,8 +51,7 @@
         android:layout_weight="1"
         android:fontFamily="sans-serif-light"
         android:text="Genre"
-        android:textColor="@color/colorTextSecondary"
-        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/statusBookAuthor"
         app:layout_constraintTop_toBottomOf="@+id/statusBookAuthor" />
