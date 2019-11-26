@@ -31,8 +31,8 @@
         android:text="Author"
         android:textColor="@color/colorTextPrimary"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/textGenreAndPages"
-        app:layout_constraintTop_toBottomOf="@+id/textGenreAndPages" />
+        app:layout_constraintStart_toStartOf="@+id/textGrade"
+        app:layout_constraintTop_toBottomOf="@+id/textGrade" />
 
     <TextView
         android:id="@+id/textGrade"
@@ -57,8 +57,8 @@
         android:text="Genre"
         android:textColor="@color/colorTextPrimary"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/textGrade"
-        app:layout_constraintTop_toBottomOf="@+id/textGrade" />
+        app:layout_constraintStart_toStartOf="@+id/textAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/textAuthor" />
 
     <TextView
         android:id="@+id/textSimilarBooks"
@@ -87,19 +87,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textSimilarBooks" />
 
     <ImageButton
-        android:id="@+id/editStatusButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:onClick="editStatus"
-        android:src="@drawable/ic_add_book"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAuthor" />
-
-    <ImageButton
         android:id="@+id/rateButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -110,4 +97,17 @@
         android:src="@drawable/ic_star_icon"
         app:layout_constraintBottom_toBottomOf="@+id/editStatusButton"
         app:layout_constraintStart_toEndOf="@+id/editStatusButton" />
+
+    <ImageButton
+        android:id="@+id/editStatusButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:onClick="editStatus"
+        android:src="@drawable/ic_add_book"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textGenreAndPages" />
 </android.support.constraint.ConstraintLayout>
