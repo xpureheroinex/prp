@@ -8,13 +8,13 @@
 
     <Button
         android:id="@+id/buttonOpenAddNoticePage"
-        android:layout_width="160dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/button"
-        android:fontFamily="@font/roboto_medium"
+        android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-light"
         android:text="@string/buttonOpenAddNoticePage"
-        android:textColor="@color/colorText"
+        android:textColor=" #2e4053 "
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

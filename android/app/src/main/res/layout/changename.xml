@@ -36,7 +36,7 @@
     <Button
         android:id="@+id/buttonChangeUsername"
         style="@android:style/Widget.DeviceDefault.Button"
-        android:layout_width="160dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:layout_marginLeft="50dp"
@@ -44,12 +44,12 @@
         android:layout_marginRight="45dp"
         android:layout_marginBottom="8dp"
 
-        android:background="@drawable/button"
-        android:fontFamily="@font/roboto_medium"
+        android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-light"
         android:onClick="onShowUser"
         android:text="@string/buttonChangeUsername"
-        android:textColor="#ffffff"
-        android:textSize="16sp"
+        android:textColor=" #2e4053 "
+        android:textSize="14sp"
         android:textStyle="bold"
         tools:targetApi="ice_cream_sandwich" />
 

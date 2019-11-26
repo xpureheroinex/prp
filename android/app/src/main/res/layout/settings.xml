@@ -12,7 +12,7 @@
         android:id="@+id/imageView"
         android:layout_width="203dp"
         android:layout_height="156dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="64dp"
         android:src="@mipmap/ic_launcher_foreground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
