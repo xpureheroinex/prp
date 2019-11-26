@@ -43,14 +43,14 @@
     <string name="editTitle">Enter title</string>
     <string name="buttonAddNotice">Add note</string>
     <string name="editAddNote">Enter your note(max length 200 symbols)</string>
-    <string name="buttonAddReview">Add review</string>
+    <string name="buttonAddReview">Add</string>
     <string name="editAddReview">Enter your review(max length 200 symbols)</string>
     <string name="textlabelAddReview">Write a review about this book</string>
     <string name="textSimilarBooks">Similar books</string>
     <string name="buttonOpenAddNoticePage">Add note</string>
     <string name="textView13">All notices</string>
     <string name="textView11">All reviews</string>
-    <string name="buttonOpenAddReviewPage">Add review</string>
+    <string name="buttonOpenAddReviewPage">Add</string>
     <string name="textViewFragTitle">Access recovery guide has been sent to your email</string>
     <string name="buttonRecFragGotIt">Got it</string>
     <string name="textView28">Account has been created. You can sign in using your e-mail and password</string>

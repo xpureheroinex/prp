@@ -63,13 +63,14 @@
 
     <Button
         android:id="@+id/buttonOpenAddReviewPage"
-        android:layout_width="160dp"
+        android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/button"
+        android:background="@drawable/custom_button"
+        android:fontFamily="sans-serif-light"
         android:text="@string/buttonOpenAddReviewPage"
         android:textAllCaps="true"
-        android:textColor="#ffffff"
+        android:textColor=" #2e4053 "
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
