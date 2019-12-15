@@ -79,6 +79,7 @@ public class user_page extends AppCompatActivity
     private TextView mReadTextView;
     private static final int RESULT_LOAD_IMAGE = 1;
     public Bitmap bmapAvatar;
+    public boolean status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +112,8 @@ public class user_page extends AppCompatActivity
 
         SharedPreferences prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE);
         String token = prefs.getString("token", "token is null");
+
+        status = true;
     }
 
     public void onClickUpload(View view) {
@@ -595,8 +598,13 @@ public class user_page extends AppCompatActivity
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
-        if(keyCode == KeyEvent.KEYCODE_BACK)
+        if(status && keyCode == KeyEvent.KEYCODE_BACK) {
             return true;
+        } else if (!status){
+            finish();
+            startActivity(getIntent());
+            return true;
+        }
         return false;
     }
 
@@ -676,9 +684,10 @@ public class user_page extends AppCompatActivity
         sView.setIconified(true);
         sView.clearFocus();
 
-
         if (id == R.id.nav_home) {
+            status = true;
             setTitle("BookSpace");
+            sView.setVisibility(View.VISIBLE);
             TopRecommends2 topRecommends2 = new TopRecommends2();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, topRecommends2).commit();
@@ -692,25 +701,32 @@ public class user_page extends AppCompatActivity
 
         } else if (id == R.id.nav_read) {
             setTitle(R.string.navRead);
-           ReadBooksFragment readBooksFragment = new ReadBooksFragment();
+            status = false;
+            sView.setVisibility(View.INVISIBLE);
+            ReadBooksFragment readBooksFragment = new ReadBooksFragment();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, readBooksFragment).commit();
-
-
+            
         } else if (id == R.id.nav_reading) {
            setTitle(R.string.navReading);
+            status = false;
+           sView.setVisibility(View.INVISIBLE);
            ReadingBooksFragment readingBooksFragment = new ReadingBooksFragment();
            FragmentManager fm = getSupportFragmentManager();
            fm.beginTransaction().replace(R.id.fragments, readingBooksFragment).commit();
 
         } else if (id == R.id.nav_willread) {
-           setTitle(R.string.navWillRead);
+            setTitle(R.string.navWillRead);
+            status = false;
+            sView.setVisibility(View.INVISIBLE);
             WillReadBooksFragment willreadBooksFragment = new WillReadBooksFragment();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, willreadBooksFragment).commit();
 
         } else if (id == R.id.nav_settings) {
             setTitle(R.string.navAccountSet);
+            status = false;
+            sView.setVisibility(View.INVISIBLE);
             SettingsFragment setting = new SettingsFragment();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, setting).commit();
@@ -722,6 +738,8 @@ public class user_page extends AppCompatActivity
 //            transaction.commit();
         } else if (id == R.id.nav_statistic) {
             setTitle(R.string.navStatistics);
+            status = false;
+            sView.setVisibility(View.INVISIBLE);
             StatisticsFragment statisticsFragment = new StatisticsFragment();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, statisticsFragment).commit();
@@ -736,6 +754,8 @@ public class user_page extends AppCompatActivity
         }
         else {
             setTitle("BookSpace");
+            status = true;
+            sView.setVisibility(View.VISIBLE);
             TopRecommends2 topRecommends2 = new TopRecommends2();
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().replace(R.id.fragments, topRecommends2).commit();
