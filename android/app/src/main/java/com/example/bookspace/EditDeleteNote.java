@@ -175,9 +175,12 @@ public class EditDeleteNote extends AppCompatActivity {
                                     Toast.makeText(EditDeleteNote.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                                 }
                             });
-//                            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
-//                            inten.putExtra("bookId", bookId);
-//                            startActivity(inten);
+                            Intent inten = new Intent(getApplicationContext(), BookPageActivity.class);
+                            inten.putExtra("bookId", bookId);
+                            // 1 == notice fragment
+                            inten.putExtra("fragmentToLoad", "noticeFragment");
+                            startActivity(inten);
+
                     }
                 });
         AlertDialog alertDialog = builder.create();
