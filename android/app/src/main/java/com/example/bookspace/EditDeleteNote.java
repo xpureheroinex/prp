@@ -97,6 +97,11 @@ public class EditDeleteNote extends AppCompatActivity {
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Intent inten = new Intent(getApplicationContext(), BookPageActivity.class);
+                    inten.putExtra("bookId", bookId);
+                    // 1 == notice fragment
+                    inten.putExtra("fragmentToLoad", "noticeFragment");
+                    startActivity(inten);
                 }
 
                 @Override
@@ -104,9 +109,7 @@ public class EditDeleteNote extends AppCompatActivity {
                     Toast.makeText(EditDeleteNote.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                 }
             });
-//            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
-//            inten.putExtra("bookId", bookId);
-//            startActivity(inten);
+
         } else if(eNote.getText().toString().matches("")) {
             Call<ResponseBody> call = RetrofitClient
                     .getInstance()
@@ -135,6 +138,11 @@ public class EditDeleteNote extends AppCompatActivity {
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    Intent inten = new Intent(getApplicationContext(), BookPageActivity.class);
+                    inten.putExtra("bookId", bookId);
+                    // 1 == notice fragment
+                    inten.putExtra("fragmentToLoad", "noticeFragment");
+                    startActivity(inten);
                 }
 
                 @Override
@@ -142,9 +150,6 @@ public class EditDeleteNote extends AppCompatActivity {
                     Toast.makeText(EditDeleteNote.this, getText(R.string.wrongRes), Toast.LENGTH_LONG).show();
                 }
             });
-//            Intent inten = new Intent(getApplicationContext(), NoticeActivity.class);
-//            inten.putExtra("bookId", bookId);
-//            startActivity(inten);
         }
     }
 
