@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorSplashScreen">#F5F5F5</color>
-    <color name="colorPrimary">#61B3E7</color>
+    <color name="colorPrimary">#00bbaf</color>
     <color name="colorPrimaryDark">#00695C</color>
     <color name="colorPrimaryLight">#CEF2F7</color>
     <color name="colorText">#FFFFFF</color>
