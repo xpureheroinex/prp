@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.example.bookspace.BookPageActivity;
 import com.example.bookspace.adapters.BooksListAdapter;
 import com.example.bookspace.R;
+import com.example.bookspace.adapters.BooksListAdapter3;
 import com.example.bookspace.model.RetrofitClient;
 import com.example.bookspace.model.books.GetBooksResponse;
 import com.example.bookspace.model.books.UserBook;
@@ -29,7 +30,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class WillReadBooksFragment extends Fragment {
     ListView lvBooks3;
-    BooksListAdapter adapter3;
+    BooksListAdapter3 adapter3;
     List<UserBook> mBooksList3;
 
     @Nullable
@@ -56,7 +57,7 @@ public class WillReadBooksFragment extends Fragment {
                     mBooksList3.add(book);
                 }
 
-                adapter3 = new BooksListAdapter(getContext(),mBooksList3);
+                adapter3 = new BooksListAdapter3(getContext(),mBooksList3);
                 lvBooks3.setAdapter(adapter3);
             }
 

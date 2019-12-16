@@ -6,8 +6,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.support.v4.app.FragmentManager;
-import android.view.ContextMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,15 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bookspace.R;
-import com.example.bookspace.bookLists.ReadBooksFragment;
-import com.example.bookspace.bookLists.WillReadBooksFragment;
 import com.example.bookspace.model.RetrofitClient;
-import com.example.bookspace.model.books.GetBooksResponse;
 import com.example.bookspace.model.books.UserBook;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -33,14 +26,15 @@ import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class BooksListAdapter extends BaseAdapter {
+public class BooksListAdapter2 extends BaseAdapter {
 
     private Context mContext;
     private List<UserBook> mBooksList;
     ImageButton deletebtn;
     ImageButton changeStatus;
 
-    public BooksListAdapter(Context mContext,List<UserBook> mBooksList){
+
+    public BooksListAdapter2(Context mContext, List<UserBook> mBooksList){
         this.mContext = mContext;
         this.mBooksList = mBooksList;
     }
@@ -151,8 +145,8 @@ public class BooksListAdapter extends BaseAdapter {
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                         Toast toast = Toast.makeText(v.getContext(),res.getString(R.string.statusToRead),Toast.LENGTH_SHORT);
                                         toast.show();
-                                        //mBooksList.remove(mBooksList.get(position));
-                                        //notifyDataSetChanged();
+                                        mBooksList.remove(mBooksList.get(position));
+                                        notifyDataSetChanged();
                                     }
 
                                     @Override
@@ -174,8 +168,8 @@ public class BooksListAdapter extends BaseAdapter {
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                         Toast toast = Toast.makeText(v.getContext(),res.getString(R.string.statusToReading),Toast.LENGTH_SHORT);
                                         toast.show();
-                                        mBooksList.remove(mBooksList.get(position));
-                                        notifyDataSetChanged();
+                                        //mBooksList.remove(mBooksList.get(position));
+                                        //notifyDataSetChanged();
                                     }
 
                                     @Override
