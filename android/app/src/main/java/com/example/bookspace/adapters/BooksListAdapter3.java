@@ -192,7 +192,7 @@ public class BooksListAdapter3 extends BaseAdapter {
                                         toast.show();
 
                                         //mBooksList.remove(mBooksList.get(position));
-                                        //notifyDataSetChanged();
+                                        //;notifyDataSetChanged();
                                     }
 
                                     @Override

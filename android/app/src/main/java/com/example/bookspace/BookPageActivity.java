@@ -212,12 +212,12 @@ public class BookPageActivity extends AppCompatActivity {
         else if(view.getId() == R.id.reviewsButton){
             BookReviewsFragment bookReviewsFragment = new BookReviewsFragment();
             bookReviewsFragment.setArguments(bundle);
-            fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, bookReviewsFragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, bookReviewsFragment).addToBackStack(null).commit();
         }
         else if(view.getId() == R.id.noticeButton){
             BookNoticeFragment bookNoticeFragment = new BookNoticeFragment();
             bookNoticeFragment.setArguments(bundle);
-            fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, bookNoticeFragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, bookNoticeFragment).addToBackStack(null).commit();
         }
     }
 }
