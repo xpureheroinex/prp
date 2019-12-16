@@ -49,8 +49,6 @@ public class BookPageActivity extends AppCompatActivity {
         });
         //endregion
 
-
-
         final Bundle bundle = new Bundle();
         bundle.putInt("bookId", bookId);
         final FragmentManager fragmentManager = getSupportFragmentManager();
