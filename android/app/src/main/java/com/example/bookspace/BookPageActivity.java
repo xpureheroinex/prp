@@ -48,14 +48,31 @@ public class BookPageActivity extends AppCompatActivity {
             }
         });
         //endregion
+
         final Bundle bundle = new Bundle();
         bundle.putInt("bookId", bookId);
         final FragmentManager fragmentManager = getSupportFragmentManager();
+        String fragmentToLoad = inten.getStringExtra("fragmentToLoad");
 
-        BookAboutFragment bookAboutFragment = new BookAboutFragment();
-        bookAboutFragment.setArguments(bundle);
-        fragmentManager.beginTransaction().add(R.id.bookPageFragmentContainer, bookAboutFragment).commit();
-
+        if(fragmentToLoad != null){
+            switch (fragmentToLoad){
+                case "noticeFragment":
+                    BookNoticeFragment bookNoticeFragment = new BookNoticeFragment();
+                    bookNoticeFragment.setArguments(bundle);
+                    fragmentManager.beginTransaction().add(R.id.bookPageFragmentContainer, bookNoticeFragment).commit();
+                    break;
+                default:
+                    BookAboutFragment bookAboutFragment = new BookAboutFragment();
+                    bookAboutFragment.setArguments(bundle);
+                    fragmentManager.beginTransaction().add(R.id.bookPageFragmentContainer, bookAboutFragment).commit();
+                    break;
+            }
+        }
+        else{
+            BookAboutFragment bookAboutFragment = new BookAboutFragment();
+            bookAboutFragment.setArguments(bundle);
+            fragmentManager.beginTransaction().add(R.id.bookPageFragmentContainer, bookAboutFragment).commit();
+        }
     }
 
     private final int IDD_LIST_Status = 1;

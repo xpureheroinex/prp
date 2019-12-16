@@ -27,6 +27,8 @@ public class BookReviewsFragment extends Fragment {
     ListView booksListView;
     ReviewsAdapter reviewsAdapter;
     List<ReviewsClass> reviewsClassesList;
+    boolean canWrite = true;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,13 +53,13 @@ public class BookReviewsFragment extends Fragment {
             call.enqueue(new Callback<GetReviewsResponse>() {
                 @Override
                 public void onResponse(Call<GetReviewsResponse> call, Response<GetReviewsResponse> response) {
+
                     Review[] info = response.body().getInfo();
-                    if (info == null) {
-//                    TextView txtView = view.findViewById(R.id.textNoReview);
-//                    txtView.setText("No reviews about this book,\n" +
-//                            "you can be the first");
-//                    txtView.setVisibility(View.VISIBLE);
-                    } else {
+                    if(!response.body().getReview()){
+                        canWrite = false;
+
+                    }
+
                         reviewsClassesList = new ArrayList<>();
                         for (i = 0; i < info.length; i++) {
                             reviewsClassesList.add(new ReviewsClass(i, info[i].getUsername(),
@@ -67,7 +69,7 @@ public class BookReviewsFragment extends Fragment {
                         booksListView = view.findViewById(R.id.listReviews);
                         reviewsAdapter = new ReviewsAdapter(getContext(), reviewsClassesList);
                         booksListView.setAdapter(reviewsAdapter);
-                    }
+
                 }
 
                 @Override
@@ -82,14 +84,19 @@ public class BookReviewsFragment extends Fragment {
         openAddReviewPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddReviewFragment addReviewFragment = new AddReviewFragment();
-                addReviewFragment.setArguments(getArguments());
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, addReviewFragment).commit();
+
+                if(canWrite){
+                    AddReviewFragment addReviewFragment = new AddReviewFragment();
+                    addReviewFragment.setArguments(getArguments());
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.bookPageFragmentContainer, addReviewFragment).commit();
+                }
+                else{
+                    Toast.makeText(getContext(), "You have already written a review on this book", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
-
-
 
         return view;
     }
